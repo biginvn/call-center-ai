@@ -1,4 +1,3 @@
-# app/auth/auth.py
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from fastapi import Depends, HTTPException, status
@@ -28,5 +27,4 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    # Tạm thời trả về username, sẽ sửa logic kiểm tra user sau
     return {"username": username}

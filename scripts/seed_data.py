@@ -21,10 +21,10 @@ async def seed_data():
 
     # Danh sách user để seed
     users = [
-        User(username="admin", email="admin@gmail.com", passwordHash="123456", extensionNumber="", role="admin", status=""),
-        User(username="khoa", email="khoa@gmail.com", passwordHash="123456", extensionNumber="", role="agent", status=""),
-        User(username="thanh", email="thanh@gmail.com", passwordHash="123456", extensionNumber="", role="agent", status=""),
-        User(username="manh", email="manh@gmail.com", passwordHash="123456", extensionNumber="", role="agent", status=""),
+        User(username="admin", email="admin@gmail.com", password="123456", extensionNumber="", role="admin", status=""),
+        User(username="khoa", email="khoa@gmail.com", password="123456", extensionNumber="", role="agent", status=""),
+        User(username="thanh", email="thanh@gmail.com", password="123456", extensionNumber="", role="agent", status=""),
+        User(username="manh", email="manh@gmail.com", password="123456", extensionNumber="", role="agent", status=""),
     ]
 
     # Thêm user vào database

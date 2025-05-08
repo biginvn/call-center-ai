@@ -7,7 +7,7 @@ from typing import Optional
 class User(Document):
     username: str
     email: EmailStr
-    passwordHash: str
+    password: str
     role: str
     extensionNumber: str
     status: str
@@ -17,4 +17,4 @@ class User(Document):
         name = "User"
 
     def __str__(self):
-        return f"User(username={self.username}, email={self.email}, passwordHash={self.passwordHash}, role={self.role}, extensionNumber={self.extensionNumber}, status={self.status}, lastLogin={self.lastLogin})"
+        return f"User(username={self.username}, email={self.email}, password={self.password}, role={self.role}, extensionNumber={self.extensionNumber}, status={self.status}, lastLogin={self.lastLogin})"
