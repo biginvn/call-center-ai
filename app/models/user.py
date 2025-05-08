@@ -10,7 +10,6 @@ class User(Document):
     password: str
     role: str
     extensionNumber: str
-    status: str
     lastLogin: Optional[datetime] = None
 
     class Settings:
