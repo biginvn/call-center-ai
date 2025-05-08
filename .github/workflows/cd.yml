@@ -22,7 +22,9 @@ jobs:
           BRANCH=${GITHUB_REF#refs/heads/}
           if [ "$BRANCH" = "main" ]; then
             echo "image-tag=latest" >> $GITHUB_OUTPUT
+            echo "image-tag=latest" >> $GITHUB_OUTPUT
           else
+            echo "image-tag=staging" >> $GITHUB_OUTPUT
             echo "image-tag=staging" >> $GITHUB_OUTPUT
           fi
 
@@ -44,6 +46,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
+          tags: npt1601/ai-call-center:${{ steps.set-tag.outputs.image-tag }}
           tags: npt1601/ai-call-center:${{ steps.set-tag.outputs.image-tag }}
 
   deploy:
@@ -73,6 +76,8 @@ jobs:
             # now $CONTAINER and $IMAGE_TAG are literal values
             docker rm -f ${CONTAINER} || true
             docker pull npt1601/ai-call-center:${IMAGE_TAG}
+            docker rm -f $CONTAINER || true
+            docker pull npt1601/ai-call-center:$IMAGE_TAG
             docker run -d \
               --env-file .env \
               -p ${PORT}:8000 \
