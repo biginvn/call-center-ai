@@ -1,4 +1,4 @@
-name: CI & CD
+name: CD
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
       - staging
 
 jobs:
-  # 1. Build & Push Docker Image lên Docker Hub
   build-and-push:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
@@ -22,9 +21,9 @@ jobs:
         run: |
           BRANCH=${GITHUB_REF#refs/heads/}
           if [ "$BRANCH" = "main" ]; then
-            echo "::set-output name=image-tag::latest"
+            echo "image-tag=latest" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=image-tag::staging"
+            echo "image-tag=staging" >> $GITHUB_OUTPUT
           fi
 
       - name: Set up QEMU
@@ -45,9 +44,8 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: npt1601/ai-call-center:${{ needs.build-and-push.outputs.image-tag }}
+          tags: npt1601/ai-call-center:${{ steps.set-tag.outputs.image-tag }}
 
-  # 2. SSH và Deploy lên EC2
   deploy:
     name: Deploy to EC2
     needs: build-and-push
@@ -61,7 +59,6 @@ jobs:
       - name: Deploy on EC2
         run: |
           IMAGE_TAG=${{ needs.build-and-push.outputs.image-tag }}
-          # Chọn port & container name dựa vào tag
           if [ "$IMAGE_TAG" = "latest" ]; then
             PORT=8000; CONTAINER=app-prod
           else
@@ -71,14 +68,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} << 'EOF'
             set -e
             cd /var/www/myapp
-
-            # Dừng & xóa container cũ
             docker rm -f $CONTAINER || true
-
-            # Kéo image mới
             docker pull npt1601/ai-call-center:$IMAGE_TAG
-
-            # Chạy container mới với file .env trên host
             docker run -d \
               --env-file .env \
               -p $PORT:8000 \
