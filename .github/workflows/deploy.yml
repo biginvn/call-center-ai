@@ -1,10 +1,10 @@
 name: Deploy to EC2
 
 on:
-  push:
-    branches:
-      - main
-      - staging
+  workflow_run:
+    workflows: ["Build & Push Docker Image"]
+    types:
+      - completed
 
 jobs:
   deploy:
