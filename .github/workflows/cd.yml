@@ -47,7 +47,6 @@ jobs:
           file: Dockerfile
           push: true
           tags: npt1601/ai-call-center:${{ steps.set-tag.outputs.image-tag }}
-          tags: npt1601/ai-call-center:${{ steps.set-tag.outputs.image-tag }}
 
   deploy:
     name: Deploy to EC2
