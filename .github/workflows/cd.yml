@@ -65,14 +65,17 @@ jobs:
             PORT=8001; CONTAINER=app-stg
           fi
 
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.SSH_USER }}@${{ secrets.HOST }} <<EOF
             set -e
             cd /var/www/myapp
-            docker rm -f $CONTAINER || true
-            docker pull npt1601/ai-call-center:$IMAGE_TAG
+
+            # now $CONTAINER and $IMAGE_TAG are literal values
+            docker rm -f ${CONTAINER} || true
+            docker pull npt1601/ai-call-center:${IMAGE_TAG}
             docker run -d \
               --env-file .env \
-              -p $PORT:8000 \
-              --name $CONTAINER \
-              npt1601/ai-call-center:$IMAGE_TAG
+              -p ${PORT}:8000 \
+              --name ${CONTAINER} \
+              npt1601/ai-call-center:${IMAGE_TAG}
           EOF
