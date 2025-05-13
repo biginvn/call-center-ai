@@ -5,6 +5,7 @@ from app.core.database import init_db, close_db, get_database
 from app.core.config import settings
 from app.models.user import User
 from app.auth.auth_routes import router as auth_router
+from app.api.get_user import router as user_router
 
 app = FastAPI()
 
@@ -26,7 +27,7 @@ async def startup_event():
 async def shutdown_event():
     await close_db()
 
-
+app.include_router(user_router)
 app.include_router(auth_router)
 
 

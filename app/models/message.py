@@ -7,7 +7,7 @@ from app.models.enums import MessageType
 
 
 class Message(Document):
-    senderId: Link[User]
+    sender_id: Link[User]
     content: str
     mood: Optional[str]
     type: MessageType
