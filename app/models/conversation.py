@@ -11,10 +11,10 @@ from app.models.enums import ConversationStatus
 class Conversation(Document):
     status: ConversationStatus
     type: ConversationType
-    recordUrl: Optional[str]
+    record_url: Optional[str]
     summarize: Optional[str]
-    fromUser: Link[User]
-    toUser: Link[User]
+    from_user: Link[User]
+    to_user: Link[User]
     messages: List[Link[Message]]
     mood: ConversationMood
     sentiment: Optional[str]

@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = Field(..., env="SECRET_KEY")
     ALGORITHM: str = Field(..., env="ALGORITHM")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(30, env="ACCESS_TOKEN_EXPIRE_MINUTES")
+    REFRESH_TOKEN_EXPIRE_DAYS: int = Field(60 * 24 * 7, env="REFRESH_TOKEN_EXPIRE_DAYS")
     
     # CORS
     CORS_ORIGINS: list[str] = Field(["*"], env="CORS_ORIGINS")
