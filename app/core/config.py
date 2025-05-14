@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     # Auth
     SECRET_KEY: str = Field(..., env="SECRET_KEY")
     ALGORITHM: str = Field(..., env="ALGORITHM")
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(30, env="ACCESS_TOKEN_EXPIRE_MINUTES")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(30)
     REFRESH_TOKEN_EXPIRE_DAYS: int = Field(60 * 24 * 7, env="REFRESH_TOKEN_EXPIRE_DAYS")
     
     # CORS
