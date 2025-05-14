@@ -9,12 +9,12 @@ from app.models.user import User
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/agent")
 
 
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+def create_access_token(data: dict):
     to_encode = data.copy()
     extension_number = data.get("extension_number")
     username = data.get("username")
     expire = datetime.utcnow() + (
-        expires_delta or timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     )
     to_encode.update({"exp": expire})
     if extension_number:

@@ -19,7 +19,7 @@ class UserDataResponse(BaseModel):
 
 
 @router.get("/all", response_model=List[UserDataResponse])
-async def get_all_users():
+async def get_all_users(current_user: User = Depends(get_current_user)):
     logger.info("Fetching all users")
     users = await User.find_all().to_list()
     if not users:

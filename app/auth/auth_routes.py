@@ -34,14 +34,14 @@ async def agent_login(request: AgentLoginRequest):
         logger.error(f"User {request.username} not found")
         raise CustomHTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect username",
             headers={"WWW-Authenticate": "Bearer"},
         )
     if request.password != user.password:
         logger.error(f"Invalid password for {request.username}")
         raise CustomHTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect password",
             headers={"WWW-Authenticate": "Bearer"},
         )
     if user.role != "agent":
@@ -50,14 +50,14 @@ async def agent_login(request: AgentLoginRequest):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only agents can use this endpoint",
         )
-    if not request.extension_number or len(request.extension_number) != 3:
-        logger.error(
-            f"Invalid extension_number for {request.username}: {request.extension_number}"
-        )
-        raise CustomHTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Extension number must be a 3-digit number",
-        )
+    # if not request.extension_number or len(request.extension_number) != 3:
+    #     logger.error(
+    #         f"Invalid extension_number for {request.username}: {request.extension_number}"
+    #     )
+    #     raise CustomHTTPException(
+    #         status_code=status.HTTP_400_BAD_REQUEST,
+    #         detail="Extension number must be a 3-digit number",
+    #     )
 
     existing_extension = await User.find_one(
         User.extension_number == request.extension_number
@@ -80,8 +80,8 @@ async def agent_login(request: AgentLoginRequest):
         await user.save()
 
     logger.info(f"Login successful for {request.username}")
-    access_token = create_access_token(data={"sub": user.username})
-    refresh_token = create_refresh_token(data={"sub": user.username})
+    access_token = create_access_token(data={"sub": user.username, "token_type": "access"})
+    refresh_token = create_refresh_token(data={"sub": user.username, "token_type": "refresh"})
     db_refresh_token = RefreshToken(
         refresh_token=refresh_token,
         username=user.username,
@@ -108,14 +108,14 @@ async def admin_login(request: AdminLoginRequest):
         logger.error(f"User {request.username} not found")
         raise CustomHTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect username",
             headers={"WWW-Authenticate": "Bearer"},
         )
     if request.password != user.password:
         logger.error(f"Invalid password for {request.username}")
         raise CustomHTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect password",
             headers={"WWW-Authenticate": "Bearer"},
         )
     if user.role != "admin":
@@ -127,8 +127,10 @@ async def admin_login(request: AdminLoginRequest):
 
     logger.info(f"Login successful for {request.username}")
     access_token = create_access_token(data={"sub": user.username, "role": "admin"})
+    refresh_token = create_refresh_token(data={"sub": user.username, "role": "admin"})
     return {
         "access_token": access_token,
+        "refresh_token": refresh_token,
         "token_type": "bearer",
         "role": user.role,
         "username": user.username,
