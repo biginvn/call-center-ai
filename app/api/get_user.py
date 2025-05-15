@@ -16,6 +16,7 @@ class UserDataResponse(BaseModel):
     username: str
     extension_number: str
     role: str
+    fullname: str
 
 
 @router.get("/all", response_model=List[UserDataResponse])
@@ -53,4 +54,5 @@ async def get_user(current_user: User = Depends(get_current_user)):
         username=user.username,
         extension_number=user.extension_number,
         role=user.role,
+        fullname=user.fullname,
     )
