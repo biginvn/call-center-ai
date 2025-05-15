@@ -21,6 +21,12 @@ class UserDataResponse(BaseModel):
 
 @router.get("/all", response_model=List[UserDataResponse])
 async def get_all_users(current_user: User = Depends(get_current_user)):
+    role = current_user.role
+    if role not in ["admin"]:
+        raise CustomHTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You do not have permission to get all users",
+        )
     logger.info("Fetching all users")
     users = await User.find_all().to_list()
     if not users:

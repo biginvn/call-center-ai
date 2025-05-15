@@ -20,6 +20,9 @@ class ConversationMood(str, Enum):
     
 
 class ConversationStatus(str, Enum):
+    START = "start"
     ACCEPT = "accept"
     DECLINE = "decline"
+    CLOSED = "closed"
+   
 
