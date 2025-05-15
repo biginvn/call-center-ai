@@ -15,6 +15,12 @@ class Settings(BaseSettings):
     
     # CORS
     CORS_ORIGINS: list[str] = Field(["*"], env="CORS_ORIGINS")
+
+    # AWS S3
+    AWS_ACCESS_KEY_ID: str = Field(..., env="AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY: str = Field(..., env="AWS_SECRET_ACCESS_KEY")
+    AWS_REGION: str = Field(..., env="AWS_REGION")
+    S3_BUCKET: str = Field(..., env="S3_BUCKET")
     
     class Config:
         env_file = ".env"
