@@ -6,6 +6,7 @@ from app.core.config import settings
 from app.models.user import User
 from app.auth.auth_routes import router as auth_router
 from app.api.get_user import router as user_router
+from app.api.logout import router as logout_router
 from app.middeware.check_token import check_token_middleware
 
 app = FastAPI()
@@ -33,6 +34,7 @@ async def shutdown_event():
 app.middleware("http")(check_token_middleware)
 app.include_router(user_router)
 app.include_router(auth_router)
+app.include_router(logout_router)
 
 
 @app.get("/")
