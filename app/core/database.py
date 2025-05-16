@@ -6,6 +6,8 @@ from app.models.document import Document
 from app.models.ai import AI
 from app.models.conversation import Conversation
 from app.models.token import RefreshToken
+from app.models.extension import Extension
+from app.models.active import ActiveUser
 
 # Khởi tạo client toàn cục
 client = None
@@ -24,7 +26,7 @@ async def init_db():
         # Khởi tạo Beanie với database và các mô hình
         await init_beanie(
             database=database,
-            document_models=[User, Message, Document, AI, Conversation, RefreshToken]
+            document_models=[User, Message, Document, AI, Conversation, RefreshToken, Extension, ActiveUser],
         )
         print("Database initialized successfully")
         

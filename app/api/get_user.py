@@ -5,6 +5,7 @@ from app.auth.exceptions import CustomHTTPException
 import logging
 from typing import List
 from app.auth.auth import get_current_user
+from app.dependencies.active_user import get_active_users, get_fullname_by_extension
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -62,3 +63,13 @@ async def get_user(current_user: User = Depends(get_current_user)):
         role=user.role,
         fullname=user.fullname,
     )
+
+@router.get("/active")
+async def list_active_users(current_user: User = Depends(get_current_user)):
+    users = await get_active_users()
+    return {"active_users": users}
+
+@router.get("/active/{extension_number}")
+async def get_fullname(extension_number: str, current_user: User = Depends(get_current_user)):
+    fullname = await get_fullname_by_extension(extension_number)
+    return {"fullname": fullname}
