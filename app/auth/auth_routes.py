@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status
 from pydantic import BaseModel
 from app.auth.auth import create_access_token, create_refresh_token
+from app.dependencies.active_user import add_active_user, remove_active_user, get_active_users
 from app.models.user import User
 from app.auth.exceptions import CustomHTTPException
 from app.models.token import RefreshToken
@@ -89,6 +90,7 @@ async def agent_login(request: AgentLoginRequest):
         + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS),
     )
     await db_refresh_token.insert()
+    await add_active_user(user)
     return {
         "access_token": access_token,
         "refresh_token": refresh_token,

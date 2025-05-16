@@ -5,6 +5,7 @@ from app.auth.exceptions import CustomHTTPException
 import logging
 from typing import List, Optional
 from app.auth.auth import get_current_user
+from app.dependencies.active_user import remove_active_user
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -21,6 +22,7 @@ async def update_current_user_extension(current_user: User = Depends(get_current
 
     current_user.extension_number = ""
     await current_user.save()
+    await remove_active_user(current_user)
 
     return current_user
     
