@@ -17,6 +17,7 @@ class ConversationMood(str, Enum):
     POSITIVE = "positive"
     NEUTRAL = "neutral"
     NEGATIVE = "negative"
+    UNKNOWN = "unknown"
     
 
 class ConversationStatus(str, Enum):

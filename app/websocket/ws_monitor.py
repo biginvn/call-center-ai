@@ -3,11 +3,13 @@
 
 
 import json
+import asyncio
 
 from app.websocket.ari.Config.ari_config import AUTH_HDR, WS_URL
 from app.websocket.ari.Models.ari_models import AriEventType
 from app.websocket.ari.events import *
 import websocket as ws_client
+main_loop = asyncio.get_event_loop()  # hoặc truyền vào run_ws_monitor
 def on_message(ws, message):
     ev = json.loads(message)
     et = ev.get("type")
@@ -23,7 +25,8 @@ def on_message(ws, message):
     elif et == AriEventType.RECORDING_FINISHED:
         handle_recording_finished(ev)
     elif et == AriEventType.BRIDGE_DESTROYED:
-        handle_bridge_destroy(ev)
+        asyncio.run_coroutine_threadsafe(handle_bridge_destroy(ev), main_loop)
+
 
 
 def on_open(ws):

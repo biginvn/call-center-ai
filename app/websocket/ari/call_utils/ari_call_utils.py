@@ -39,7 +39,7 @@ def end_call(call_id):
         destroy_bridge(call.bridge_id)
     
     # Remove call from active calls
-    delete_call(call_id)
+    # delete_call(call_id)
 
     print(f"Call ended: {call_id}")
     

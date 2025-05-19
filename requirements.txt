@@ -14,3 +14,4 @@ uvicorn
 email-validator
 python-multipart
 websocket-client==1.8.0
+httpx
