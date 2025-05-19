@@ -1,4 +1,4 @@
-from app.services.user_service import StasisStartEvent
+from app.websocket.ari.Models.ari_models import StasisStartEvent
 import uuid
 from app.websocket.ari.Models.ari_models import CallSession
 from app.websocket.ari.channels.channels import dial_to_agent

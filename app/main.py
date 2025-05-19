@@ -7,9 +7,8 @@ from app.models.user import User
 from app.auth.auth_routes import router as auth_router
 from app.api.user_api import router as user_router
 from app.api.logout import router as logout_router
-from app.api.post_conversation import router as conversation_router
+from app.api.file_api import router as upload_router
 from app.middeware.check_token import check_token_middleware
-from app.api.post_upload_file import router as upload_router
 import threading
 from app.websocket.ws_monitor import run_ws_monitor
 
@@ -42,7 +41,6 @@ app.middleware("http")(check_token_middleware)
 app.include_router(user_router)
 app.include_router(auth_router)
 app.include_router(logout_router)
-app.include_router(conversation_router)
 app.include_router(upload_router)
 
 
