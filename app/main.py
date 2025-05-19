@@ -10,6 +10,8 @@ from app.api.logout import router as logout_router
 from app.api.post_conversation import router as conversation_router
 from app.middeware.check_token import check_token_middleware
 from app.api.post_upload_file import router as upload_router
+import threading
+from app.websocket.ws_monitor import run_ws_monitor
 
 app = FastAPI()
 
@@ -26,6 +28,9 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     await init_db()
+    ws_thread = threading.Thread(target=run_ws_monitor, daemon=True)
+    ws_thread.start()
+    print("WS thread started")
 
 
 @app.on_event("shutdown")

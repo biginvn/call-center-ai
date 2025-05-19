@@ -8,6 +8,8 @@ from app.models.conversation import Conversation
 from app.models.token import RefreshToken
 from app.models.extension import Extension
 from app.models.active import ActiveUser
+import os, certifi
+os.environ['SSL_CERT_FILE'] = certifi.where()
 
 # Khởi tạo client toàn cục
 client = None
