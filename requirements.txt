@@ -10,3 +10,7 @@ python-dotenv==1.1.0
 python_jose==3.4.0
 redis==6.1.0
 Requests==2.32.3
+uvicorn
+email-validator
+python-multipart
+websocket-client==1.8.0
