@@ -81,5 +81,6 @@ jobs:
               --env-file .env \
               -p ${PORT}:8000 \
               --name ${CONTAINER} \
+                --network my-network \
               npt1601/ai-call-center:${IMAGE_TAG}
           EOF
