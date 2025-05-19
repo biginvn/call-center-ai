@@ -31,9 +31,10 @@ def handle_stasis_start(ev):
         status = "incoming",  # Set initial status
         conversation_id = None,
         snoops = None,
-        recording_name = None,
+        recording_name = bridge_id,
         recording_finished = None,
-        agent_ext = None
+        agent_ext = None,
+        caller_ext = ev["channel"]["caller"]["number"]
     )
 
     save_call(call)

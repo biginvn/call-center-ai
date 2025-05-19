@@ -54,6 +54,7 @@ class CallSession(BaseModel):
     recording_name: Optional[str]
     recording_finished: Optional[bool]
     agent_ext: Optional[str]
+    caller_ext: Optional[str]
 
 
 class AriEventType(str, Enum):
