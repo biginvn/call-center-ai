@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from app.core.config import settings
 from typing import Optional
 from app.models.user import User
+from app.repositories.user_repository import UserRepository
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/agent")
 
@@ -51,7 +52,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
 
         if username is None:
             raise credentials_exception
-        user = await User.find_one(User.username == username)
+        user = await UserRepository.get_user_by_username(username=username)
         if user is None:
             raise credentials_exception
     except JWTError:

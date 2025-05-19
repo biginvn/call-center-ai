@@ -3,7 +3,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
 from app.core.config import settings
-from app.core.database import init_db, close_db, get_database
+from app.repositories.base_repository import init_db, close_db, get_database
 from app.models.user import User
 from app.models.extension import Extension
 

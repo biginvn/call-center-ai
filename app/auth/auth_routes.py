@@ -1,10 +1,10 @@
 from fastapi import APIRouter, status
 from pydantic import BaseModel
 from app.auth.auth import create_access_token, create_refresh_token
-from app.dependencies.active_user import add_active_user, remove_active_user, get_active_users
+from app.dependencies.active_user import add_active_user
 from app.models.user import User
 from app.auth.exceptions import CustomHTTPException
-from app.models.token import RefreshToken
+from app.repositories.user_repository import UserRepository  # Import mới
 from datetime import datetime, timedelta
 from app.core.config import settings
 from jose import jwt, JWTError
@@ -30,7 +30,7 @@ class AdminLoginRequest(BaseModel):
 @router.post("/agent")
 async def agent_login(request: AgentLoginRequest):
     logger.info(f"Attempting login for agent: {request.username}")
-    user = await User.find_one(User.username == request.username)
+    user = await UserRepository.get_user_by_username(request.username)
     if not user:
         logger.error(f"User {request.username} not found")
         raise CustomHTTPException(
@@ -51,19 +51,8 @@ async def agent_login(request: AgentLoginRequest):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only agents can use this endpoint",
         )
-    # if not request.extension_number or len(request.extension_number) != 3:
-    #     logger.error(
-    #         f"Invalid extension_number for {request.username}: {request.extension_number}"
-    #     )
-    #     raise CustomHTTPException(
-    #         status_code=status.HTTP_400_BAD_REQUEST,
-    #         detail="Extension number must be a 3-digit number",
-    #     )
 
-    existing_extension = await User.find_one(
-        User.extension_number == request.extension_number
-    )
-
+    existing_extension = await UserRepository.get_user_by_extension_number(request.extension_number)
     if existing_extension:
         logger.error(
             f"Extension number {request.extension_number} is already in use by another user"
@@ -77,19 +66,12 @@ async def agent_login(request: AgentLoginRequest):
         logger.info(
             f"Updating extension_number for {request.username} from {user.extension_number} to {request.extension_number}"
         )
-        user.extension_number = request.extension_number
-        await user.save()
+        user = await UserRepository.update_user_extension_number(user, request.extension_number)
 
     logger.info(f"Login successful for {request.username}")
     access_token = create_access_token(data={"sub": user.username, "token_type": "access"})
     refresh_token = create_refresh_token(data={"sub": user.username, "token_type": "refresh"})
-    db_refresh_token = RefreshToken(
-        refresh_token=refresh_token,
-        username=user.username,
-        expires_at=datetime.utcnow()
-        + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS),
-    )
-    await db_refresh_token.insert()
+    await UserRepository.save_refresh_token(user.username, refresh_token)
     await add_active_user(user)
     return {
         "access_token": access_token,
@@ -104,8 +86,7 @@ async def agent_login(request: AgentLoginRequest):
 @router.post("/admin")
 async def admin_login(request: AdminLoginRequest):
     logger.info(f"Attempting login for admin: {request.username}")
-    user = await User.find_one(User.username == request.username)
-    logger.info(f"Found user: {user}")
+    user = await UserRepository.get_user_by_username(request.username)
     if not user:
         logger.error(f"User {request.username} not found")
         raise CustomHTTPException(
@@ -147,8 +128,7 @@ async def refresh_access_token(refresh_token: str):
         headers={"WWW-Authenticate": "Bearer"},
     )
 
-    db_token = await RefreshToken.find_one(RefreshToken.refresh_token == refresh_token)
-
+    db_token = await UserRepository.get_refresh_token(refresh_token)
     if not db_token or db_token.expires_at < datetime.utcnow():
         logger.error("Invalid or expired refresh token")
         raise credentials_exception
@@ -162,19 +142,13 @@ async def refresh_access_token(refresh_token: str):
         if username is None or token_type != "refresh":
             logger.error("Invalid refresh token payload")
             raise credentials_exception
-    except jwt.JWTError:
+    except JWTError:
         raise credentials_exception
-    access_token = create_access_token(data={"sub": username})
-    await db_token.delete()
 
+    access_token = create_access_token(data={"sub": username})
+    await UserRepository.delete_refresh_token(db_token)
     new_refresh_token = create_refresh_token(data={"sub": username})
-    db_new_token = RefreshToken(
-        refresh_token=new_refresh_token,
-        username=username,
-        expires_at=datetime.utcnow()
-        + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS),
-    )
-    await db_new_token.insert()
+    await UserRepository.save_refresh_token(username, new_refresh_token)
 
     return {
         "access_token": access_token,
