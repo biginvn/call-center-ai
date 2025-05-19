@@ -1,11 +1,11 @@
 from fastapi import FastAPI, Depends
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.core.database import init_db, close_db, get_database
+from app.repositories.base_repository import init_db, close_db, get_database
 from app.core.config import settings
 from app.models.user import User
 from app.auth.auth_routes import router as auth_router
-from app.api.get_user import router as user_router
+from app.api.user_api import router as user_router
 from app.api.logout import router as logout_router
 from app.api.post_conversation import router as conversation_router
 from app.middeware.check_token import check_token_middleware

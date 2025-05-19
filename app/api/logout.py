@@ -18,8 +18,6 @@ class UserDataResponse(BaseModel):
 
 @router.patch("/", response_model=UserDataResponse)
 async def update_current_user_extension(current_user: User = Depends(get_current_user)):
-    logger.info(f"Updating extension number for user: {current_user.id}")
-
     current_user.extension_number = ""
     await current_user.save()
     await remove_active_user(current_user)
