@@ -8,6 +8,7 @@ from app.repositories.user_repository import UserRepository  # Import mới
 from datetime import datetime, timedelta
 from app.core.config import settings
 from jose import jwt, JWTError
+from app.services.extension_service import ExtensionService
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -73,6 +74,10 @@ async def agent_login(request: AgentLoginRequest):
     refresh_token = create_refresh_token(data={"sub": user.username, "token_type": "refresh"})
     await UserRepository.save_refresh_token(user.username, refresh_token)
     await add_active_user(user)
+    extension_service = ExtensionService()
+    await extension_service.update_extension_availability(
+        request.extension_number, False
+    )
     return {
         "access_token": access_token,
         "refresh_token": refresh_token,

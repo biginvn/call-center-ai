@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     
     # CORS
     CORS_ORIGINS: list[str] = Field(["*"], env="CORS_ORIGINS")
+    
+    # OpenAI
+    OPENAI_API_KEY: str = Field(..., env="OPENAI_API_KEY")
 
     # AWS S3
     AWS_ACCESS_KEY_ID: str = Field(..., env="AWS_ACCESS_KEY_ID")
@@ -23,6 +26,10 @@ class Settings(BaseSettings):
     S3_BUCKET: str = Field(..., env="S3_BUCKET")
     REDIS_HOST: str = Field(..., env="REDIS_HOST")
     REDIS_PORT: int = Field(..., env="REDIS_PORT")
+    
+    # RECORDING AUTHEN
+    AUTH_USERNAME: str = Field(..., env="AUTH_USERNAME")
+    AUTH_PASSWORD: str = Field(..., env="AUTH_PASSWORD")
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

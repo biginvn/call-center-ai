@@ -4,6 +4,7 @@ from app.repositories.conversation_repository import ConversationRepository
 from app.repositories.user_repository import UserRepository
 from app.websocket.ari.Config.ari_config import ARI_HOST, ARI_HTTPS_PORT, BASE_URL
 from app.websocket.ari.call_redis.call_redis import delete_call, get_call
+from app.services.ai_service import AIService
 
 
 async def handle_bridge_destroy(ev):
@@ -27,16 +28,22 @@ async def handle_bridge_destroy(ev):
         print ("Conversation record_url:", call.recording_name)
         print ("Conversation mood:", ConversationMood.UNKNOWN)
         record_url = f"https://{ARI_HOST}:{ARI_HTTPS_PORT}/ari/recordings/stored/{call.recording_name}/file"
+        
+        ai_service = AIService()
+        document = await ai_service.upload_record_to_s3(record_url, from_user.username)
+        record_text = await ai_service.transcribe_wav_from_s3(document.file_path)
+        summarize = await ai_service.summarize_text(record_text)
         try:
             conversation = Conversation(
-                type=ConversationType.AGENT_TO_AGENT,
+                type=ConversationType.AGENT_TO_CUSTOMER,
                 from_user=from_user,
                 to_user=to_user,
+                record_text=record_text,
                 status=ConversationStatus.CLOSED,
                 record_url=record_url,
                 mood=ConversationMood.UNKNOWN,
                 messages=[],
-                summarize="",
+                summarize=summarize,
                 sentiment=""
             )
             print("Conversation object created successfully")
