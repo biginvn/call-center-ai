@@ -5485,3 +5485,3511 @@ CALL SESSION: {
   "caller_ext": "test1"
 }
 
+CALL SESSION: {
+  "call_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "caller_chan": "1747717396.597",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "caller_chan": "1747717396.597",
+  "agent_chan": "agent_test2_b459d692",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "caller_chan": "1747717396.597",
+  "agent_chan": "agent_test2_b459d692",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_b459d692"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "caller_chan": "1747717396.597",
+  "agent_chan": "agent_test2_b459d692",
+  "bridge_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_b459d692"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "16b05df7-db98-4219-8b54-3ad550f2652d",
+  "caller_chan": "agent_test2_b459d692",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "16b05df7-db98-4219-8b54-3ad550f2652d",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "caller_chan": "1747717396.597",
+  "agent_chan": "agent_test2_b459d692",
+  "bridge_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_b459d692",
+    "1747717396.597"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "caller_chan": "1747717396.597",
+  "agent_chan": "agent_test2_b459d692",
+  "bridge_id": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_b459d692",
+    "1747717396.597"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "46a5f6bf-bfb0-4339-8081-47f1743da90b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "caller_chan": "1747717513.605",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "caller_chan": "1747717513.605",
+  "agent_chan": "agent_test2_c8052b2d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "caller_chan": "1747717513.605",
+  "agent_chan": "agent_test2_c8052b2d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c8052b2d"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "caller_chan": "1747717513.605",
+  "agent_chan": "agent_test2_c8052b2d",
+  "bridge_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c8052b2d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "f09b46fe-d78d-48ea-b147-ad63362d0207",
+  "caller_chan": "agent_test2_c8052b2d",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "f09b46fe-d78d-48ea-b147-ad63362d0207",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "caller_chan": "1747717513.605",
+  "agent_chan": "agent_test2_c8052b2d",
+  "bridge_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "conversation_id": null,
+  "up": [
+    "1747717513.605",
+    "agent_test2_c8052b2d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "caller_chan": "1747717513.605",
+  "agent_chan": "agent_test2_c8052b2d",
+  "bridge_id": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "conversation_id": null,
+  "up": [
+    "1747717513.605",
+    "agent_test2_c8052b2d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "092eb3ee-81c4-430a-9ec4-9e2de400374b",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "5cc5571c-b716-4317-a830-1037b2f34441",
+  "caller_chan": "1747722830.643",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "5cc5571c-b716-4317-a830-1037b2f34441",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "5cc5571c-b716-4317-a830-1037b2f34441",
+  "caller_chan": "1747722830.643",
+  "agent_chan": "agent_test2_3872cde2",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "5cc5571c-b716-4317-a830-1037b2f34441",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "7700c6ea-216f-4508-83ac-80cbfc4443ab",
+  "caller_chan": "1747722848.645",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "7700c6ea-216f-4508-83ac-80cbfc4443ab",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "7700c6ea-216f-4508-83ac-80cbfc4443ab",
+  "caller_chan": "1747722848.645",
+  "agent_chan": "agent_test2_a06f35d5",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "7700c6ea-216f-4508-83ac-80cbfc4443ab",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "caller_chan": "1747722906.647",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "caller_chan": "1747722906.647",
+  "agent_chan": "agent_test2_77066e52",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "caller_chan": "1747722906.647",
+  "agent_chan": "agent_test2_77066e52",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_77066e52"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "caller_chan": "1747722906.647",
+  "agent_chan": "agent_test2_77066e52",
+  "bridge_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_77066e52"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c90f2843-27d5-4a36-a5de-a49ff8733b84",
+  "caller_chan": "agent_test2_77066e52",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "c90f2843-27d5-4a36-a5de-a49ff8733b84",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "caller_chan": "1747722906.647",
+  "agent_chan": "agent_test2_77066e52",
+  "bridge_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_77066e52",
+    "1747722906.647"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "caller_chan": "1747722906.647",
+  "agent_chan": "agent_test2_77066e52",
+  "bridge_id": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_77066e52",
+    "1747722906.647"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "376b30fd-c970-4240-978b-abd4d3897fd4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "caller_chan": "1747722995.661",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "caller_chan": "1747722995.661",
+  "agent_chan": "agent_test2_f4da724d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "caller_chan": "1747722995.661",
+  "agent_chan": "agent_test2_f4da724d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f4da724d"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "caller_chan": "1747722995.661",
+  "agent_chan": "agent_test2_f4da724d",
+  "bridge_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f4da724d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ee465902-926f-44d0-ab10-0e36029e81d4",
+  "caller_chan": "agent_test2_f4da724d",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "ee465902-926f-44d0-ab10-0e36029e81d4",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "caller_chan": "1747722995.661",
+  "agent_chan": "agent_test2_f4da724d",
+  "bridge_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "conversation_id": null,
+  "up": [
+    "1747722995.661",
+    "agent_test2_f4da724d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "caller_chan": "1747722995.661",
+  "agent_chan": "agent_test2_f4da724d",
+  "bridge_id": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "conversation_id": null,
+  "up": [
+    "1747722995.661",
+    "agent_test2_f4da724d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "e1e81355-968f-4dc0-962f-52619076daa4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "caller_chan": "1747723099.671",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "caller_chan": "1747723099.671",
+  "agent_chan": "agent_test2_2956194a",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "caller_chan": "1747723099.671",
+  "agent_chan": "agent_test2_2956194a",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_2956194a"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "caller_chan": "1747723099.671",
+  "agent_chan": "agent_test2_2956194a",
+  "bridge_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_2956194a"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "7752a874-c236-4e27-b5ac-435801d138ed",
+  "caller_chan": "agent_test2_2956194a",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "7752a874-c236-4e27-b5ac-435801d138ed",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "caller_chan": "1747723099.671",
+  "agent_chan": "agent_test2_2956194a",
+  "bridge_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_2956194a",
+    "1747723099.671"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "caller_chan": "1747723099.671",
+  "agent_chan": "agent_test2_2956194a",
+  "bridge_id": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_2956194a",
+    "1747723099.671"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3c1201d7-9285-43ca-820f-bf6c24e33fd8",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "caller_chan": "1747723244.683",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "caller_chan": "1747723244.683",
+  "agent_chan": "agent_test2_8769d8cc",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "caller_chan": "1747723244.683",
+  "agent_chan": "agent_test2_8769d8cc",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_8769d8cc"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "caller_chan": "1747723244.683",
+  "agent_chan": "agent_test2_8769d8cc",
+  "bridge_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_8769d8cc"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "d4bd0dfe-7140-4e04-8b9d-cd71419cfdc1",
+  "caller_chan": "agent_test2_8769d8cc",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "d4bd0dfe-7140-4e04-8b9d-cd71419cfdc1",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "caller_chan": "1747723244.683",
+  "agent_chan": "agent_test2_8769d8cc",
+  "bridge_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "conversation_id": null,
+  "up": [
+    "1747723244.683",
+    "agent_test2_8769d8cc"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "caller_chan": "1747723244.683",
+  "agent_chan": "agent_test2_8769d8cc",
+  "bridge_id": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "conversation_id": null,
+  "up": [
+    "1747723244.683",
+    "agent_test2_8769d8cc"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "28b77628-78a6-4ec7-8073-1d820c78ab7c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "caller_chan": "1747723682.697",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "caller_chan": "1747723682.697",
+  "agent_chan": "agent_test2_163250a6",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "caller_chan": "1747723682.697",
+  "agent_chan": "agent_test2_163250a6",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_163250a6"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "caller_chan": "1747723682.697",
+  "agent_chan": "agent_test2_163250a6",
+  "bridge_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_163250a6"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "5f2b3f49-1eaa-4e1e-a414-8da7d12d4c32",
+  "caller_chan": "agent_test2_163250a6",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "5f2b3f49-1eaa-4e1e-a414-8da7d12d4c32",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "caller_chan": "1747723682.697",
+  "agent_chan": "agent_test2_163250a6",
+  "bridge_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_163250a6",
+    "1747723682.697"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "caller_chan": "1747723682.697",
+  "agent_chan": "agent_test2_163250a6",
+  "bridge_id": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_163250a6",
+    "1747723682.697"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "d4a0c560-e96f-4935-be46-143ed8634f6f",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "caller_chan": "1747724041.705",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "caller_chan": "1747724041.705",
+  "agent_chan": "agent_test2_c3db56cb",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "caller_chan": "1747724041.705",
+  "agent_chan": "agent_test2_c3db56cb",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c3db56cb"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "caller_chan": "1747724041.705",
+  "agent_chan": "agent_test2_c3db56cb",
+  "bridge_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c3db56cb"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "1e164b39-16bb-414b-a78d-21a6d9cf9f62",
+  "caller_chan": "agent_test2_c3db56cb",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "1e164b39-16bb-414b-a78d-21a6d9cf9f62",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "caller_chan": "1747724041.705",
+  "agent_chan": "agent_test2_c3db56cb",
+  "bridge_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c3db56cb",
+    "1747724041.705"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "caller_chan": "1747724041.705",
+  "agent_chan": "agent_test2_c3db56cb",
+  "bridge_id": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c3db56cb",
+    "1747724041.705"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3fe89d3f-70ad-47ae-bf40-6e3b6cfe5fc7",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "caller_chan": "1747724208.716",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "caller_chan": "1747724208.716",
+  "agent_chan": "agent_test2_2b052b8d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "caller_chan": "1747724208.716",
+  "agent_chan": "agent_test2_2b052b8d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_2b052b8d"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "caller_chan": "1747724208.716",
+  "agent_chan": "agent_test2_2b052b8d",
+  "bridge_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_2b052b8d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "54f8d537-295d-4460-9b91-e0606c7f67fe",
+  "caller_chan": "agent_test2_2b052b8d",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "54f8d537-295d-4460-9b91-e0606c7f67fe",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "caller_chan": "1747724208.716",
+  "agent_chan": "agent_test2_2b052b8d",
+  "bridge_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_2b052b8d",
+    "1747724208.716"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "caller_chan": "1747724208.716",
+  "agent_chan": "agent_test2_2b052b8d",
+  "bridge_id": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_2b052b8d",
+    "1747724208.716"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "dd854cc5-40b5-42ff-8bbe-2a9534905070",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "caller_chan": "1747724432.727",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "caller_chan": "1747724432.727",
+  "agent_chan": "agent_test2_7263d967",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "caller_chan": "1747724432.727",
+  "agent_chan": "agent_test2_7263d967",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_7263d967"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "caller_chan": "1747724432.727",
+  "agent_chan": "agent_test2_7263d967",
+  "bridge_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_7263d967"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "051af851-2a28-477e-8acb-aa45b8021981",
+  "caller_chan": "agent_test2_7263d967",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "051af851-2a28-477e-8acb-aa45b8021981",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "caller_chan": "1747724432.727",
+  "agent_chan": "agent_test2_7263d967",
+  "bridge_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "conversation_id": null,
+  "up": [
+    "1747724432.727",
+    "agent_test2_7263d967"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "caller_chan": "1747724432.727",
+  "agent_chan": "agent_test2_7263d967",
+  "bridge_id": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "conversation_id": null,
+  "up": [
+    "1747724432.727",
+    "agent_test2_7263d967"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "ca42d3ad-cf8b-4aa6-b3b9-bc809d3a8594",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "caller_chan": "1747724725.737",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "caller_chan": "1747724725.737",
+  "agent_chan": "agent_test2_0d7db275",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "caller_chan": "1747724725.737",
+  "agent_chan": "agent_test2_0d7db275",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_0d7db275"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "caller_chan": "1747724725.737",
+  "agent_chan": "agent_test2_0d7db275",
+  "bridge_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_0d7db275"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "9a1ae482-c50d-45b0-9db5-131fa7cb608c",
+  "caller_chan": "agent_test2_0d7db275",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "9a1ae482-c50d-45b0-9db5-131fa7cb608c",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "caller_chan": "1747724725.737",
+  "agent_chan": "agent_test2_0d7db275",
+  "bridge_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "conversation_id": null,
+  "up": [
+    "1747724725.737",
+    "agent_test2_0d7db275"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "caller_chan": "1747724725.737",
+  "agent_chan": "agent_test2_0d7db275",
+  "bridge_id": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "conversation_id": null,
+  "up": [
+    "1747724725.737",
+    "agent_test2_0d7db275"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "2dae885c-2012-4c17-a11f-35d3fb993702",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b40660e4-96d1-45c8-8bf1-85802328c63c",
+  "caller_chan": "1747724890.753",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "b40660e4-96d1-45c8-8bf1-85802328c63c",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b40660e4-96d1-45c8-8bf1-85802328c63c",
+  "caller_chan": "1747724890.753",
+  "agent_chan": "agent_test2_b08a2784",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "b40660e4-96d1-45c8-8bf1-85802328c63c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "caller_chan": "1747724924.757",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "caller_chan": "1747724924.757",
+  "agent_chan": "agent_test2_e83ac2cc",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "caller_chan": "1747724924.757",
+  "agent_chan": "agent_test2_e83ac2cc",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_e83ac2cc"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "caller_chan": "1747724924.757",
+  "agent_chan": "agent_test2_e83ac2cc",
+  "bridge_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_e83ac2cc"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "163c10ad-d833-42b5-a3d5-7d28521a7574",
+  "caller_chan": "agent_test2_e83ac2cc",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "163c10ad-d833-42b5-a3d5-7d28521a7574",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "caller_chan": "1747724924.757",
+  "agent_chan": "agent_test2_e83ac2cc",
+  "bridge_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "conversation_id": null,
+  "up": [
+    "1747724924.757",
+    "agent_test2_e83ac2cc"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "caller_chan": "1747724924.757",
+  "agent_chan": "agent_test2_e83ac2cc",
+  "bridge_id": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "conversation_id": null,
+  "up": [
+    "1747724924.757",
+    "agent_test2_e83ac2cc"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "b2f6ab08-1d3e-421f-9c12-6a16ea52cd87",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "caller_chan": "1747725039.766",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "caller_chan": "1747725039.766",
+  "agent_chan": "agent_test2_75fa1cc4",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "caller_chan": "1747725039.766",
+  "agent_chan": "agent_test2_75fa1cc4",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_75fa1cc4"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "caller_chan": "1747725039.766",
+  "agent_chan": "agent_test2_75fa1cc4",
+  "bridge_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_75fa1cc4"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "258bd133-3ff1-4e53-b148-495c765a2e0c",
+  "caller_chan": "agent_test2_75fa1cc4",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "258bd133-3ff1-4e53-b148-495c765a2e0c",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "caller_chan": "1747725039.766",
+  "agent_chan": "agent_test2_75fa1cc4",
+  "bridge_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_75fa1cc4",
+    "1747725039.766"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "caller_chan": "1747725039.766",
+  "agent_chan": "agent_test2_75fa1cc4",
+  "bridge_id": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_75fa1cc4",
+    "1747725039.766"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "31328287-8739-4dc9-9c70-c9a20484c7a4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "caller_chan": "1747725429.774",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "caller_chan": "1747725429.774",
+  "agent_chan": "agent_test2_65121e03",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "caller_chan": "1747725429.774",
+  "agent_chan": "agent_test2_65121e03",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_65121e03"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "caller_chan": "1747725429.774",
+  "agent_chan": "agent_test2_65121e03",
+  "bridge_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_65121e03"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "03d94116-df75-4658-8adc-063c4b8c2aa5",
+  "caller_chan": "agent_test2_65121e03",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "03d94116-df75-4658-8adc-063c4b8c2aa5",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "caller_chan": "1747725429.774",
+  "agent_chan": "agent_test2_65121e03",
+  "bridge_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "conversation_id": null,
+  "up": [
+    "1747725429.774",
+    "agent_test2_65121e03"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "caller_chan": "1747725429.774",
+  "agent_chan": "agent_test2_65121e03",
+  "bridge_id": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "conversation_id": null,
+  "up": [
+    "1747725429.774",
+    "agent_test2_65121e03"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "bccac30e-b2ba-4a2e-b493-867f95c942d4",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "caller_chan": "1747725599.784",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "caller_chan": "1747725599.784",
+  "agent_chan": "agent_test2_64140059",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "caller_chan": "1747725599.784",
+  "agent_chan": "agent_test2_64140059",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_64140059"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "caller_chan": "1747725599.784",
+  "agent_chan": "agent_test2_64140059",
+  "bridge_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_64140059"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "fe89abda-fd7f-4123-bba3-19a991a8d351",
+  "caller_chan": "agent_test2_64140059",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "fe89abda-fd7f-4123-bba3-19a991a8d351",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "caller_chan": "1747725599.784",
+  "agent_chan": "agent_test2_64140059",
+  "bridge_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_64140059",
+    "1747725599.784"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "caller_chan": "1747725599.784",
+  "agent_chan": "agent_test2_64140059",
+  "bridge_id": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_64140059",
+    "1747725599.784"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "c5526239-1e63-4537-9a3b-a57cd071d9c0",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "caller_chan": "1747726973.829",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "caller_chan": "1747726973.829",
+  "agent_chan": "agent_test2_7cd2b6b1",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "caller_chan": "1747726973.829",
+  "agent_chan": "agent_test2_7cd2b6b1",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_7cd2b6b1"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "caller_chan": "1747726973.829",
+  "agent_chan": "agent_test2_7cd2b6b1",
+  "bridge_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_7cd2b6b1"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "879efb92-34b4-41d0-b003-1016b92b9cb1",
+  "caller_chan": "agent_test2_7cd2b6b1",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "879efb92-34b4-41d0-b003-1016b92b9cb1",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "caller_chan": "1747726973.829",
+  "agent_chan": "agent_test2_7cd2b6b1",
+  "bridge_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "conversation_id": null,
+  "up": [
+    "1747726973.829",
+    "agent_test2_7cd2b6b1"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "caller_chan": "1747726973.829",
+  "agent_chan": "agent_test2_7cd2b6b1",
+  "bridge_id": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "conversation_id": null,
+  "up": [
+    "1747726973.829",
+    "agent_test2_7cd2b6b1"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "159c80b1-4f9c-48c2-81a9-fc8b446a78cc",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "caller_chan": "1747727227.845",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "caller_chan": "1747727227.845",
+  "agent_chan": "agent_test2_5d673415",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "caller_chan": "1747727227.845",
+  "agent_chan": "agent_test2_5d673415",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_5d673415"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "caller_chan": "1747727227.845",
+  "agent_chan": "agent_test2_5d673415",
+  "bridge_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_5d673415"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "1ea139ff-f2e7-43a4-80bc-1c81f073e14c",
+  "caller_chan": "agent_test2_5d673415",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "1ea139ff-f2e7-43a4-80bc-1c81f073e14c",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "caller_chan": "1747727227.845",
+  "agent_chan": "agent_test2_5d673415",
+  "bridge_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "conversation_id": null,
+  "up": [
+    "1747727227.845",
+    "agent_test2_5d673415"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "caller_chan": "1747727227.845",
+  "agent_chan": "agent_test2_5d673415",
+  "bridge_id": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "conversation_id": null,
+  "up": [
+    "1747727227.845",
+    "agent_test2_5d673415"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "398a6796-c529-468e-bd01-8d33211f7c91",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "caller_chan": "1747727742.894",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "caller_chan": "1747727742.894",
+  "agent_chan": "agent_test2_f2ece28d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "caller_chan": "1747727742.894",
+  "agent_chan": "agent_test2_f2ece28d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f2ece28d"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "caller_chan": "1747727742.894",
+  "agent_chan": "agent_test2_f2ece28d",
+  "bridge_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f2ece28d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "43831230-0dcb-41f0-8313-8b074597bbc9",
+  "caller_chan": "agent_test2_f2ece28d",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "43831230-0dcb-41f0-8313-8b074597bbc9",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "caller_chan": "1747727742.894",
+  "agent_chan": "agent_test2_f2ece28d",
+  "bridge_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f2ece28d",
+    "1747727742.894"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "caller_chan": "1747727742.894",
+  "agent_chan": "agent_test2_f2ece28d",
+  "bridge_id": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f2ece28d",
+    "1747727742.894"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "56eaa115-e973-4350-a70d-ba854c888d70",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "caller_chan": "1747728205.908",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "caller_chan": "1747728205.908",
+  "agent_chan": "agent_test2_11625cec",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "caller_chan": "1747728205.908",
+  "agent_chan": "agent_test2_11625cec",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_11625cec"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "caller_chan": "1747728205.908",
+  "agent_chan": "agent_test2_11625cec",
+  "bridge_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_11625cec"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "13749615-626a-4390-b6b9-dedc966610db",
+  "caller_chan": "agent_test2_11625cec",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "13749615-626a-4390-b6b9-dedc966610db",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "caller_chan": "1747728205.908",
+  "agent_chan": "agent_test2_11625cec",
+  "bridge_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_11625cec",
+    "1747728205.908"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "caller_chan": "1747728205.908",
+  "agent_chan": "agent_test2_11625cec",
+  "bridge_id": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_11625cec",
+    "1747728205.908"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "a398e908-06c8-4e00-b79a-54a615bd88a1",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "caller_chan": "1747728269.916",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "caller_chan": "1747728269.916",
+  "agent_chan": "agent_test2_c086103d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "caller_chan": "1747728269.916",
+  "agent_chan": "agent_test2_c086103d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c086103d"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "caller_chan": "1747728269.916",
+  "agent_chan": "agent_test2_c086103d",
+  "bridge_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c086103d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "eecfe438-976a-4ca3-8606-fc1d28f36851",
+  "caller_chan": "agent_test2_c086103d",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "eecfe438-976a-4ca3-8606-fc1d28f36851",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "caller_chan": "1747728269.916",
+  "agent_chan": "agent_test2_c086103d",
+  "bridge_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c086103d",
+    "1747728269.916"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "caller_chan": "1747728269.916",
+  "agent_chan": "agent_test2_c086103d",
+  "bridge_id": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_c086103d",
+    "1747728269.916"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "ba740190-f99d-441c-b7d1-6b68df69a0fa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "caller_chan": "1747728497.927",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "caller_chan": "1747728497.927",
+  "agent_chan": "agent_test2_fcde2d30",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "caller_chan": "1747728497.927",
+  "agent_chan": "agent_test2_fcde2d30",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_fcde2d30"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "caller_chan": "1747728497.927",
+  "agent_chan": "agent_test2_fcde2d30",
+  "bridge_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_fcde2d30"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b0b6bec2-d17d-4882-9fc0-61470ad4371e",
+  "caller_chan": "agent_test2_fcde2d30",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "b0b6bec2-d17d-4882-9fc0-61470ad4371e",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "caller_chan": "1747728497.927",
+  "agent_chan": "agent_test2_fcde2d30",
+  "bridge_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "conversation_id": null,
+  "up": [
+    "1747728497.927",
+    "agent_test2_fcde2d30"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "caller_chan": "1747728497.927",
+  "agent_chan": "agent_test2_fcde2d30",
+  "bridge_id": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "conversation_id": null,
+  "up": [
+    "1747728497.927",
+    "agent_test2_fcde2d30"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "5ebd252d-f54a-4994-a9a6-c76835d5ba6d",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "6082328a-d88d-48ca-b29a-9887f33a1b20",
+  "caller_chan": "1747728597.935",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "6082328a-d88d-48ca-b29a-9887f33a1b20",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "6082328a-d88d-48ca-b29a-9887f33a1b20",
+  "caller_chan": "1747728597.935",
+  "agent_chan": "agent_test2_be5c0e26",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "6082328a-d88d-48ca-b29a-9887f33a1b20",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "e6e806fa-63ee-4fc9-861e-63616c6e1e71",
+  "caller_chan": "1747728744.937",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "e6e806fa-63ee-4fc9-861e-63616c6e1e71",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "e6e806fa-63ee-4fc9-861e-63616c6e1e71",
+  "caller_chan": "1747728744.937",
+  "agent_chan": "agent_test2_3fec9368",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "e6e806fa-63ee-4fc9-861e-63616c6e1e71",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "eaa66b92-30cd-4f15-9786-ba404ddd49e8",
+  "caller_chan": "1747728794.939",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "eaa66b92-30cd-4f15-9786-ba404ddd49e8",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "caller_chan": "1747728829.940",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "caller_chan": "1747728829.940",
+  "agent_chan": "agent_test2_08c5253d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "caller_chan": "1747728829.940",
+  "agent_chan": "agent_test2_08c5253d",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_08c5253d"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "caller_chan": "1747728829.940",
+  "agent_chan": "agent_test2_08c5253d",
+  "bridge_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_08c5253d"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "59b0aae6-758c-413f-bc83-94295f048416",
+  "caller_chan": "agent_test2_08c5253d",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "59b0aae6-758c-413f-bc83-94295f048416",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "caller_chan": "1747728829.940",
+  "agent_chan": "agent_test2_08c5253d",
+  "bridge_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_08c5253d",
+    "1747728829.940"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "caller_chan": "1747728829.940",
+  "agent_chan": "agent_test2_08c5253d",
+  "bridge_id": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_08c5253d",
+    "1747728829.940"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "7603d3dd-2d78-4d0a-8410-1d949b19f106",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "caller_chan": "1747729270.948",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "caller_chan": "1747729270.948",
+  "agent_chan": "agent_test2_b236764f",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "caller_chan": "1747729270.948",
+  "agent_chan": "agent_test2_b236764f",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_b236764f"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "caller_chan": "1747729270.948",
+  "agent_chan": "agent_test2_b236764f",
+  "bridge_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_b236764f"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "b06c40db-1628-434d-89de-cafa8ef1b3ff",
+  "caller_chan": "agent_test2_b236764f",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "b06c40db-1628-434d-89de-cafa8ef1b3ff",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "caller_chan": "1747729270.948",
+  "agent_chan": "agent_test2_b236764f",
+  "bridge_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "conversation_id": null,
+  "up": [
+    "1747729270.948",
+    "agent_test2_b236764f"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "caller_chan": "1747729270.948",
+  "agent_chan": "agent_test2_b236764f",
+  "bridge_id": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "conversation_id": null,
+  "up": [
+    "1747729270.948",
+    "agent_test2_b236764f"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "6bdedfeb-7f8c-4737-ab43-e292864ce555",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "caller_chan": "1747729358.956",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "caller_chan": "1747729358.956",
+  "agent_chan": "agent_test2_442c7cc2",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "caller_chan": "1747729358.956",
+  "agent_chan": "agent_test2_442c7cc2",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_442c7cc2"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "caller_chan": "1747729358.956",
+  "agent_chan": "agent_test2_442c7cc2",
+  "bridge_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_442c7cc2"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "49becc04-010b-4245-8161-f0e907fedb69",
+  "caller_chan": "agent_test2_442c7cc2",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "49becc04-010b-4245-8161-f0e907fedb69",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "caller_chan": "1747729358.956",
+  "agent_chan": "agent_test2_442c7cc2",
+  "bridge_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_442c7cc2",
+    "1747729358.956"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "caller_chan": "1747729358.956",
+  "agent_chan": "agent_test2_442c7cc2",
+  "bridge_id": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_442c7cc2",
+    "1747729358.956"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "c2297024-3e5b-4235-a6a4-e4d0bbc40b3c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "caller_chan": "1747729415.964",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "caller_chan": "1747729415.964",
+  "agent_chan": "agent_test2_d62158c5",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "caller_chan": "1747729415.964",
+  "agent_chan": "agent_test2_d62158c5",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_d62158c5"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "caller_chan": "1747729415.964",
+  "agent_chan": "agent_test2_d62158c5",
+  "bridge_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_d62158c5"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "30c62ecb-3080-4fbb-9b73-7c8bc4c4e223",
+  "caller_chan": "agent_test2_d62158c5",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "30c62ecb-3080-4fbb-9b73-7c8bc4c4e223",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "caller_chan": "1747729415.964",
+  "agent_chan": "agent_test2_d62158c5",
+  "bridge_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "conversation_id": null,
+  "up": [
+    "1747729415.964",
+    "agent_test2_d62158c5"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "caller_chan": "1747729415.964",
+  "agent_chan": "agent_test2_d62158c5",
+  "bridge_id": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "conversation_id": null,
+  "up": [
+    "1747729415.964",
+    "agent_test2_d62158c5"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "3d463cac-4854-4b6f-aaf2-faae50adb7ec",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "2690d951-7c1e-464e-af94-6c592222317e",
+  "caller_chan": "1747729499.972",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "2690d951-7c1e-464e-af94-6c592222317e",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "2690d951-7c1e-464e-af94-6c592222317e",
+  "caller_chan": "1747729499.972",
+  "agent_chan": "agent_test1_2e1b08f4",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "2690d951-7c1e-464e-af94-6c592222317e",
+  "recording_finished": null,
+  "agent_ext": "test1",
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "caller_chan": "1747729722.974",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "caller_chan": "1747729722.974",
+  "agent_chan": "agent_test2_f30935cb",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "caller_chan": "1747729722.974",
+  "agent_chan": "agent_test2_f30935cb",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f30935cb"
+  ],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "caller_chan": "1747729722.974",
+  "agent_chan": "agent_test2_f30935cb",
+  "bridge_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f30935cb"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "2102779c-83d5-45d6-885e-27161b464a64",
+  "caller_chan": "agent_test2_f30935cb",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "2102779c-83d5-45d6-885e-27161b464a64",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "N/A"
+}
+
+CALL SESSION: {
+  "call_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "caller_chan": "1747729722.974",
+  "agent_chan": "agent_test2_f30935cb",
+  "bridge_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f30935cb",
+    "1747729722.974"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "caller_chan": "1747729722.974",
+  "agent_chan": "agent_test2_f30935cb",
+  "bridge_id": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "conversation_id": null,
+  "up": [
+    "agent_test2_f30935cb",
+    "1747729722.974"
+  ],
+  "bridged": [],
+  "status": "connected",
+  "snoops": null,
+  "recording_name": "fbe8c152-0ce6-40ca-a8bb-85ff0794a6aa",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test1"
+}
+
+CALL SESSION: {
+  "call_id": "e5041394-b7dd-4cfa-89cb-3c7430e93786",
+  "caller_chan": "1747730169.982",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "e5041394-b7dd-4cfa-89cb-3c7430e93786",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "e5041394-b7dd-4cfa-89cb-3c7430e93786",
+  "caller_chan": "1747730169.982",
+  "agent_chan": "agent_test2_762ca3b6",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "e5041394-b7dd-4cfa-89cb-3c7430e93786",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "a23f28f1-f3f0-42dd-b3c6-87c346491931",
+  "caller_chan": "1747730174.984",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "a23f28f1-f3f0-42dd-b3c6-87c346491931",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "a23f28f1-f3f0-42dd-b3c6-87c346491931",
+  "caller_chan": "1747730174.984",
+  "agent_chan": "agent_test1_65e54f4e",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "a23f28f1-f3f0-42dd-b3c6-87c346491931",
+  "recording_finished": null,
+  "agent_ext": "test1",
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "20b0603e-50e0-4715-a645-17f9fcb3966c",
+  "caller_chan": "1747730337.986",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "20b0603e-50e0-4715-a645-17f9fcb3966c",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "20b0603e-50e0-4715-a645-17f9fcb3966c",
+  "caller_chan": "1747730337.986",
+  "agent_chan": "agent_test2_e53de8f3",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "20b0603e-50e0-4715-a645-17f9fcb3966c",
+  "recording_finished": null,
+  "agent_ext": "test2",
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "77108a17-369f-4067-8e66-1780eee4ddea",
+  "caller_chan": "1747730342.988",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "77108a17-369f-4067-8e66-1780eee4ddea",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "test2"
+}
+
+CALL SESSION: {
+  "call_id": "77108a17-369f-4067-8e66-1780eee4ddea",
+  "caller_chan": "1747730342.988",
+  "agent_chan": "agent_test1_f89201e3",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "77108a17-369f-4067-8e66-1780eee4ddea",
+  "recording_finished": null,
+  "agent_ext": "test1",
+  "caller_ext": "test2"
+}
+
