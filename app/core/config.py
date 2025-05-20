@@ -24,7 +24,8 @@ class Settings(BaseSettings):
     AWS_SECRET_ACCESS_KEY: str = Field(..., env="AWS_SECRET_ACCESS_KEY")
     AWS_REGION: str = Field(..., env="AWS_REGION")
     S3_BUCKET: str = Field(..., env="S3_BUCKET")
-    
+    REDIS_HOST: str = Field(..., env="REDIS_HOST")
+    REDIS_PORT: int = Field(..., env="REDIS_PORT")
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
