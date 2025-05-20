@@ -9,9 +9,9 @@ from app.api.user_api import router as user_router
 from app.api.logout import router as logout_router
 from app.api.post_conversation import router as conversation_router
 from app.middeware.check_token import check_token_middleware
-from app.api.post_upload_file import router as upload_router
+from app.api.ai_api import router as upload_router
 
-app = FastAPI()
+app = FastAPI(swagger_ui_init_oauth=None)
 
 # Cấu hình CORS cho phép tất cả origin
 app.add_middleware(

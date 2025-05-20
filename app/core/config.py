@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     
     # CORS
     CORS_ORIGINS: list[str] = Field(["*"], env="CORS_ORIGINS")
+    
+    # OpenAI
+    OPENAI_API_KEY: str = Field(..., env="OPENAI_API_KEY")
 
     # AWS S3
     AWS_ACCESS_KEY_ID: str = Field(..., env="AWS_ACCESS_KEY_ID")
