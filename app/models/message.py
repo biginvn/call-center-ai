@@ -10,7 +10,8 @@ class Message(Document):
     sender_id: Link[User]
     content: str
     mood: Optional[str]
-    type: MessageType
+    order: int
+    # type: MessageType
 
     class Settings:
         name = "Message"
