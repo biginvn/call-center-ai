@@ -40,7 +40,7 @@ async def handle_bridge_destroy(ev):
                 to_user=to_user,
                 record_text=record_text,
                 status=ConversationStatus.CLOSED,
-                record_url=record_url,
+                record_url=document.file_path,
                 mood=ConversationMood.UNKNOWN,
                 messages=[],
                 summarize=summarize,

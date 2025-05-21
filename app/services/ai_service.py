@@ -77,6 +77,7 @@ class AIService:
                 Key=unique_filename,
                 Body=file_content,
                 ContentType="audio/wav",
+                ACL="public-read",
             )
             file_url = f"https://{settings.S3_BUCKET}.s3.{settings.AWS_REGION}.amazonaws.com/{unique_filename}"
         except Exception as e:
