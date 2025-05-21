@@ -79,3 +79,9 @@ class UserRepository:
             if user.extension_number == extension_number:
                 return user.fullname
         return None
+    @staticmethod
+    async def get_user_by_extension(extension_number: str) -> Optional[User]:
+        print("Getting user by extension", extension_number)
+        user = await User.find_one(User.extension_number == extension_number)
+        print("User found", user)
+        return user if user else None

@@ -29,6 +29,7 @@ def get_call_id_by_channel(channel_id: str) -> Optional[str]:
     return r.get(f"channel:{channel_id}")
 
 def get_call(call_id: str) -> Optional[CallSession]:
+    print("Getting call", call_id)
     key = f"call:{call_id}"
     raw = r.get(key)
     if raw:
@@ -39,6 +40,7 @@ def get_call(call_id: str) -> Optional[CallSession]:
                 call_dict["up"] = set(call_dict["up"])
             if "bridged" in call_dict:
                 call_dict["bridged"] = set(call_dict["bridged"])
+            print("Call found", call_dict)
             return CallSession(**call_dict)
         except Exception as e:
             print(f"Error parsing call data: {e}")

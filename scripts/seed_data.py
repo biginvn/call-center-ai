@@ -25,13 +25,15 @@ async def seed_data():
         User(username="khoa", fullname="Lê Anh Khoa",email="khoa@gmail.com", password="123456", extension_number="", role="agent", status=""),
         User(username="thanh", fullname="Nguyễn Phúc Thành",email="thanh@gmail.com", password="123456", extension_number="", role="agent", status=""),
         User(username="manh", fullname="Trần Văn Mạnh",email="manh@gmail.com", password="123456", extension_number="", role="agent", status=""),
+        User(username="test1", fullname="Nguyễn Phúc A",email="test1@gmail.com", password="123456", extension_number="test1", role="agent", status=""),
+        User(username="test2", fullname="Nguyễn Phúc B",email="test2@gmail.com", password="123456", extension_number="test2", role="agent", status=""),
     ]
     
     extensions = [
-        Extension(extension="test1", number="101"),
-        Extension(extension="test2", number="102"),
-        Extension(extension="web1", number="111"),
-        Extension(extension="web2", number="112"),
+        Extension(extension="test1", number="101", available=True),
+        Extension(extension="test2", number="102", available=True),
+        Extension(extension="web1", number="111", available=True),
+        Extension(extension="web2", number="112", available=True),
     ]
     
     for extension in extensions:

@@ -1,4 +1,4 @@
-from app.services.user_service import StasisStartEvent
+from app.websocket.ari.Models.ari_models import StasisStartEvent
 import uuid
 from app.websocket.ari.Models.ari_models import CallSession
 from app.websocket.ari.channels.channels import dial_to_agent
@@ -31,9 +31,10 @@ def handle_stasis_start(ev):
         status = "incoming",  # Set initial status
         conversation_id = None,
         snoops = None,
-        recording_name = None,
+        recording_name = bridge_id,
         recording_finished = None,
-        agent_ext = None
+        agent_ext = None,
+        caller_ext = ev["channel"]["caller"]["number"]
     )
 
     save_call(call)
