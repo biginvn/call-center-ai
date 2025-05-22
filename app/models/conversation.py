@@ -17,7 +17,7 @@ class Conversation(Document):
     summarize: Optional[str]
     from_user: Link[User]
     to_user: Link[User]
-    messages: Optional[List[Link[Message]]]
+    messages: Optional[List[Message]]
     mood: ConversationMood
     sentiment: Optional[str]
     created_at: datetime = Field(default_factory=datetime.utcnow)
