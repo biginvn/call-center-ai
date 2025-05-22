@@ -1,3 +1,7 @@
+import json
+from typing import List
+from app.models.message import Message
+from app.models.user import User
 from fastapi import HTTPException, status
 from app.core.config import settings
 from app.models.document import Document
@@ -77,7 +81,6 @@ class AIService:
                 Key=unique_filename,
                 Body=file_content,
                 ContentType="audio/wav",
-                ACL="public-read",
             )
             file_url = f"https://{settings.S3_BUCKET}.s3.{settings.AWS_REGION}.amazonaws.com/{unique_filename}"
         except Exception as e:
@@ -105,7 +108,7 @@ class AIService:
                 detail=f"Error saving document to MongoDB: {str(e)}",
             )
 
-        return document
+        return file_url
 
     async def transcribe_wav_from_s3(self, s3_url: str) -> str:
         """
@@ -194,3 +197,62 @@ class AIService:
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error summarizing text: {str(e)}",
             )
+    async def split_message(self, s3_url: str, from_user: User, to_user: User) -> List[Message]:
+        try:
+            # Tải file từ S3
+            audio_file = requests.get(s3_url)
+            if audio_file.status_code != 200:
+                raise HTTPException(status_code=400, detail="Không tải được file audio từ S3.")
+
+            # Gọi API OpenAI để transcript
+            transcription = self.openai_client.audio.transcriptions.create(
+                model="gpt-4o-transcribe", 
+                file=("audio.wav", audio_file.content),
+                response_format="text",
+                prompt=(
+                    "Đây là cuộc gọi giữa một nhân viên (to_user) và một khách hàng (from_user). "
+                    "Hãy ghi lại hội thoại theo đúng thứ tự thời gian. "
+                    "Mỗi lời nói của từng người phải được tách riêng thành một mục, dù có nói ngắn, nói chen ngang hay chưa nói hết câu.\n\n"
+                    "Tuyệt đối không được gộp 2 lời nói vào một mục. Nếu một người chen ngang khi người kia đang nói, hãy coi đó là một lời nói riêng, ghi đúng thứ tự thời gian.\n\n"
+                    "Mỗi mục nên bao gồm:\n"
+                    "- \"order\": số thứ tự phát ngôn (tăng dần từ 1)\n"
+                    "- \"speaker\": \"from_user\" hoặc \"to_user\"\n"
+                    "- \"message\": nội dung lời nói\n"
+                    "- \"mood\": \"positive\", \"neutral\" hoặc \"negative\"\n\n"
+                    "Trả kết quả dưới dạng JSON list hợp lệ, không in gì thêm ngoài JSON list."
+                )
+                ,
+                temperature=0.0,
+            )
+
+            # Parse JSON từ OpenAI
+            print("TRANSCRIPTION:", transcription)
+
+            try:
+                parsed = json.loads(transcription.strip())
+            except json.JSONDecodeError as e:
+                logger.error(f"Error parsing JSON transcription: {e}")
+                raise HTTPException(status_code=500, detail="Phản hồi từ AI không đúng định dạng JSON.")
+
+
+
+            saved_messages: List[Message] = []
+
+            for item in parsed:
+                speaker = item.get("speaker")
+                sender = from_user if speaker == "from_user" else to_user
+                message = Message(
+                    sender_id=sender,
+                    content=item.get("message", ""),
+                    mood=item.get("mood"),
+                    order=item.get("order")
+                )
+                await message.insert()
+                saved_messages.append(message)
+
+            print("Saved messages:", saved_messages)
+            return saved_messages
+
+        except Exception as e:
+            logger.error(f"Error splitting message: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Error splitting message: {str(e)}")

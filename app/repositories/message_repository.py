@@ -2,7 +2,10 @@
 
 
 
-from mailbox import Message
+
+from typing import List
+
+from app.models.message import Message
 
 
 class MessageRepository:
@@ -17,3 +20,8 @@ class MessageRepository:
     @staticmethod
     async def get_messages_by_conversation_id(conversation_id: str) -> List[Message]:
         return await Message.objects.filter(conversation_id=conversation_id)
+    
+    @staticmethod
+    async def create_messages(messages: List[Message]) -> List[Message]:
+        return await Message.insert_many(messages)
+    
