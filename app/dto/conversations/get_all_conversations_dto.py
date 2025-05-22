@@ -11,7 +11,7 @@ class UserResponseDto(BaseModel):
     fullname: str
     email: str
     role: str
-    extension_number: str
+    # extension_number: str
 
 
 class MessageResponseDto(BaseModel):
@@ -31,7 +31,7 @@ class ConversationResponseDto(BaseModel):
     summarize: Optional[str]
     from_user: UserResponseDto
     to_user: UserResponseDto
-    messages: List[MessageResponseDto]
+    # messages: List[MessageResponseDto]
     mood: str
     sentiment: Optional[str]
     created_at: datetime
@@ -42,3 +42,19 @@ class GetAllConversationsResponseDto(BaseModel):
     
     pagination: Pagination
     conversations: List[ConversationResponseDto]
+
+
+
+class GetConversationByIdResponseDto(BaseModel):
+    id: str
+    status: str
+    type: str
+    record_url: Optional[str]
+    record_text: Optional[str]
+    summarize: Optional[str]
+    from_user: UserResponseDto
+    to_user: UserResponseDto
+    messages: List[MessageResponseDto]
+    mood: str
+    sentiment: Optional[str]
+    created_at: datetime

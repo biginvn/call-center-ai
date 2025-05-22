@@ -1,11 +1,12 @@
 from typing import List, Optional
 import logging
-
+from bson import ObjectId
 from app.dto.conversations.get_all_conversations_dto import (
     GetAllConversationsResponseDto,
     ConversationResponseDto,
     UserResponseDto,
-    MessageResponseDto
+    MessageResponseDto,
+    GetConversationByIdResponseDto
 )
 from app.models.conversation import Conversation
 from app.query.get_all_conversation_query import GetAllConversationQuery
@@ -50,71 +51,37 @@ class ConversationRepository:
 
         # Get conversations with pagination
         conversations = await Conversation.find(*filters).sort("-created_at").skip(query.pagination.skip).limit(query.pagination.limit).to_list()
-        # logger.info(f"Found {len(conversations)} conversations")
-        
-        # Convert to dictionaries and then to DTOs
-        conversation_dtos = []
-        for conv in conversations:
-            try:
-                # Convert to dictionary
-                conv_dict = conv.dict()
-                # logger.info(f"Converted conversation to dict: {conv_dict}")
-                
-                # Convert IDs to strings
-                conv_dict["id"] = str(conv_dict["id"])
-                
-                # Convert from_user and to_user
-                if isinstance(conv.from_user, Link):
-                    # logger.info(f"Fetching from_user: {conv.from_user}")
-                    from_user = await conv.from_user.fetch()
-                    if from_user:
-                        from_user_dict = from_user.dict()
-                        from_user_dict["id"] = str(from_user_dict["id"])
-                        conv_dict["from_user"] = from_user_dict
-                        # logger.info(f"Fetched from_user: {from_user_dict}")
-                
-                if isinstance(conv.to_user, Link):
-                    # logger.info(f"Fetching to_user: {conv.to_user}")
-                    to_user = await conv.to_user.fetch()
-                    if to_user:
-                        to_user_dict = to_user.dict()
-                        to_user_dict["id"] = str(to_user_dict["id"])
-                        conv_dict["to_user"] = to_user_dict
-                        # logger.info(f"Fetched to_user: {to_user_dict}")
-                
-                # Convert messages
-                if conv.messages:
-                    message_dtos = []
-                    for msg in conv.messages:
-                        if isinstance(msg, Link):
-                            # logger.info(f"Fetching message: {msg}")
-                            message = await msg.fetch()
-                            if message:
-                                msg_dict = message.dict()
-                                msg_dict["id"] = str(msg_dict["id"])
-                                if isinstance(message.sender_id, Link):
-                                    # logger.info(f"Fetching message sender: {message.sender_id}")
-                                    sender = await message.sender_id.fetch()
-                                    if sender:
-                                        sender_dict = sender.dict()
-                                        sender_dict["id"] = str(sender_dict["id"])
-                                        msg_dict["sender_id"] = sender_dict
-                                        # logger.info(f"Fetched message sender: {sender_dict}")
-                                message_dtos.append(msg_dict)
-                    conv_dict["messages"] = message_dtos
-                
-                # Convert to DTO
-                conversation_dto = ConversationResponseDto(**conv_dict)
-                conversation_dtos.append(conversation_dto)
-                # logger.info(f"Successfully converted conversation to DTO: {conversation_dto}")
-                
-            except Exception as e:
-                logger.error(f"Error converting conversation {conv.id}: {str(e)}")
-                continue
         
         # Calculate total items
         total_items = await Conversation.find(*filters).count()
         query.pagination.set_total_items_and_total_pages(total_items)
+        
+        # Convert conversations to ConversationResponseDto
+        conversation_dtos = []
+        for conversation in conversations:
+            # Convert to dictionary
+            conv_dict = conversation.dict()
+            
+            # Convert IDs to strings
+            conv_dict["id"] = str(conv_dict["id"])
+            
+            # Convert from_user and to_user
+            if isinstance(conversation.from_user, Link):
+                from_user = await conversation.from_user.fetch()
+                if from_user:
+                    from_user_dict = from_user.dict()
+                    from_user_dict["id"] = str(from_user_dict["id"])
+                    conv_dict["from_user"] = from_user_dict
+            
+            if isinstance(conversation.to_user, Link):
+                to_user = await conversation.to_user.fetch()
+                if to_user:
+                    to_user_dict = to_user.dict()
+                    to_user_dict["id"] = str(to_user_dict["id"])
+                    conv_dict["to_user"] = to_user_dict
+            
+            conversation_dto = ConversationResponseDto(**conv_dict)
+            conversation_dtos.append(conversation_dto)
         
         return GetAllConversationsResponseDto(
             pagination=query.pagination,
@@ -122,60 +89,47 @@ class ConversationRepository:
         )
 
     @staticmethod
-    async def get_conversation_by_id(conversation_id: str) -> Optional[Conversation]:
-        conversation = await Conversation.find_one(Conversation.id == conversation_id)
-        if conversation:
-            try:
-                # Convert to dictionary
-                conv_dict = conversation.dict()
-                logger.info(f"Converted conversation to dict: {conv_dict}")
-                
-                # Convert IDs to strings
-                conv_dict["id"] = str(conv_dict["id"])
-                
-                # Convert from_user and to_user
-                if isinstance(conversation.from_user, Link):
-                    logger.info(f"Fetching from_user: {conversation.from_user}")
-                    from_user = await conversation.from_user.fetch()
-                    if from_user:
-                        from_user_dict = from_user.dict()
-                        from_user_dict["id"] = str(from_user_dict["id"])
-                        conv_dict["from_user"] = from_user_dict
-                        logger.info(f"Fetched from_user: {from_user_dict}")
-                
-                if isinstance(conversation.to_user, Link):
-                    logger.info(f"Fetching to_user: {conversation.to_user}")
-                    to_user = await conversation.to_user.fetch()
-                    if to_user:
-                        to_user_dict = to_user.dict()
-                        to_user_dict["id"] = str(to_user_dict["id"])
-                        conv_dict["to_user"] = to_user_dict
-                        logger.info(f"Fetched to_user: {to_user_dict}")
-                
-                # Convert messages
-                if conversation.messages:
-                    message_dtos = []
-                    for msg in conversation.messages:
-                        if isinstance(msg, Link):
-                            logger.info(f"Fetching message: {msg}")
-                            message = await msg.fetch()
-                            if message:
-                                msg_dict = message.dict()
-                                msg_dict["id"] = str(msg_dict["id"])
-                                if isinstance(message.sender_id, Link):
-                                    logger.info(f"Fetching message sender: {message.sender_id}")
-                                    sender = await message.sender_id.fetch()
-                                    if sender:
-                                        sender_dict = sender.dict()
-                                        sender_dict["id"] = str(sender_dict["id"])
-                                        msg_dict["sender_id"] = sender_dict
-                                        logger.info(f"Fetched message sender: {sender_dict}")
-                                message_dtos.append(msg_dict)
-                    conv_dict["messages"] = message_dtos
-                
-                return ConversationResponseDto(**conv_dict)
-            except Exception as e:
-                logger.error(f"Error converting conversation {conversation_id}: {str(e)}")
-                return None
-        return None
-
+    async def get_conversation_by_id(conversation_id: str) -> Optional[GetConversationByIdResponseDto]:
+        conversation = await Conversation.find_one({"_id": ObjectId(conversation_id)})
+        if conversation is None:
+            return None
+            
+        # Convert to dictionary
+        conv_dict = conversation.dict()
+        
+        # Convert IDs to strings
+        conv_dict["id"] = str(conv_dict["id"])
+        
+        # Convert from_user and to_user
+        if isinstance(conversation.from_user, Link):
+            from_user = await conversation.from_user.fetch()
+            if from_user:
+                from_user_dict = from_user.dict()
+                from_user_dict["id"] = str(from_user_dict["id"])
+                conv_dict["from_user"] = from_user_dict
+        
+        if isinstance(conversation.to_user, Link):
+            to_user = await conversation.to_user.fetch()
+            if to_user:
+                to_user_dict = to_user.dict()
+                to_user_dict["id"] = str(to_user_dict["id"])
+                conv_dict["to_user"] = to_user_dict
+        
+        # Convert messages
+        if conversation.messages:
+            # print(f"conversation.messages={conversation.messages}")
+            message_dtos = []
+            for msg in conversation.messages:
+                msg_dict = msg.dict()
+                msg_dict["id"] = str(msg_dict["id"])
+                if isinstance(msg.sender_id, Link):
+                    sender = await msg.sender_id.fetch()
+                    if sender:
+                        sender_dict = sender.dict()
+                        sender_dict["id"] = str(sender_dict["id"])
+                        msg_dict["sender_id"] = sender_dict
+                print("append message", msg_dict["content"])
+                message_dtos.append(MessageResponseDto(**msg_dict))
+            conv_dict["messages"] = message_dtos
+        
+        return GetConversationByIdResponseDto(**conv_dict)

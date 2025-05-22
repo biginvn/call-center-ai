@@ -1,0 +1,247 @@
+[
+  {
+    "status": "closed",
+    "type": "A->C",
+    "record_url": "https://internship-nixxis.s3.ap-southeast-1.amazonaws.com/records/d938498f-73b3-4be9-82aa-0f959be1ebb2.wav",
+    "record_text": "Alo shop đây ạ. Dạ cho hỏi còn giày sneaker size 42 không? Có anh nha, mình giữ cho không? Ừ giữ giúp mình 1 đôi.",
+    "summarize": "Khách hỏi về giày sneaker size 42, nhân viên xác nhận còn hàng và giữ giúp.",
+    "from_user": "thanh",
+    "to_user": "manh",
+    "messages": [
+      {
+        "id": "2487db50-246f-4d8a-a9d0-f31a2d2b55f0",
+        "sender_id": "manh",
+        "content": "Alo shop đây ạ",
+        "mood": "neutral",
+        "order": 1
+      },
+      {
+        "id": "c8ff68b8-e147-4eec-91f0-670f98e33d68",
+        "sender_id": "thanh",
+        "content": "Dạ cho hỏi còn giày sneaker size 42 không?",
+        "mood": "neutral",
+        "order": 2
+      },
+      {
+        "id": "44968a01-9379-474c-b66c-b36acac29717",
+        "sender_id": "manh",
+        "content": "Có anh nha, mình giữ cho không?",
+        "mood": "neutral",
+        "order": 3
+      },
+      {
+        "id": "6ec32979-acaf-4365-b3d8-2223eef7fd87",
+        "sender_id": "thanh",
+        "content": "Ừ giữ giúp mình 1 đôi",
+        "mood": "neutral",
+        "order": 4
+      },
+      {
+        "id": "5424527c-2a4e-4cf8-b23a-582e41247c76",
+        "sender_id": "manh",
+        "content": "Dạ ok, em giữ cho anh nha",
+        "mood": "positive",
+        "order": 5
+      },
+      {
+        "id": "ba063c4b-9f26-4b03-9b6c-ac794edbdfa6",
+        "sender_id": "thanh",
+        "content": "Cảm ơn em",
+        "mood": "positive",
+        "order": 6
+      }
+    ],
+    "mood": "unknown",
+    "sentiment": "",
+    "created_at": "2025-05-22T06:47:14.253722"
+  },
+  {
+    "status": "closed",
+    "type": "A->C",
+    "record_url": "https://internship-nixxis.s3.ap-southeast-1.amazonaws.com/records/d938498f-73b3-4be9-82aa-0f959be1ebb2.wav",
+    "record_text": "Shop nghe đây ạ. Anh còn áo khoác jean không? Còn nha, anh lấy size gì ạ? Size L giúp mình.",
+    "summarize": "Khách hỏi áo khoác jean size L, nhân viên xác nhận còn hàng.",
+    "from_user": "manh",
+    "to_user": "khoa",
+    "messages": [
+      {
+        "id": "a58a2f31-ed25-4371-bdfb-2593edc81410",
+        "sender_id": "khoa",
+        "content": "Shop nghe đây ạ",
+        "mood": "neutral",
+        "order": 1
+      },
+      {
+        "id": "cf800b2f-2184-4650-8283-559f8c60e83d",
+        "sender_id": "manh",
+        "content": "Anh còn áo khoác jean không?",
+        "mood": "neutral",
+        "order": 2
+      },
+      {
+        "id": "b9183ae8-ab96-4ee8-86ac-f96350e2911b",
+        "sender_id": "khoa",
+        "content": "Còn nha, anh lấy size gì ạ?",
+        "mood": "neutral",
+        "order": 3
+      },
+      {
+        "id": "918b0877-5e2c-4590-88cd-ff7b7dfb708e",
+        "sender_id": "manh",
+        "content": "Size L giúp mình",
+        "mood": "neutral",
+        "order": 4
+      },
+      {
+        "id": "67239cc8-d83e-4e84-ad56-31eef1c4536b",
+        "sender_id": "khoa",
+        "content": "Dạ, em note lại rồi ạ",
+        "mood": "positive",
+        "order": 5
+      }
+    ],
+    "mood": "unknown",
+    "sentiment": "",
+    "created_at": "2025-05-22T06:47:14.253837"
+  },
+  {
+    "status": "closed",
+    "type": "A->C",
+    "record_url": "https://internship-nixxis.s3.ap-southeast-1.amazonaws.com/records/d938498f-73b3-4be9-82aa-0f959be1ebb2.wav",
+    "record_text": "Chào bạn, bên bạn có bán tai nghe bluetooth không? Dạ có, anh cần loại nào? Loại nhỏ gọn á bạn.",
+    "summarize": "Khách hỏi tai nghe bluetooth, nhân viên giới thiệu loại nhỏ gọn.",
+    "from_user": "khoa",
+    "to_user": "thanh",
+    "messages": [
+      {
+        "id": "f8b0b333-e9e8-4374-abe4-c0cdc684f916",
+        "sender_id": "khoa",
+        "content": "Chào bạn, bên bạn có bán tai nghe bluetooth không?",
+        "mood": "neutral",
+        "order": 1
+      },
+      {
+        "id": "4a9d3ef4-a75a-44c7-95f3-856d39315823",
+        "sender_id": "thanh",
+        "content": "Dạ có, anh cần loại nào?",
+        "mood": "neutral",
+        "order": 2
+      },
+      {
+        "id": "af431faa-2f82-4868-94b6-67dc3b3d4ad8",
+        "sender_id": "khoa",
+        "content": "Loại nhỏ gọn á bạn",
+        "mood": "neutral",
+        "order": 3
+      },
+      {
+        "id": "f8420a41-a44c-4845-8f4b-15dd3ab0292b",
+        "sender_id": "thanh",
+        "content": "Ok anh, để em giữ cho 1 cái nha",
+        "mood": "positive",
+        "order": 4
+      },
+      {
+        "id": "124b31cf-08af-4090-af6b-c45c38a39fe4",
+        "sender_id": "khoa",
+        "content": "Cảm ơn nhiều",
+        "mood": "positive",
+        "order": 5
+      }
+    ],
+    "mood": "unknown",
+    "sentiment": "",
+    "created_at": "2025-05-22T06:47:14.253892"
+  },
+  {
+    "status": "closed",
+    "type": "A->C",
+    "record_url": "https://internship-nixxis.s3.ap-southeast-1.amazonaws.com/records/d938498f-73b3-4be9-82aa-0f959be1ebb2.wav",
+    "record_text": "Xin hỏi còn đồng hồ thông minh không? Có ạ, mình giữ giúp không? Giữ giúp em 1 cái màu đen nha.",
+    "summarize": "Khách hỏi đồng hồ thông minh, yêu cầu giữ màu đen.",
+    "from_user": "thanh",
+    "to_user": "manh",
+    "messages": [
+      {
+        "id": "de69069c-1d02-491d-9635-aa34628010bd",
+        "sender_id": "thanh",
+        "content": "Xin hỏi còn đồng hồ thông minh không?",
+        "mood": "neutral",
+        "order": 1
+      },
+      {
+        "id": "9dad62e9-db7e-426f-bfca-c3475c3978ae",
+        "sender_id": "manh",
+        "content": "Có ạ, mình giữ giúp không?",
+        "mood": "neutral",
+        "order": 2
+      },
+      {
+        "id": "81de393e-d8ae-4bd5-b25d-4dddfaf17998",
+        "sender_id": "thanh",
+        "content": "Giữ giúp em 1 cái màu đen nha",
+        "mood": "neutral",
+        "order": 3
+      },
+      {
+        "id": "92165353-d2e4-4633-9281-41071404da8c",
+        "sender_id": "manh",
+        "content": "Dạ rồi ạ, em giữ ngay",
+        "mood": "positive",
+        "order": 4
+      }
+    ],
+    "mood": "unknown",
+    "sentiment": "",
+    "created_at": "2025-05-22T06:47:14.253936"
+  },
+  {
+    "status": "closed",
+    "type": "A->C",
+    "record_url": "https://internship-nixxis.s3.ap-southeast-1.amazonaws.com/records/d938498f-73b3-4be9-82aa-0f959be1ebb2.wav",
+    "record_text": "Cửa hàng nghe ạ. Cho hỏi còn loa bluetooth Sony không? Dạ còn anh, anh muốn giữ không? Dạ, giữ giúp mình 1 cái.",
+    "summarize": "Khách hỏi về loa bluetooth Sony và yêu cầu giữ hàng.",
+    "from_user": "manh",
+    "to_user": "khoa",
+    "messages": [
+      {
+        "id": "c7d47496-75b0-4fc1-a77c-2464870f7409",
+        "sender_id": "khoa",
+        "content": "Cửa hàng nghe ạ",
+        "mood": "neutral",
+        "order": 1
+      },
+      {
+        "id": "7428671e-954d-4c96-810d-498ba466d875",
+        "sender_id": "manh",
+        "content": "Cho hỏi còn loa bluetooth Sony không?",
+        "mood": "neutral",
+        "order": 2
+      },
+      {
+        "id": "0d8f99ee-7785-4114-b679-9274a833459d",
+        "sender_id": "khoa",
+        "content": "Dạ còn anh, anh muốn giữ không?",
+        "mood": "neutral",
+        "order": 3
+      },
+      {
+        "id": "01701629-66c3-4e75-8f0c-b5d20b472493",
+        "sender_id": "manh",
+        "content": "Dạ, giữ giúp mình 1 cái",
+        "mood": "neutral",
+        "order": 4
+      },
+      {
+        "id": "07e97600-9ebc-419c-a9df-1dcec3f3c898",
+        "sender_id": "khoa",
+        "content": "Ok anh, em ghi nhận rồi ạ",
+        "mood": "positive",
+        "order": 5
+      }
+    ],
+    "mood": "unknown",
+    "sentiment": "",
+    "created_at": "2025-05-22T06:47:14.253989"
+  }
+]

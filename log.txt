@@ -12229,3 +12229,51 @@ CALL SESSION: {
   "caller_ext": "test1"
 }
 
+CALL SESSION: {
+  "call_id": "d69fd2f6-16b5-47e1-8d7e-f75b78e370e9",
+  "caller_chan": "1747893848.44",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "d69fd2f6-16b5-47e1-8d7e-f75b78e370e9",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "web1"
+}
+
+CALL SESSION: {
+  "call_id": "8da8013f-e952-4795-be3c-5dcd874037cd",
+  "caller_chan": "1747893883.45",
+  "agent_chan": null,
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "incoming",
+  "snoops": null,
+  "recording_name": "8da8013f-e952-4795-be3c-5dcd874037cd",
+  "recording_finished": null,
+  "agent_ext": null,
+  "caller_ext": "web2"
+}
+
+CALL SESSION: {
+  "call_id": "8da8013f-e952-4795-be3c-5dcd874037cd",
+  "caller_chan": "1747893883.45",
+  "agent_chan": "agent_web1_14bf0653",
+  "bridge_id": null,
+  "conversation_id": null,
+  "up": [],
+  "bridged": [],
+  "status": "ringing",
+  "snoops": null,
+  "recording_name": "8da8013f-e952-4795-be3c-5dcd874037cd",
+  "recording_finished": null,
+  "agent_ext": "web1",
+  "caller_ext": "web2"
+}
+
