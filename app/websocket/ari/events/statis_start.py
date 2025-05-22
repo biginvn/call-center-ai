@@ -43,6 +43,8 @@ def handle_stasis_start(ev):
     # answer_channel(chan) - REMOVED THIS LINE, caller should stay ringing
     
     print(f"Incoming call from {caller_num}, bridge={bridge_id}")
+    print(f"calle_endpoints_name={calle_endpoints_name}")
     
     # Dial to agent (test2)
+
     agent_chan = dial_to_agent(bridge_id, calle_endpoints_name, bridge_id, caller_name)
