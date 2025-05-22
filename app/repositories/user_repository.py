@@ -4,6 +4,7 @@ from app.models.active import ActiveUser
 from typing import Optional, List
 from datetime import datetime, timedelta
 from app.core.config import settings
+from app.auth.exceptions import CustomHTTPException
 
 class UserRepository:
     @staticmethod
@@ -51,9 +52,16 @@ class UserRepository:
             active_user_doc = ActiveUser(active_user=[user])
             await active_user_doc.insert()
         else:
-            if not any(u.id == user.id for u in active_user_doc.active_user):
-                active_user_doc.active_user.append(user)
-                await active_user_doc.save()
+            if any(u.id == user.id for u in active_user_doc.active_user):
+                raise CustomHTTPException (
+                    status_code=401,
+                    detail= "User already on connection, please login another account",
+                )
+            
+            # Nếu chưa có thì thêm vào
+            
+            active_user_doc.active_user.append(user)
+            await active_user_doc.save()
         return active_user_doc
 
     @staticmethod
