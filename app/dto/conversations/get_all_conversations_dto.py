@@ -2,7 +2,7 @@ from typing import List, Optional
 from datetime import datetime
 from app.models.conversation import Conversation
 from app.utils.pagination import Pagination
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
 
 
 class UserResponseDto(BaseModel):
@@ -20,6 +20,8 @@ class MessageResponseDto(BaseModel):
     content: str
     mood: Optional[str]
     order: int
+    time: Optional[int]
+
 
 
 class ConversationResponseDto(BaseModel):
@@ -27,7 +29,6 @@ class ConversationResponseDto(BaseModel):
     status: str
     type: str
     record_url: Optional[str]
-    record_text: Optional[str]
     summarize: Optional[str]
     from_user: UserResponseDto
     to_user: UserResponseDto
@@ -50,7 +51,6 @@ class GetConversationByIdResponseDto(BaseModel):
     status: str
     type: str
     record_url: Optional[str]
-    record_text: Optional[str]
     summarize: Optional[str]
     from_user: UserResponseDto
     to_user: UserResponseDto

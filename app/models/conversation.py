@@ -13,7 +13,6 @@ class Conversation(Document):
     status: ConversationStatus
     type: ConversationType
     record_url: Optional[str]
-    record_text: Optional[str]
     summarize: Optional[str]
     from_user: Link[User]
     to_user: Link[User]
@@ -29,4 +28,4 @@ class Conversation(Document):
         ]
 
     def __str__(self):
-        return f"Conversation(type={self.type}, from_user={self.from_user}, to_user={self.to_user}, status={self.status}, record_text={self.record_text}), summarize={self.summarize})"
+        return f"Conversation(type={self.type}, from_user={self.from_user}, to_user={self.to_user}, status={self.status}, summarize={self.summarize})"

@@ -60,7 +60,7 @@ async def get_fullname(extension_number: str, current_user: User = Depends(get_c
     logger.info(f"Fetching fullname for extension: {extension_number}")
     user_service = UserService()
     fullname = await user_service.get_fullname_by_extension(extension_number, current_user)
-    return {"fullname": fullname}
+    return {"fullname": fullname, "extension_number": extension_number}
 
 class ConnectRequest (BaseModel):
     username: str
