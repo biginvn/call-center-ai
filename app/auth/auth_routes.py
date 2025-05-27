@@ -33,7 +33,7 @@ class AdminLoginRequest(BaseModel):
 async def agent_login(request: AgentLoginRequest):
     logger.info(f"Attempting login for agent: {request.username}")
     user = await UserRepository.get_user_by_username(request.username)
-    await add_active_user(user)
+
     if not user:
         logger.error(f"User {request.username} not found")
         raise CustomHTTPException(
@@ -70,7 +70,7 @@ async def agent_login(request: AgentLoginRequest):
             f"Updating extension_number for {request.username} from {user.extension_number} to {request.extension_number}"
         )
         user = await UserRepository.update_user_extension_number(user, request.extension_number)
-    
+    await add_active_user(user)
     logger.info(f"Login successful for {request.username}")
     access_token = create_access_token(data={"sub": user.username, "token_type": "access"})
     refresh_token = create_refresh_token(data={"sub": user.username, "token_type": "refresh"})

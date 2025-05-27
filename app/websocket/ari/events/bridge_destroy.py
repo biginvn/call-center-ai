@@ -36,7 +36,7 @@ async def handle_bridge_destroy(ev):
         call_messages = []
         for mes in ai_response.messages:
             message = Message(
-                sender_id=from_user.id if mes.sender_id == "from_user" else to_user.id,
+                sender_id=mes.sender_id,
                 content=mes.content,
                 mood=mes.mood,
                 order=mes.order,

@@ -240,7 +240,7 @@ class AIService:
                         sender_id=sender_id,
                         content=msg["message"],
                         mood=msg["mood"],
-                        time=int(msg["time_talking"]),
+                        time=str(msg["time_talking"]),
                     )
                 )
                 
