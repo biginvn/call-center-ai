@@ -1,6 +1,7 @@
 from app.models.user import User
 from app.models.token import RefreshToken
 from app.models.active import ActiveUser
+from app.models.extension import Extension
 from typing import Optional, List
 from datetime import datetime, timedelta
 from app.core.config import settings
@@ -90,6 +91,9 @@ class UserRepository:
     @staticmethod
     async def get_user_by_extension(extension_number: str) -> Optional[User]:
         print("Getting user by extension", extension_number)
-        user = await User.find_one(User.extension_number == extension_number)
+        temp_extension = await Extension.find_one(Extension.extension==extension_number)
+        if temp_extension:
+            user = await User.find_one(User.extension_number == temp_extension.number)
+        else: user = await User.find_one(User.extension_number == extension_number)
         print("User found", user)
-        return user if user else None
+        return user

@@ -105,38 +105,38 @@ async def seed_data():
     with open('scripts/data.json', 'r', encoding='utf-8') as f:
         conversations_data = json.load(f)
  
-    # Process each conversation
-    for conv_data in conversations_data:
-        # Create messages for this conversation
-        messages = []
-        for msg_data in conv_data['messages']:
-            message = Message(
-                sender_id=user_dict[msg_data['sender_id']],
-                content=msg_data['content'],
-                mood=msg_data['mood'],
-                order=msg_data['order']
-            )
-            await message.insert()
-            messages.append(message)
-            print(f"Đã thêm message: {message.content} với mood: {message.mood}")
+    # # Process each conversation
+    # for conv_data in conversations_data:
+    #     # Create messages for this conversation
+    #     messages = []
+    #     for msg_data in conv_data['messages']:
+    #         message = Message(
+    #             sender_id=user_dict[msg_data['sender_id']],
+    #             content=msg_data['content'],
+    #             mood=msg_data['mood'],
+    #             order=msg_data['order']
+    #         )
+    #         await message.insert()
+    #         messages.append(message)
+    #         print(f"Đã thêm message: {message.content} với mood: {message.mood}")
  
-        # Create conversation
-        conversation = Conversation(
-            status=ConversationStatus.CLOSED,
-            type=ConversationType.AGENT_TO_CUSTOMER,
-            record_url=conv_data['record_url'],
-            record_text=conv_data['record_text'],
-            summarize=conv_data['summarize'],
-            from_user=user_dict[conv_data['from_user']],
-            to_user=user_dict[conv_data['to_user']],
-            messages=messages,
-            mood=ConversationMood.UNKNOWN,
-            sentiment=conv_data['sentiment'],
-            created_at=datetime.fromisoformat(conv_data['created_at'])
-        )
+    #     # Create conversation
+    #     conversation = Conversation(
+    #         status=ConversationStatus.CLOSED,
+    #         type=ConversationType.AGENT_TO_CUSTOMER,
+    #         record_url=conv_data['record_url'],
+    #         record_text=conv_data['record_text'],
+    #         summarize=conv_data['summarize'],
+    #         from_user=user_dict[conv_data['from_user']],
+    #         to_user=user_dict[conv_data['to_user']],
+    #         messages=messages,
+    #         mood=ConversationMood.UNKNOWN,
+    #         sentiment=conv_data['sentiment'],
+    #         created_at=datetime.fromisoformat(conv_data['created_at'])
+    #     )
         
-        await conversation.insert()
-        print(f"Đã thêm conversation từ {conv_data['from_user']} đến {conv_data['to_user']}")
+    #     await conversation.insert()
+    #     print(f"Đã thêm conversation từ {conv_data['from_user']} đến {conv_data['to_user']}")
  
 async def main():
     await init_db()

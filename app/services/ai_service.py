@@ -1,5 +1,6 @@
 import json
-from typing import List
+from typing import List, Optional
+from pydantic import BaseModel
 from app.models.message import Message
 from app.models.user import User
 from fastapi import HTTPException, status
@@ -13,7 +14,8 @@ import logging
 import os
 import tempfile
 import uuid
-from datetime import datetime
+import pytz
+from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +25,12 @@ s3_client = boto3.client(
     aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
     aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
 )
+
+
+class gpt_call_analyze_response(BaseModel):
+    summarize: str
+    messages: list[Message]
+    overall_mood: str
 
 
 class AIService:
@@ -110,149 +118,141 @@ class AIService:
 
         return file_url
 
-    async def transcribe_wav_from_s3(self, s3_url: str) -> str:
+
+    async def analyze_call_full_one_gpt_call(self,
+        url: Optional[str] = None,
+        caller_ext: Optional[str] = None, 
+        agent_ext: Optional[str] = None
+    ) -> gpt_call_analyze_response:
         """
-        Tải file WAV từ S3 bucket và chuyển thành text bằng OpenAI Whisper.
+        Gọi GPT chỉ 1 lần: đưa file WAV và yêu cầu GPT:
+        - Transcribe
+        - Tóm tắt
+        - Tách hội thoại thành message
 
-        Args:
-            s3_url (str): URL của file WAV trên S3.
-
-        Returns:
-            str: Nội dung text của record.
-
+        Trả về dict gồm: transcription, summary, messages[]
         """
-        # Tải file từ S3
-        temp_file_path = None
-        try:
-            # Lấy key từ s3_url
-            s3_key = s3_url.replace(f"https://{settings.S3_BUCKET}.s3.{settings.AWS_REGION}.amazonaws.com/", "")
-            logger.info(f"Generating presigned URL for S3: {s3_key}")
-            
-            # Tạo presigned URL
-            presigned_url = s3_client.generate_presigned_url(
-                'get_object',
-                Params={'Bucket': settings.S3_BUCKET, 'Key': s3_key},
-                ExpiresIn=3600  # Hết hạn sau 1 giờ
-            )
-            
-            # Tải file từ presigned URL
-            response = requests.get(presigned_url, stream=True)
-            response.raise_for_status()
-            
-            # Lưu file tạm
-            temp_dir = tempfile.gettempdir()
-            temp_file_path = os.path.join(temp_dir, f"temp_{os.urandom(8).hex()}.wav")
-            with open(temp_file_path, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-            
-            # Kiểm tra file
-            file_size = os.path.getsize(temp_file_path)
-            if file_size == 0:
-                logger.error("Downloaded WAV file is empty")
-                raise HTTPException(status_code=400, detail="Downloaded WAV file is empty")
         
-        except Exception as e:
-            logger.error(f"Error downloading from S3: {str(e)}")
-            raise HTTPException(status_code=500, detail=f"Error downloading from S3: {str(e)}")
+        from_user = await self.user_repo.get_user_by_extension(caller_ext)
+        to_user = await self.user_repo.get_user_by_extension(agent_ext)
+        # Bước 1: Tải file WAV từ S3
+        if not url:
+            raise ValueError("Cần cung cấp ít nhất một trong hai: url hoặc local_path.")
 
         try:
-            with open(temp_file_path, "rb") as audio_file:
-                logger.info("Transcribing WAV file")
-                transcription = self.openai_client.audio.transcriptions.create(
-                    model="whisper-1", file=audio_file, response_format="text"
+            response = requests.get(url)
+            if response.status_code != 200:
+                raise Exception("Không tải được file từ URL.")
+            file_data = ("audio.wav", response.content)
+
+            # Prompt duy nhất
+            prompt = (
+                    "Bạn sẽ nhận được một file ghi âm cuộc gọi giữa 2 người: from_user (khách hàng) và to_user (nhân viên).\n"
+                    "Hãy xử lý và trả về dữ liệu dưới dạng một JSON object hợp lệ, có đúng **4 trường** như sau:\n\n"
+                    "**Kiểu dữ liệu mong muốn:**\n"
+                    "{\n"
+                    '  "summary": string,                  # Tóm tắt nội dung cuộc gọi trong tối đa 100 từ\n'
+                    '  "messages": [                       # Danh sách lời nói theo thứ tự thời gian\n'
+                    "    {\n"
+                    '      "order": int,                  # Số thứ tự câu nói (tăng dần từ 1)\n'
+                    '      "speaker": "from_user" | "to_user",  # Ai là người nói\n'
+                    '      "message": string,             # Nội dung lời nói\n'
+                    '      "mood": "positive" | "neutral" | "negative"  # Tâm trạng người nói\n'
+                    '      "time_talking": int  # Thời gian tính bằng giây kể từ lúc bắt đầu câu nói tới lúc kết thúc câu nói của người đang nói trong đoạn hội thoại\n'
+                    "    },\n"
+                    "    ...\n"
+                    "  ],\n"
+                    '  "overall_mood": "positive" | "neutral" | "negative"  # Tổng quan cảm xúc toàn cuộc gọi\n'
+                    "}\n\n"
+                    "**Yêu cầu quan trọng:**\n"
+                    "- Mỗi lời nói phải là một object riêng biệt, không gộp.\n"
+                    "- Giữ nguyên đúng thứ tự thời gian.\n"
+                    "- Không chèn bất kỳ text nào bên ngoài JSON object.\n\n"
+                    "- Nếu đoạn hội thoại quá ngắn (dưới 4 câu hoặc nhỏ hơn 10 giây) thì trả về JSON của message như phía dưới:   #Vẫn ưu tiên xử lý được dữ liệu và ra được tóm tắt hơn\n"
+                    "{\n"
+                    '  "summary": "Cuộc hội thoại không mang ý nghĩa, không thể tóm tắt.",\n'
+                    '  "messages": [\n'
+                    "    {\n"
+                    '      "order": 1,\n'
+                    '      "speaker": "from_user",\n'
+                    '      "message": "Không thể nghe được nội dung hoặc nội dung không có ý nghĩa",\n'
+                    '      "mood": "neutral"\n'
+                    '      "time_talking": 0\n'
+                    "    },\n"
+                    "  ],\n"
+                    '  "overall_mood": "neutral"\n'
+                    "}\n\n"
+                    "**Ví dụ minh họa:**\n"
+                    "{\n"
+                    '  "summary": "Khách hàng hỏi về đơn hàng và được nhân viên xác nhận trạng thái giao hàng.",\n'
+                    '  "messages": [\n'
+                    "    {\n"
+                    '      "order": 1,\n'
+                    '      "speaker": "from_user",\n'
+                    '      "message": "Xin chào, tôi muốn kiểm tra đơn hàng 123.",\n'
+                    '      "mood": "neutral"\n'
+                    '      "time_talking": 1-5\n'
+                    "    },\n"
+                    "    {\n"
+                    '      "order": 2,\n'
+                    '      "speaker": "to_user",\n'
+                    '      "message": "Vâng, anh/chị vui lòng chờ em kiểm tra.",\n'
+                    '      "mood": "positive"\n'
+                    '      "time_talking": 7-11\n'
+                    "    }\n"
+                    "  ],\n"
+                    '  "overall_mood": "positive"\n'
+                    "}\n"
                 )
-                if not transcription.strip():
-                    logger.warning("Transcription is empty")
-                return transcription
-        except Exception as e:
-            logger.error(f"Error transcribing WAV: {str(e)}")
-            raise HTTPException(status_code=500, detail=f"Error transcribing WAV: {str(e)}")
-        finally:
-            if temp_file_path and os.path.exists(temp_file_path):
-                os.unlink(temp_file_path)
 
-    async def summarize_text(self, text: str, max_length: int = 100) -> str:
-        try:
-            logger.info("Summarizing text")
-            response = self.openai_client.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are an assistant that summarizes text concisely.",
-                    },
-                    {
-                        "role": "user",
-                        "content": f"Summarize the following text in no more than {max_length} words:\n\n{text}",
-                    },
-                ],
-                max_tokens=max_length // 1,
-                temperature=0.5,
-            )
-            return response.choices[0].message.content.strip()
-        except Exception as e:
-            logger.error(f"Error summarizing text: {str(e)}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error summarizing text: {str(e)}",
-            )
-    async def split_message(self, s3_url: str, from_user: User, to_user: User) -> List[Message]:
-        try:
-            # Tải file từ S3
-            audio_file = requests.get(s3_url)
-            if audio_file.status_code != 200:
-                raise HTTPException(status_code=400, detail="Không tải được file audio từ S3.")
 
-            # Gọi API OpenAI để transcript
-            transcription = self.openai_client.audio.transcriptions.create(
-                model="gpt-4o-transcribe", 
-                file=("audio.wav", audio_file.content),
+            # Gọi GPT 1 lần duy nhất (Whisper + chức năng mở rộng)
+            response = self.openai_client.audio.transcriptions.create(
+                model="gpt-4o-transcribe",
+                file=file_data,
                 response_format="text",
-                prompt=(
-                    "Đây là cuộc gọi giữa một nhân viên (to_user) và một khách hàng (from_user). "
-                    "Hãy ghi lại hội thoại theo đúng thứ tự thời gian. "
-                    "Mỗi lời nói của từng người phải được tách riêng thành một mục, dù có nói ngắn, nói chen ngang hay chưa nói hết câu.\n\n"
-                    "Tuyệt đối không được gộp 2 lời nói vào một mục. Nếu một người chen ngang khi người kia đang nói, hãy coi đó là một lời nói riêng, ghi đúng thứ tự thời gian.\n\n"
-                    "Mỗi mục nên bao gồm:\n"
-                    "- \"order\": số thứ tự phát ngôn (tăng dần từ 1)\n"
-                    "- \"speaker\": \"from_user\" hoặc \"to_user\"\n"
-                    "- \"message\": nội dung lời nói\n"
-                    "- \"mood\": \"positive\", \"neutral\" hoặc \"negative\"\n\n"
-                    "Trả kết quả dưới dạng JSON list hợp lệ, không in gì thêm ngoài JSON list."
-                )
-                ,
-                temperature=0.0,
+                prompt=prompt,
+                temperature=0,
             )
+            response_text = response  
 
-            # Parse JSON từ OpenAI
-            print("TRANSCRIPTION:", transcription)
+            print("Response from GPT:", response_text)
 
             try:
-                parsed = json.loads(transcription.strip())
+                parse_json = json.loads(response_text.strip())
             except json.JSONDecodeError as e:
-                logger.error(f"Error parsing JSON transcription: {e}")
-                raise HTTPException(status_code=500, detail="Phản hồi từ AI không đúng định dạng JSON.")
-
-
-
-            saved_messages: List[Message] = []
-
-            for item in parsed:
-                speaker = item.get("speaker")
-                sender = from_user if speaker == "from_user" else to_user
-                message = Message(
-                    sender_id=sender,
-                    content=item.get("message", ""),
-                    mood=item.get("mood"),
-                    order=item.get("order")
+                print("❌ JSON decode error:", str(e))
+                with open("logs.txt", "w", encoding="utf-8") as f:
+                    f.write(response_text)
+                raise Exception("⚠️ Lỗi parse JSON. Nội dung gốc đã được ghi vào logs.txt")
+            
+            messages = []
+            for msg in parse_json["messages"]:
+                if msg["speaker"] == "from_user":
+                    sender_id = from_user.id
+                elif msg["speaker"] == "to_user":
+                    sender_id = to_user.id
+                else:
+                    raise Exception(f"Unknown speaker: {msg['speaker']}")
+                messages.append(
+                    Message(
+                        order=msg["order"],
+                        sender_id=sender_id,
+                        content=msg["message"],
+                        mood=msg["mood"],
+                        time=int(msg["time_talking"]),
+                    )
                 )
-                await message.insert()
-                saved_messages.append(message)
+                
 
-            print("Saved messages:", saved_messages)
-            return saved_messages
+            ai_response = gpt_call_analyze_response(
+                summarize=parse_json["summary"],
+                messages=messages,
+                overall_mood=parse_json["overall_mood"],
+            )
+            return ai_response
 
         except Exception as e:
-            logger.error(f"Error splitting message: {str(e)}")
-            raise HTTPException(status_code=500, detail=f"Error splitting message: {str(e)}")
+            print(e)
+            raise e
+
