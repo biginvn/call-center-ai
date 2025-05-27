@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Optional
 from pydantic import Field
 from app.models.user import User
+from app.models.enums import MessageType
 
 
 class RefreshToken(Document):

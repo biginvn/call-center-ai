@@ -43,9 +43,9 @@ class ConversationRepository:
         filters = []
 
         if query.from_user_id:
-            filters.append(Conversation.from_user == ObjectId(query.from_user_id))
+            filters.append(Conversation.from_user.id == query.from_user_id)
         if query.to_user_id:
-            filters.append(Conversation.to_user == ObjectId(query.to_user_id))
+            filters.append(Conversation.to_user.id == query.to_user_id)
         if query.type:
             filters.append(Conversation.type == query.type)
 

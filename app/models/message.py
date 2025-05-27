@@ -11,7 +11,6 @@ class Message(Document):
     content: str
     mood: Optional[str]
     order: int
-    time: Optional[int]
     # type: MessageType
 
     class Settings:
