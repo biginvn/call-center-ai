@@ -30,6 +30,7 @@ async def handle_bridge_destroy(ev):
         
         ai_service = AIService()
         file_url = await ai_service.upload_record_to_s3(record_url, from_user.username)
+        # file_url = "https://internship-nixxis.s3.ap-southeast-1.amazonaws.com/records/54259aab-c02c-47b7-bd5b-281999e44c54.wav"
         print("File uploaded to S3:", file_url)
         ai_response: gpt_call_analyze_response = await ai_service.analyze_call_full_one_gpt_call(file_url, call.caller_ext, call.agent_ext)
         print("AI response:", ai_response)
@@ -40,7 +41,8 @@ async def handle_bridge_destroy(ev):
                 content=mes.content,
                 mood=mes.mood,
                 order=mes.order,
-                time=mes.time
+                start_time=mes.start_time,
+                end_time=mes.end_time
         )
             await message.insert()
             call_messages.append(message)

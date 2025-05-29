@@ -1,7 +1,7 @@
 from beanie import Document, Link
 from datetime import datetime
-from typing import Optional
-from pydantic import Field
+from typing import Literal, Optional
+from pydantic import BaseModel, Field
 from app.models.user import User
 from app.models.enums import MessageType
 
@@ -11,7 +11,8 @@ class Message(Document):
     content: str
     mood: Optional[str]
     order: int
-    time: Optional[int]
+    start_time: Optional[int]
+    end_time: Optional[int]
     # type: MessageType
 
     class Settings:

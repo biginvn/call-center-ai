@@ -8,6 +8,7 @@ from app.auth.auth_routes import router as auth_router
 from app.api.user_api import router as user_router
 from app.api.logout import router as logout_router
 from app.api.conversations_api import conversation_router as conversation_router
+from app.api.call_bot import router as call_bot_router
 from app.middeware.check_token import check_token_middleware
 import threading
 from app.websocket.ws_monitor import run_ws_monitor
@@ -39,12 +40,12 @@ async def shutdown_event():
 
 
 app.middleware("http")(check_token_middleware)
+app.include_router(call_bot_router)
 app.include_router(user_router)
 app.include_router(auth_router)
 app.include_router(logout_router)
 app.include_router(upload_router)
 app.include_router(conversation_router)
-
 
 @app.get("/")
 async def hello_world():

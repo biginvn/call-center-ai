@@ -6,7 +6,12 @@ from app.core.config import settings
 
 async def check_token_middleware(request: Request, call_next):
     # Cho phép các route auth hoặc public không cần token
-    if request.url.path.startswith("/login") or request.url.path.startswith("/docs") or request.url.path.startswith("/"):
+    if (
+        request.url.path.startswith("/login")
+        or request.url.path.startswith("/docs")
+        or request.url.path.startswith("/openapi")
+        or request.url.path.startswith("/realtime")
+    ):
         return await call_next(request)
 
     token = request.headers.get("Authorization")
