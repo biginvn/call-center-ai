@@ -11,6 +11,8 @@ async def check_token_middleware(request: Request, call_next):
         or request.url.path.startswith("/docs")
         or request.url.path.startswith("/openapi")
         or request.url.path.startswith("/realtime")
+        or request.url.path.startswith("/")
+        or request.url.path.startswith("/user/disconnect")
     ):
         return await call_next(request)
 
