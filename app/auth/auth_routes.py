@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from app.auth.auth import create_access_token, create_refresh_token
 from app.dependencies.active_user import add_active_user
 from app.models.user import User
+from app.models.active import ActiveUser
 from app.auth.exceptions import CustomHTTPException
 from app.repositories.user_repository import UserRepository  # Import mới
 from datetime import datetime, timedelta
@@ -32,6 +33,7 @@ class AdminLoginRequest(BaseModel):
 async def agent_login(request: AgentLoginRequest):
     logger.info(f"Attempting login for agent: {request.username}")
     user = await UserRepository.get_user_by_username(request.username)
+
     if not user:
         logger.error(f"User {request.username} not found")
         raise CustomHTTPException(
@@ -63,17 +65,17 @@ async def agent_login(request: AgentLoginRequest):
             detail="Extension number is already in use",
         )
 
-    if user.extension_number != request.extension_number:
+    if user.extension_number == "":
         logger.info(
             f"Updating extension_number for {request.username} from {user.extension_number} to {request.extension_number}"
         )
         user = await UserRepository.update_user_extension_number(user, request.extension_number)
-
+    await add_active_user(user)
     logger.info(f"Login successful for {request.username}")
     access_token = create_access_token(data={"sub": user.username, "token_type": "access"})
     refresh_token = create_refresh_token(data={"sub": user.username, "token_type": "refresh"})
     await UserRepository.save_refresh_token(user.username, refresh_token)
-    await add_active_user(user)
+    
     extension_service = ExtensionService()
     await extension_service.update_extension_availability(
         request.extension_number, False

@@ -1,0 +1,13 @@
+{
+  "summary": "Khách hàng hỏi về một vấn đề nhưng không rõ nội dung cụ thể.",
+  "messages": [
+    {
+      "order": 1,
+      "speaker": "from_user",
+      "message": "Alo, dạ dạ, bạn cần hỗ trợ gì ạ?",
+      "mood": "neutral",
+      "time_talking": 0-3
+    }
+  ],
+  "overall_mood": "neutral"
+}

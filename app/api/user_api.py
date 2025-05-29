@@ -5,6 +5,9 @@ from app.auth.auth import get_current_user
 from app.services.user_service import UserService
 from app.models.user import User
 from app.auth.exceptions import CustomHTTPException
+from app.repositories.user_repository import UserRepository
+from app.services.extension_service import ExtensionService
+from app.dependencies.active_user import add_active_user, remove_active_user
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -57,4 +60,27 @@ async def get_fullname(extension_number: str, current_user: User = Depends(get_c
     logger.info(f"Fetching fullname for extension: {extension_number}")
     user_service = UserService()
     fullname = await user_service.get_fullname_by_extension(extension_number, current_user)
-    return {"fullname": fullname}
+    return {"fullname": fullname, "extension_number": extension_number}
+
+class ConnectRequest (BaseModel):
+    username: str
+    extension: str
+
+@router.post("/connect")
+async def on_connect_user(request:ConnectRequest):
+    user = await UserRepository.get_user_by_username(request.username)
+    if user:
+        user = await UserRepository.update_user_extension_number(user, request.extension)
+    extension_service = ExtensionService()
+    await extension_service.update_extension_availability(request.extension, False)
+    await add_active_user(user)
+    return "User connected successfully"
+
+@router.post("/disconnect")
+async def on_connect_user(request:ConnectRequest):
+    user = await UserRepository.get_user_by_username(request.username)
+    await UserRepository.update_user_extension_number(user, "")
+    extension_service = ExtensionService()
+    await extension_service.update_extension_availability(request.extension, True)
+    await remove_active_user(user)
+    return "user disconnected"

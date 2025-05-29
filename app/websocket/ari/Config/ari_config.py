@@ -1,5 +1,5 @@
 import base64
-ARI_HOST     = "54.169.56.19"
+ARI_HOST     = "3.0.91.201"
 ARI_HTTPS_PORT = 8089
 ARI_PORT     = 8088
 ARI_USER     = "thanh"
