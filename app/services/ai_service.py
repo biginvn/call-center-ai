@@ -162,7 +162,7 @@ class AIService:
                     "    },\n"
                     "    ...\n"
                     "  ],\n"
-                    '  "overall_mood": "positive" | "neutral" | "negative"  # Tổng quan cảm xúc toàn cuộc gọi\n'
+                    '  "overall_mood": "positive" | "neutral" | "negative"  # Tổng quan cảm xúc toàn cuộc gọi của khách hàng\n'
                     "}\n\n"
                     "**Yêu cầu quan trọng:**\n"
                     "- Mỗi lời nói phải là một object riêng biệt, không gộp.\n"
@@ -188,16 +188,23 @@ class AIService:
                     '  "messages": [\n'
                     "    {\n"
                     '      "order": 1,\n'
-                    '      "speaker": "from_user",\n'
-                    '      "message": "Xin chào, tôi muốn kiểm tra đơn hàng 123.",\n'
+                    '      "speaker": "to_user",\n'
+                    '      "message": "Xin chào quý khách ạ.",\n'
                     '      "mood": "neutral"\n'
-                    '      "time_talking": 1-5\n'
+                    '      "time_talking": 0-1\n'
                     "    },\n"
                     "    {\n"
                     '      "order": 2,\n'
+                    '      "speaker": "from_user",\n'
+                    '      "message": "Xin chào, bạn có thể giúp tôi kiểm tra đơn hàng 123 được không ạ, tôi rất cảm ơn bạn.",\n'
+                    '      "mood": "positive"\n'
+                    '      "time_talking": 1-5\n'
+                    "    },\n"
+                    "    {\n"
+                    '      "order": 3,\n'
                     '      "speaker": "to_user",\n'
                     '      "message": "Vâng, anh/chị vui lòng chờ em kiểm tra.",\n'
-                    '      "mood": "positive"\n'
+                    '      "mood": "neutral"\n'
                     '      "time_talking": 7-11\n'
                     "    }\n"
                     "  ],\n"
@@ -255,4 +262,6 @@ class AIService:
         except Exception as e:
             print(e)
             raise e
+
+
 
