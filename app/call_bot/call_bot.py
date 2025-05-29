@@ -1,5 +1,4 @@
 import os
-<<<<<<< HEAD
 from app.models.conversation import Conversation
 from app.models.enums import ConversationMood, ConversationStatus, ConversationType
 from app.models.message import Message
@@ -10,9 +9,6 @@ from fastapi import Depends
 from typing import List, Optional, Literal, Any
 from app.auth.auth import get_current_user
 from app.models.user import User
-=======
-from typing import List, Optional, Literal, Any
->>>>>>> 19daa79ce5fa59a0964caeb9e4c6a927ec2047ac
 import httpx
 from app.core.config import settings
 from pydantic import BaseModel
@@ -78,7 +74,6 @@ async def create_openai_session(instructions: str = "") -> SessionResponse:
         body["instructions"] = instructions
 
     async with httpx.AsyncClient() as client:
-<<<<<<< HEAD
         
         response = await client.post(url, headers=headers, json=body)
         response.raise_for_status()
@@ -147,8 +142,3 @@ async def finish_openai_bot_session(request: FinishSessionRequest):
         print("Error in finish_openai_bot_session:", str(e))
         raise e
 
-=======
-        response = await client.post(url, headers=headers, json=body)
-        response.raise_for_status()
-        return SessionResponse(**response.json())  # Parse into model
->>>>>>> 19daa79ce5fa59a0964caeb9e4c6a927ec2047ac
