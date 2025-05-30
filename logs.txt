@@ -1,12 +1,96 @@
 {
-  "summary": "Khách hàng hỏi về một vấn đề nhưng không rõ nội dung cụ thể.",
+  "summary": "Nhân viên thông báo khách hàng về việc cần đổi điện thoại mới để sử dụng mạng 4G và khuyên khách hàng nên mua điện thoại tại quầy giao dịch của Vinaphone.",
   "messages": [
     {
       "order": 1,
-      "speaker": "from_user",
-      "message": "Alo, dạ dạ, bạn cần hỗ trợ gì ạ?",
+      "speaker": "to_user",
+      "message": "Alo, alo chào chú ạ, cháu gọi từ tổng đài Vinaphone.",
       "mood": "neutral",
       "time_talking": 0-3
+    },
+    {
+      "order": 2,
+      "speaker": "from_user",
+      "message": "Alo.",
+      "mood": "neutral",
+      "time_talking": 3-4
+    },
+    {
+      "order": 3,
+      "speaker": "to_user",
+      "message": "Chú ơi cháu gọi để thông báo số điện thoại mình đang bỏ vào thiết bị này điện thoại 2G, mà đến ngày 16 tháng 9 Vinaphone sẽ cắt hoàn toàn cái điện thoại dùng 2G chú ạ, chú đã nhận được thông tin này chưa?",
+      "mood": "neutral",
+      "time_talking": 4-10
+    },
+    {
+      "order": 4,
+      "speaker": "from_user",
+      "message": "Nghe rồi nhưng mà không biết làm.",
+      "mood": "neutral",
+      "time_talking": 10-12
+    },
+    {
+      "order": 5,
+      "speaker": "to_user",
+      "message": "À ý là mình phải mua cái điện thoại mới đấy chú ạ, mình bỏ cái SIM này vào điện thoại khác để dùng đấy, điện thoại của chú là điện thoại đời cũ không dùng để đến ngày 16 tháng 9 là sẽ hỏng một luôn đấy chú ạ.",
+      "mood": "neutral",
+      "time_talking": 12-18
+    },
+    {
+      "order": 6,
+      "speaker": "from_user",
+      "message": "Thì đi đổi hả?",
+      "mood": "neutral",
+      "time_talking": 18-19
+    },
+    {
+      "order": 7,
+      "speaker": "to_user",
+      "message": "Đi mua cái điện thoại mới ạ.",
+      "mood": "neutral",
+      "time_talking": 19-20
+    },
+    {
+      "order": 8,
+      "speaker": "from_user",
+      "message": "Ừ ừ.",
+      "mood": "neutral",
+      "time_talking": 20-21
+    },
+    {
+      "order": 9,
+      "speaker": "to_user",
+      "message": "Dạ, chú nhớ mua điện thoại, giờ thời gian có điện thoại bàn phím như chú đang dùng á, nhưng mà dùng sóng 4G đấy chú mua cái loại này chú nhé.",
+      "mood": "neutral",
+      "time_talking": 21-25
+    },
+    {
+      "order": 10,
+      "speaker": "from_user",
+      "message": "Thì mua ở đâu? Mua chỗ nào cũng được hả?",
+      "mood": "neutral",
+      "time_talking": 25-27
+    },
+    {
+      "order": 11,
+      "speaker": "to_user",
+      "message": "Mua chỗ nào cũng được nhưng mà chú phải đảm bảo là đó là điện thoại dùng sóng 4G, bây giờ nó đang bán sóng 2G nhiều lắm, hoặc là để chắc chắn hơn thì chú cứ ra điểm giao dịch của Vinaphone á, ở quầy phóng á chú đó, điểm giao dịch của Vinaphone quầy phóng nhé, để chú mua điện thoại với giá ưu đãi hơn nhé, ở đó đang có chương trình nhé chú.",
+      "mood": "neutral",
+      "time_talking": 27-35
+    },
+    {
+      "order": 12,
+      "speaker": "from_user",
+      "message": "Ừ.",
+      "mood": "neutral",
+      "time_talking": 35-36
+    },
+    {
+      "order": 13,
+      "speaker": "to_user",
+      "message": "Dạ, dạ chú nhé, dạ cháu cảm ơn chú, chào chú ạ.",
+      "mood": "positive",
+      "time_talking": 36-38
     }
   ],
   "overall_mood": "neutral"

@@ -15,6 +15,7 @@ import os
 import tempfile
 import uuid
 import pytz
+import asyncio
 from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
@@ -40,84 +41,6 @@ class AIService:
         self.ari_username = settings.AUTH_USERNAME
         self.ari_password = settings.AUTH_PASSWORD
 
-    async def upload_record_to_s3(self, record_url: str, username: str) -> Document:
-        # Tải file từ URL
-        try:
-            logger.info(f"Downloading WAV from: {record_url}")
-            response = requests.get(
-                record_url,
-                auth=(self.ari_username, self.ari_password),
-                stream=True,
-                verify=False,
-            )
-            response.raise_for_status()
-
-            # Kiểm tra Content-Type và đuôi file
-            content_type = response.headers.get("Content-Type", "")
-            if not content_type.startswith("audio/wav") and not record_url.endswith(
-                ".wav"
-            ):
-                logger.error(f"Invalid file format: {content_type}")
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="Only WAV files are allowed",
-                )
-
-            # Kiểm tra kích thước file
-            file_size = int(response.headers.get("Content-Length", 0))
-            if file_size > 20 * 1024 * 1024:  # 20 MB
-                logger.error(f"File size {file_size} exceeds limit")
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="File size exceeds the limit of 20 MB",
-                )
-
-            file_content = response.content
-            unique_filename = f"records/{uuid.uuid4()}.wav"
-
-        except requests.RequestException as e:
-            logger.error(f"Error downloading WAV: {str(e)}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error downloading WAV: {str(e)}",
-            )
-
-        # Upload lên S3
-        try:
-            s3_client.put_object(
-                Bucket=settings.S3_BUCKET,
-                Key=unique_filename,
-                Body=file_content,
-                ContentType="audio/wav",
-            )
-            file_url = f"https://{settings.S3_BUCKET}.s3.{settings.AWS_REGION}.amazonaws.com/{unique_filename}"
-        except Exception as e:
-            logger.error(f"Error uploading to S3: {str(e)}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error uploading to S3: {str(e)}",
-            )
-
-        document = Document(
-            document_id=str(uuid.uuid4()),
-            file_name=f"record_{unique_filename.split('/')[-1]}",
-            file_path=file_url,
-            file_size=file_size,
-            type="audio/wav",
-            uploaded_at=datetime.utcnow(),
-            uploaded_by=username,
-        )
-        try:
-            await document.insert()
-        except Exception as e:
-            logger.error(f"Error saving document to MongoDB: {str(e)}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error saving document to MongoDB: {str(e)}",
-            )
-
-        return file_url
-
 
     async def analyze_call_full_one_gpt_call(self,
         url: Optional[str] = None,
@@ -133,8 +56,8 @@ class AIService:
         Trả về dict gồm: transcription, summary, messages[]
         """
         
-        from_user = await self.user_repo.get_user_by_extension(caller_ext)
-        to_user = await self.user_repo.get_user_by_extension(agent_ext)
+        from_user = await self.user_repo.get_user_by_extension('111')
+        to_user = await self.user_repo.get_user_by_extension('112')
         # Bước 1: Tải file WAV từ S3
         if not url:
             raise ValueError("Cần cung cấp ít nhất một trong hai: url hoặc local_path.")
@@ -262,6 +185,31 @@ class AIService:
         except Exception as e:
             print(e)
             raise e
+        
+        
+async def main():
+    ai_service = AIService()
 
+    # Thay đổi URL và extensions theo dữ liệu thật hoặc để test
+    url = "https://internship-nixxis.s3.ap-southeast-1.amazonaws.com/records/54259aab-c02c-47b7-bd5b-281999e44c54.wav"
+    caller_ext = "test1"
+    agent_ext = "test2"
 
+    try:
+        result = await ai_service.analyze_call_full_one_gpt_call(
+            url=url,
+            caller_ext=caller_ext,
+            agent_ext=agent_ext
+        )
+        print("=== Tổng kết cuộc gọi ===")
+        print("Tóm tắt:", result.summarize)
+        print("Tổng mood:", result.overall_mood)
+        print("Chi tiết tin nhắn:")
+        for msg in result.messages:
+            print(f"[{msg.order}] ({msg.mood}) [{msg.time}] {msg.content}")
 
+    except Exception as e:
+        print("Có lỗi xảy ra:", e)
+
+if __name__ == "__main__":
+    asyncio.run(main())
