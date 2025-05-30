@@ -44,6 +44,7 @@ def dial_to_agent(call_id, agent_extension, bridge_id, caller_name):
     Returns:
         The agent's channel ID
     """
+    print(f"Dialing agent {agent_extension}...")
     # Create a unique channel ID for the agent
     agent_channel_id = f"agent_{agent_extension}_{uuid.uuid4().hex[:8]}"
     
@@ -61,6 +62,7 @@ def dial_to_agent(call_id, agent_extension, bridge_id, caller_name):
     )
     
     if r.status_code != 200:
+        print("Fail dialing to agent", r.text)
         return None
         
 

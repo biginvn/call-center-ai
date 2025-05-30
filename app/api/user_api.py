@@ -7,7 +7,6 @@ from app.models.user import User
 from app.auth.exceptions import CustomHTTPException
 from app.repositories.user_repository import UserRepository
 from app.services.extension_service import ExtensionService
-from app.dependencies.active_user import add_active_user, remove_active_user
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -72,8 +71,7 @@ async def on_connect_user(request:ConnectRequest):
     if user:
         user = await UserRepository.update_user_extension_number(user, request.extension)
     extension_service = ExtensionService()
-    await extension_service.update_extension_availability(request.extension, False)
-    await add_active_user(user)
+    await extension_service.update_extension_availability(request.extension, False, user)
     return "User connected successfully"
 
 @router.post("/disconnect")
@@ -81,6 +79,5 @@ async def on_connect_user(request:ConnectRequest):
     user = await UserRepository.get_user_by_username(request.username)
     await UserRepository.update_user_extension_number(user, "")
     extension_service = ExtensionService()
-    await extension_service.update_extension_availability(request.extension, True)
-    await remove_active_user(user)
+    await extension_service.update_extension_availability(request.extension, True, None)
     return "user disconnected"

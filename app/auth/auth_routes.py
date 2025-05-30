@@ -70,16 +70,11 @@ async def agent_login(request: AgentLoginRequest):
             f"Updating extension_number for {request.username} from {user.extension_number} to {request.extension_number}"
         )
         user = await UserRepository.update_user_extension_number(user, request.extension_number)
-    await add_active_user(user)
     logger.info(f"Login successful for {request.username}")
     access_token = create_access_token(data={"sub": user.username, "token_type": "access"})
     refresh_token = create_refresh_token(data={"sub": user.username, "token_type": "refresh"})
     await UserRepository.save_refresh_token(user.username, refresh_token)
-    
-    extension_service = ExtensionService()
-    await extension_service.update_extension_availability(
-        request.extension_number, False
-    )
+
     return {
         "access_token": access_token,
         "refresh_token": refresh_token,

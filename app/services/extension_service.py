@@ -1,5 +1,6 @@
 from app.repositories.extension_repository import ExtensionRepository
 from app.models.extension import Extension
+from app.models.user import User
 from typing import List
 from app.auth.exceptions import CustomHTTPException
 import logging
@@ -24,8 +25,8 @@ class ExtensionService:
             raise CustomHTTPException(status_code=404, detail="Extension not found")
         return extension
 
-    async def update_extension_availability(self, number: str, available: bool) -> Extension:
+    async def update_extension_availability(self, number: str, available: bool, user:User) -> Extension:
         extension = await self.get_extension_by_number(number)
-        updated_extension = await self.extension_repo.update_extension_availability(extension, available)
+        updated_extension = await self.extension_repo.update_extension_availability(extension, available, user)
         logger.info(f"Extension {number} updated to available={available}")
         return updated_extension

@@ -34,6 +34,7 @@ def on_open(ws):
 
 def on_close(ws):
     print("Disconnected from Asterisk")
+    
 
 def on_error(ws, error):
     print(f"Error: {error}")

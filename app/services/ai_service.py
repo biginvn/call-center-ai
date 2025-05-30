@@ -19,6 +19,73 @@ from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
+MESSAGE_PROMPT = ("Bạn sẽ nhận được một file ghi âm cuộc gọi giữa 2 người: from_user (khách hàng) và to_user (nhân viên).\n"
+    "Hãy phân tích toàn bộ file và trả về dữ liệu dưới dạng một JSON object hợp lệ, có đúng **4 trường** như sau:\n\n"
+
+    "**Định dạng JSON mong muốn:**\n"
+    "{\n"
+    '  "summary": string,                  # Tóm tắt nội dung cuộc gọi trong tối đa 100 từ\n'
+    '  "messages": [                       # Danh sách câu nói theo thứ tự thời gian\n'
+    "    {\n"
+    '      "order": int,                  # Số thứ tự câu nói (tăng dần từ 1)\n'
+    '      "speaker": "from_user" | "to_user",  # Ai là người nói\n'
+    '      "message": string,             # Nội dung lời nói\n'
+    '      "mood": "positive" | "neutral" | "negative",  # Tâm trạng người nói\n'
+    '      "start_time": string,          # Thời điểm bắt đầu câu nói, định dạng "mm:ss"\n'
+    '      "end_time": string             # Thời điểm kết thúc câu nói, định dạng "mm:ss"\n'
+    "    },\n"
+    "    ...\n"
+    "  ],\n"
+    '  "overall_mood": "positive" | "neutral" | "negative"  # Tổng quan cảm xúc toàn cuộc gọi của khách hàng\n'
+    "}\n\n"
+
+    "**Yêu cầu quan trọng:**\n"
+    "- `start_time` và `end_time` phải là thời gian **thực tế trong file audio**, phản ánh chính xác **lúc bắt đầu và kết thúc mỗi câu nói**.\n"
+    "- Ví dụ: nếu 10 giây đầu không có ai nói gì, thì câu đầu tiên sẽ bắt đầu từ \"00:10\", không phải \"00:00\".\n"
+    "- Mỗi câu nói phải là một object riêng biệt, đúng thứ tự thời gian.\n"
+    "- Tuyệt đối không chèn bất kỳ văn bản nào bên ngoài JSON object.\n\n"
+
+    "**Trường hợp đặc biệt:**\n"
+    "- Nếu cuộc gọi quá ngắn (dưới 4 câu hoặc dưới 10 giây), hãy trả về như sau:\n"
+    "{\n"
+    '  "summary": "Cuộc hội thoại không mang ý nghĩa, không thể tóm tắt.",\n'
+    '  "messages": [\n'
+    "    {\n"
+    '      "order": 1,\n'
+    '      "speaker": "from_user",\n'
+    '      "message": "Không thể nghe được nội dung hoặc nội dung không có ý nghĩa",\n'
+    '      "mood": "neutral",\n'
+    '      "start_time": "00:10",\n'
+    '      "end_time": "00:11"\n'
+    "    }\n"
+    "  ],\n"
+    '  "overall_mood": "neutral"\n'
+    "}\n\n"
+
+    "**Ví dụ minh họa:**\n"
+    "{\n"
+    '  "summary": "Khách hàng hỏi về đơn hàng và được nhân viên xác nhận trạng thái giao hàng.",\n'
+    '  "messages": [\n'
+    "    {\n"
+    '      "order": 1,\n'
+    '      "speaker": "to_user",\n'
+    '      "message": "Xin chào quý khách ạ.",\n'
+    '      "mood": "neutral",\n'
+    '      "start_time": "00:08",\n'
+    '      "end_time": "00:10"\n'
+    "    },\n"
+    "    {\n"
+    '      "order": 2,\n'
+    '      "speaker": "from_user",\n'
+    '      "message": "Tôi muốn kiểm tra đơn hàng 123.",\n'
+    '      "mood": "positive",\n'
+    '      "start_time": "00:10",\n'
+    '      "end_time": "00:15"\n'
+    "    }\n"
+    "  ],\n"
+    '  "overall_mood": "positive"\n'
+    "}\n")
+
 s3_client = boto3.client(
     "s3",
     region_name=settings.AWS_REGION,
@@ -145,80 +212,12 @@ class AIService:
                 raise Exception("Không tải được file từ URL.")
             file_data = ("audio.wav", response.content)
 
-            # Prompt duy nhất
-            prompt = (
-                    "Bạn sẽ nhận được một file ghi âm cuộc gọi giữa 2 người: from_user (khách hàng) và to_user (nhân viên).\n"
-                    "Hãy xử lý và trả về dữ liệu dưới dạng một JSON object hợp lệ, có đúng **4 trường** như sau:\n\n"
-                    "**Kiểu dữ liệu mong muốn:**\n"
-                    "{\n"
-                    '  "summary": string,                  # Tóm tắt nội dung cuộc gọi trong tối đa 100 từ\n'
-                    '  "messages": [                       # Danh sách lời nói theo thứ tự thời gian\n'
-                    "    {\n"
-                    '      "order": int,                  # Số thứ tự câu nói (tăng dần từ 1)\n'
-                    '      "speaker": "from_user" | "to_user",  # Ai là người nói\n'
-                    '      "message": string,             # Nội dung lời nói\n'
-                    '      "mood": "positive" | "neutral" | "negative"  # Tâm trạng người nói\n'
-                    '      "time_talking": int  # Thời gian tính bằng giây kể từ lúc bắt đầu câu nói tới lúc kết thúc câu nói của người đang nói trong đoạn hội thoại\n'
-                    "    },\n"
-                    "    ...\n"
-                    "  ],\n"
-                    '  "overall_mood": "positive" | "neutral" | "negative"  # Tổng quan cảm xúc dựa trên nội dung nói chuyện của khách hàng, không tính nhân viên\n'
-                    "}\n\n"
-                    "**Yêu cầu quan trọng:**\n"
-                    "- Mỗi lời nói phải là một object riêng biệt, không gộp.\n"
-                    "- Giữ nguyên đúng thứ tự thời gian.\n"
-                    "- Không chèn bất kỳ text nào bên ngoài JSON object.\n\n"
-                    "- Nếu đoạn hội thoại quá ngắn (dưới 4 câu hoặc nhỏ hơn 10 giây) thì trả về JSON của message như phía dưới:   #Vẫn ưu tiên xử lý được dữ liệu và ra được tóm tắt hơn\n"
-                    "{\n"
-                    '  "summary": "Cuộc hội thoại không mang ý nghĩa, không thể tóm tắt.",\n'
-                    '  "messages": [\n'
-                    "    {\n"
-                    '      "order": 1,\n'
-                    '      "speaker": "from_user",\n'
-                    '      "message": "Không thể nghe được nội dung hoặc nội dung không có ý nghĩa",\n'
-                    '      "mood": "neutral"\n'
-                    '      "time_talking": 0\n'
-                    "    },\n"
-                    "  ],\n"
-                    '  "overall_mood": "neutral"\n'
-                    "}\n\n"
-                    "**Ví dụ minh họa:**\n"
-                    "{\n"
-                    '  "summary": "Khách hàng hỏi về đơn hàng và được nhân viên xác nhận trạng thái giao hàng.",\n'
-                    '  "messages": [\n'
-                    "    {\n"
-                    '      "order": 1,\n'
-                    '      "speaker": "to_user",\n'
-                    '      "message": "Xin chào quý khách ạ.",\n'
-                    '      "mood": "neutral"\n'
-                    '      "time_talking": 0-1\n'
-                    "    },\n"
-                    "    {\n"
-                    '      "order": 2,\n'
-                    '      "speaker": "from_user",\n'
-                    '      "message": "Xin chào, bạn có thể giúp tôi kiểm tra đơn hàng 123 được không ạ, tôi rất cảm ơn bạn.",\n'
-                    '      "mood": "positive"\n'
-                    '      "time_talking": 1-5\n'
-                    "    },\n"
-                    "    {\n"
-                    '      "order": 3,\n'
-                    '      "speaker": "to_user",\n'
-                    '      "message": "Vâng, anh/chị vui lòng chờ em kiểm tra.",\n'
-                    '      "mood": "neutral"\n'
-                    '      "time_talking": 7-11\n'
-                    "    }\n"
-                    "  ],\n"
-                    '  "overall_mood": "positive"\n'
-                    "}\n"
-                )
-
-
             # Gọi GPT 1 lần duy nhất (Whisper + chức năng mở rộng)
             response = self.openai_client.audio.transcriptions.create(
                 model="gpt-4o-transcribe",
                 file=file_data,
                 response_format="text",
-                prompt=prompt,
+                prompt=MESSAGE_PROMPT,
                 temperature=0,
             )
             response_text = response  
@@ -247,7 +246,8 @@ class AIService:
                         sender_id=sender_id,
                         content=msg["message"],
                         mood=msg["mood"],
-                        time=str(msg["time_talking"]),
+                        start_time=mmss_to_seconds(msg["start_time"]),
+                        end_time=mmss_to_seconds(msg["end_time"]),
                     )
                 )
                 
@@ -264,4 +264,6 @@ class AIService:
             raise e
 
 
-
+def mmss_to_seconds(mmss: str) -> int:
+            minutes, seconds = map(int, mmss.strip().split(":"))
+            return minutes * 60 + seconds
