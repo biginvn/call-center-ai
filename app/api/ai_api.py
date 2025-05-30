@@ -11,6 +11,7 @@ import logging
 import os
 import uuid
 import boto3
+from app.core.config import settings
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -24,7 +25,7 @@ S3_BUCKET = os.getenv("S3_BUCKET")
 
 router = APIRouter(prefix="/documents", tags=["Documents"])
 
-ALLOWED_EXTENSIONS = {".txt", ".pdf", ".docx", ".wav"}
+ALLOWED_EXTENSIONS = {".txt", ".pdf", ".docx", ".wav", ".webm", ".mp3", ".mp4", ".avi", ".mov"}
 MAX_FILE_SIZE = 20 * 1024 * 1024
 
 if not all([AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, S3_BUCKET]):
@@ -34,9 +35,9 @@ if not all([AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, S3_BUCKET]):
     )
 s3_client = boto3.client(
     "s3",
-    region_name=AWS_REGION,
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    region_name=settings.AWS_REGION,
+    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
 )
 
 
@@ -61,9 +62,7 @@ def is_allowed_file(file_name: str) -> bool:
 @router.post(
     "/upload", response_model=DocumentResponse, status_code=status.HTTP_201_CREATED
 )
-async def upload_document(
-    file: UploadFile = File(...)
-):
+async def upload_document(file: UploadFile = File(...)):
     logger.info(f"Received file: {file.filename}, size: {file.size} bytes")
 
     # role = current_user.role
@@ -87,26 +86,24 @@ async def upload_document(
         )
 
     file_extension = os.path.splitext(file.filename)[1]
-    unique_filename = f"{uuid.uuid4()}{file_extension}"
+    unique_filename = f"records/{uuid.uuid4()}{file_extension}"
 
     try:
         file_content = await file.read()
         s3_client.put_object(
-            Bucket=S3_BUCKET,
+            Bucket=settings.S3_BUCKET,
             Key=unique_filename,
             Body=file_content,
-            ContentType=file.content_type or "application/octet-stream",
+            ContentType="audio/wav",
         )
-        # Tạo URL công khai cho file
-        file_url = (
-            f"https://{S3_BUCKET}.s3.{AWS_REGION}.amazonaws.com/{unique_filename}"
-        )
+        file_url = f"https://{settings.S3_BUCKET}.s3.{settings.AWS_REGION}.amazonaws.com/{unique_filename}"
     except Exception as e:
-        logger.error(f"Error uploading file to S3: {str(e)}")
+        logger.error(f"Error uploading to S3: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error uploading file to S3: {str(e)}",
-        )
+            detail=f"Error uploading to S3: {str(e)}",
+    )
+
 
     document = Document(
         document_id=str(uuid.uuid4()),
@@ -156,5 +153,3 @@ async def dowloand_document(
     )
 
     return {"download_url": signed_url}
-
-

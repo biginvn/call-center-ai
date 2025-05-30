@@ -40,6 +40,7 @@ async def finish_session_endpoint(
     current_user: User = Depends(get_current_user),
     audio_url: str = ""
 ):
+
     await finish_openai_bot_session(current_user, audio_url)
     return {"message": "Session finished successfully"}
 

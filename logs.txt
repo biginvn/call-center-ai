@@ -1,97 +1,199 @@
 {
-  "summary": "Nhân viên thông báo khách hàng về việc cần đổi điện thoại mới để sử dụng mạng 4G và khuyên khách hàng nên mua điện thoại tại quầy giao dịch của Vinaphone.",
+  "summary": "Khách hàng phàn nàn về dịch vụ mạng và yêu cầu hỗ trợ. Nhân viên giải thích và đề xuất giải pháp tạm thời.",
   "messages": [
     {
       "order": 1,
       "speaker": "to_user",
-      "message": "Alo, alo chào chú ạ, cháu gọi từ tổng đài Vinaphone.",
+      "message": "Xin chào quý khách ạ.",
       "mood": "neutral",
-      "time_talking": 0-3
+      "start_time": "00:00",
+      "end_time": "00:02"
     },
     {
       "order": 2,
       "speaker": "from_user",
-      "message": "Alo.",
-      "mood": "neutral",
-      "time_talking": 3-4
+      "message": "Tôi muốn kiểm tra đơn hàng 123.",
+      "mood": "positive",
+      "start_time": "00:02",
+      "end_time": "00:05"
     },
     {
       "order": 3,
       "speaker": "to_user",
-      "message": "Chú ơi cháu gọi để thông báo số điện thoại mình đang bỏ vào thiết bị này điện thoại 2G, mà đến ngày 16 tháng 9 Vinaphone sẽ cắt hoàn toàn cái điện thoại dùng 2G chú ạ, chú đã nhận được thông tin này chưa?",
+      "message": "Xin chào, em tên là Ngân. Em có thể giúp gì anh hôm nay ạ?",
       "mood": "neutral",
-      "time_talking": 4-10
+      "start_time": "00:05",
+      "end_time": "00:08"
     },
     {
       "order": 4,
       "speaker": "from_user",
-      "message": "Nghe rồi nhưng mà không biết làm.",
-      "mood": "neutral",
-      "time_talking": 10-12
+      "message": "Tôi không biết là cô làm ăn cái kiểu gì mà tôi đang làm việc bình thường, lỗi mạng gì mà bực mình đứng hết cả mình luôn. Mất tiền đầy đủ, cái dịch vụ kiểu này ai mà làm được.",
+      "mood": "negative",
+      "start_time": "00:08",
+      "end_time": "00:15"
     },
     {
       "order": 5,
       "speaker": "to_user",
-      "message": "À ý là mình phải mua cái điện thoại mới đấy chú ạ, mình bỏ cái SIM này vào điện thoại khác để dùng đấy, điện thoại của chú là điện thoại đời cũ không dùng để đến ngày 16 tháng 9 là sẽ hỏng một luôn đấy chú ạ.",
+      "message": "Em xin lỗi anh, hiện tại thì đang bị mất an toàn khu vực. Mong anh cho em xin số điện thoại của anh với ạ.",
       "mood": "neutral",
-      "time_talking": 12-18
+      "start_time": "00:15",
+      "end_time": "00:20"
     },
     {
       "order": 6,
       "speaker": "from_user",
-      "message": "Thì đi đổi hả?",
+      "message": "Cô gọi số này giúp tôi nha: 091 234 5678.",
       "mood": "neutral",
-      "time_talking": 18-19
+      "start_time": "00:20",
+      "end_time": "00:25"
     },
     {
       "order": 7,
       "speaker": "to_user",
-      "message": "Đi mua cái điện thoại mới ạ.",
+      "message": "Dạ vâng ạ, anh chờ em chút xíu ạ.",
       "mood": "neutral",
-      "time_talking": 19-20
+      "start_time": "00:25",
+      "end_time": "00:27"
     },
     {
       "order": 8,
       "speaker": "from_user",
-      "message": "Ừ ừ.",
-      "mood": "neutral",
-      "time_talking": 20-21
+      "message": "Nhanh nhanh lên, tôi đang cần gấp.",
+      "mood": "negative",
+      "start_time": "00:27",
+      "end_time": "00:30"
     },
     {
       "order": 9,
       "speaker": "to_user",
-      "message": "Dạ, chú nhớ mua điện thoại, giờ thời gian có điện thoại bàn phím như chú đang dùng á, nhưng mà dùng sóng 4G đấy chú mua cái loại này chú nhé.",
+      "message": "Dạ, thưa anh, em mới kiểm tra trên hệ thống thì hiện tại đường truyền mạng sẽ được khôi phục lại sau một tiếng ạ. Anh có thể chờ đợi hoặc kết nối bằng mạng LAN để được kết nối ổn định hơn ạ.",
       "mood": "neutral",
-      "time_talking": 21-25
+      "start_time": "00:30",
+      "end_time": "00:40"
     },
     {
       "order": 10,
       "speaker": "from_user",
-      "message": "Thì mua ở đâu? Mua chỗ nào cũng được hả?",
-      "mood": "neutral",
-      "time_talking": 25-27
+      "message": "Tôi cần mạng internet mà cô lại kêu tôi nối mạng LAN là sao? Giờ tôi đang ở công ty, tôi làm việc với bao nhiêu khách hàng trên đây, mà bây giờ tôi lỡ mấy cuộc meeting rồi, rớt mấy cái hợp đồng mấy tỷ của tôi rồi.",
+      "mood": "negative",
+      "start_time": "00:40",
+      "end_time": "00:50"
     },
     {
       "order": 11,
       "speaker": "to_user",
-      "message": "Mua chỗ nào cũng được nhưng mà chú phải đảm bảo là đó là điện thoại dùng sóng 4G, bây giờ nó đang bán sóng 2G nhiều lắm, hoặc là để chắc chắn hơn thì chú cứ ra điểm giao dịch của Vinaphone á, ở quầy phóng á chú đó, điểm giao dịch của Vinaphone quầy phóng nhé, để chú mua điện thoại với giá ưu đãi hơn nhé, ở đó đang có chương trình nhé chú.",
+      "message": "Dạ, em xin lỗi anh. Hiện tại thì đang bị mất an toàn khu vực. Mong anh cho em xin số điện thoại của anh với ạ.",
       "mood": "neutral",
-      "time_talking": 27-35
+      "start_time": "00:50",
+      "end_time": "00:55"
     },
     {
       "order": 12,
       "speaker": "from_user",
-      "message": "Ừ.",
+      "message": "Cô gọi số này giúp tôi nha: 091 234 5678.",
       "mood": "neutral",
-      "time_talking": 35-36
+      "start_time": "00:55",
+      "end_time": "01:00"
     },
     {
       "order": 13,
       "speaker": "to_user",
-      "message": "Dạ, dạ chú nhé, dạ cháu cảm ơn chú, chào chú ạ.",
-      "mood": "positive",
-      "time_talking": 36-38
-    }
-  ],
-  "overall_mood": "neutral"
-}
+      "message": "Dạ vâng ạ, anh chờ em chút xíu ạ.",
+      "mood": "neutral",
+      "start_time": "01:00",
+      "end_time": "01:02"
+    },
+    {
+      "order": 14,
+      "speaker": "from_user",
+      "message": "Nhanh nhanh lên, tôi đang cần gấp.",
+      "mood": "negative",
+      "start_time": "01:02",
+      "end_time": "01:05"
+    },
+    {
+      "order": 15,
+      "speaker": "to_user",
+      "message": "Dạ, thưa anh, em mới kiểm tra trên hệ thống thì hiện tại đường truyền mạng sẽ được khôi phục lại sau một tiếng ạ. Anh có thể chờ đợi hoặc kết nối bằng mạng LAN để được kết nối ổn định hơn ạ.",
+      "mood": "neutral",
+      "start_time": "01:05",
+      "end_time": "01:15"
+    },
+    {
+      "order": 16,
+      "speaker": "from_user",
+      "message": "Tôi cần mạng internet mà cô lại kêu tôi nối mạng LAN là sao? Giờ tôi đang ở công ty, tôi làm việc với bao nhiêu khách hàng trên đây, mà bây giờ tôi lỡ mấy cuộc meeting rồi, rớt mấy cái hợp đồng mấy tỷ của tôi rồi.",
+      "mood": "negative",
+      "start_time": "01:15",
+      "end_time": "01:25"
+    },
+    {
+      "order": 17,
+      "speaker": "to_user",
+      "message": "Dạ, em xin lỗi anh. Hiện tại thì đang bị mất an toàn khu vực. Mong anh cho em xin số điện thoại của anh với ạ.",
+      "mood": "neutral",
+      "start_time": "01:25",
+      "end_time": "01:30"
+    },
+    {
+      "order": 18,
+      "speaker": "from_user",
+      "message": "Cô gọi số này giúp tôi nha: 091 234 5678.",
+      "mood": "neutral",
+      "start_time": "01:30",
+      "end_time": "01:35"
+    },
+    {
+      "order": 19,
+      "speaker": "to_user",
+      "message": "Dạ vâng ạ, anh chờ em chút xíu ạ.",
+      "mood": "neutral",
+      "start_time": "01:35",
+      "end_time": "01:37"
+    },
+    {
+      "order": 20,
+      "speaker": "from_user",
+      "message": "Nhanh nhanh lên, tôi đang cần gấp.",
+      "mood": "negative",
+      "start_time": "01:37",
+      "end_time": "01:40"
+    },
+    {
+      "order": 21,
+      "speaker": "to_user",
+      "message": "Dạ, thưa anh, em mới kiểm tra trên hệ thống thì hiện tại đường truyền mạng sẽ được khôi phục lại sau một tiếng ạ. Anh có thể chờ đợi hoặc kết nối bằng mạng LAN để được kết nối ổn định hơn ạ.",
+      "mood": "neutral",
+      "start_time": "01:40",
+      "end_time": "01:50"
+    },
+    {
+      "order": 22,
+      "speaker": "from_user",
+      "message": "Tôi cần mạng internet mà cô lại kêu tôi nối mạng LAN là sao? Giờ tôi đang ở công ty, tôi làm việc với bao nhiêu khách hàng trên đây, mà bây giờ tôi lỡ mấy cuộc meeting rồi, rớt mấy cái hợp đồng mấy tỷ của tôi rồi.",
+      "mood": "negative",
+      "start_time": "01:50",
+      "end_time": "02:00"
+    },
+    {
+      "order": 23,
+      "speaker": "to_user",
+      "message": "Dạ, em xin lỗi anh. Hiện tại thì đang bị mất an toàn khu vực. Mong anh cho em xin số điện thoại của anh với ạ.",
+      "mood": "neutral",
+      "start_time": "02:00",
+      "end_time": "02:05"
+    },
+    {
+      "order": 24,
+      "speaker": "from_user",
+      "message": "Cô gọi số này giúp tôi nha: 091 234 5678.",
+      "mood": "neutral",
+      "start_time": "02:05",
+      "end_time": "02:10"
+    },
+    {
+      "order": 25,
+      "speaker": "to_user",
+      "message": "D
