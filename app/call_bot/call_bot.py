@@ -36,6 +36,7 @@ class TurnDetection(BaseModel):
 # --- Request and Response models ---
 class SessionRequest(BaseModel):
     instructions: str = ""
+    voice: Optional[str] = "Shimmer"
 
 
 class SessionResponse(BaseModel):
@@ -57,7 +58,7 @@ class SessionResponse(BaseModel):
 
 
 # --- Main session creation ---
-async def create_openai_session(instructions: str = "") -> SessionResponse:
+async def create_openai_session(instructions, voice) -> SessionResponse:
     url = "https://api.openai.com/v1/realtime/sessions"
 
     headers = {
@@ -67,13 +68,26 @@ async def create_openai_session(instructions: str = "") -> SessionResponse:
 
     body = {
         "model": "gpt-4o-mini-realtime-preview-2024-12-17",
-        "voice": "verse",
+        
     }
-
     if instructions:
         body["instructions"] = instructions
+    if voice:
+        body["voice"] = voice
 
     async with httpx.AsyncClient() as client:
+        try:
+            # Make the POST request to create the session
+            response = await client.post(url, headers=headers, json=body)
+            response.raise_for_status()  # Raise an error for bad responses
+        except httpx.HTTPStatusError as e:
+            # Handle specific HTTP errors
+            if e.response.status_code == 401:
+                raise Exception("Unauthorized: Invalid API key or permissions.")
+            elif e.response.status_code == 429:
+                raise Exception("Rate limit exceeded. Please try again later.")
+            else:
+                raise Exception(f"HTTP error occurred: {e.response.status_code} - {e.response.text}")
         
         response = await client.post(url, headers=headers, json=body)
         response.raise_for_status()
@@ -85,25 +99,24 @@ class FinishSessionRequest(BaseModel):
     current_user: User
     audio_url: str
 
-async def finish_openai_bot_session(request: FinishSessionRequest):
+async def finish_openai_bot_session(current_user: User, audio_url: str):
     try:
-        user = request.current_user
-        audio_url = request.audio_url
+        user = current_user
+        audio_url = audio_url
         print("Finishing bot session for user:", user.username)
 
         # Bot user (giả định dùng 1 account cố định)
-        bot_user = await UserRepository.get_user_by_username("thanh")
+        bot_user = await UserRepository.get_user_by_username("ai_bot")
         if not bot_user:
             raise Exception("Bot user 'genai_bot' not found in system")
 
         # 1. Upload file lên S3 (nếu cần)
         ai_service = AIService()
-        file_url = await ai_service.upload_record_to_s3(audio_url, user.username)
-        print("File uploaded to S3:", file_url)
+        file_url = audio_url
 
         # 2. Phân tích file ghi âm
         ai_response: gpt_call_analyze_response = await ai_service.analyze_call_full_one_gpt_call(
-            file_url, user.username, bot_user.username
+            file_url, user.extension_number, bot_user.extension_number
         )
         print("AI analyze response:", ai_response)
 

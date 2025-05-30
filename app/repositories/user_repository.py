@@ -76,18 +76,23 @@ class UserRepository:
 
     @staticmethod
     async def get_active_users() -> List[User]:
-        active_user_doc = await ActiveUser.find_one()
-        return active_user_doc.active_user if active_user_doc else []
+        extensions = await Extension.find({"available": False}).to_list()
+        users = []
+        for ext in extensions:
+            print("Fetching user for extension:", ext.number)
+            await ext.fetch_link(Extension.user)
+            if ext.user:
+                users.append(ext.user)
+        print("Active users found:", users)
+        return users
 
     @staticmethod
     async def get_fullname_by_extension(extension_number: str) -> Optional[str]:
-        active_user_doc = await ActiveUser.find_one()
+        active_user_doc = await Extension.find_one({"number": extension_number})
         if not active_user_doc:
             return None
-        for user in active_user_doc.active_user:
-            if user.extension_number == extension_number:
-                return user.fullname
-        return None
+        await active_user_doc.fetch_link(Extension.user)
+        return active_user_doc.user.fullname if active_user_doc.user else None
     @staticmethod
     async def get_user_by_extension(extension_number: str) -> Optional[User]:
         print("Getting user by extension", extension_number)

@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from app.auth.auth import get_current_user
 from app.auth.exceptions import CustomHTTPException
 from app.models.user import User
+from app.repositories.ai_repository import AiRepository
 import os
 import httpx
 import logging
@@ -19,7 +20,11 @@ async def create_session_endpoint(
     req: SessionRequest
 ):
     try:
-        session_data = await create_openai_session(req.instructions)
+        await AiRepository.update_ai_instruction(
+        instructions=req.instructions, voice=req.voice
+    )   
+        print(f"Creating OpenAI session with instructions: {req.instructions} and voice: {req.voice}")
+        session_data = await create_openai_session(req.instructions, req.voice)
         return session_data
     except Exception as e:
         logger.error(f"Error creating OpenAI session: {e}")

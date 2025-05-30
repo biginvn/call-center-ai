@@ -1,5 +1,6 @@
 from app.models.extension import Extension
 from typing import Optional, List
+from app.models.user import User
 
 class ExtensionRepository:
     @staticmethod
@@ -11,6 +12,7 @@ class ExtensionRepository:
         return await Extension.find_one(Extension.number == number)
 
     @staticmethod
-    async def update_extension_availability(extension: Extension, available: bool) -> Extension:
+    async def update_extension_availability(extension: Extension, available: bool, user:User) -> Extension:
+        extension.user = user
         extension.available = available
         return await extension.save()
