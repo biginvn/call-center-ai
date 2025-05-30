@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 
-@router.post("/config", response_model=SessionResponse)
+@router.post("/config")
 async def create_session_endpoint(
     req: SessionRequest
 ):
@@ -25,7 +25,7 @@ async def create_session_endpoint(
         print(f"Creating OpenAI session with instructions: {req.instructions} and voice: {req.voice}")
 
         await AiRepository.update_ai_instruction(
-        instructions=req.instructions, voice=req.voice,
+        instructions=req.instructions, voice=req.voice
     )   
         return req
     except Exception as e:
@@ -43,7 +43,7 @@ async def finish_session_endpoint(
     await finish_openai_bot_session(current_user, audio_url)
     return {"message": "Session finished successfully"}
 
-@router.get("/session")
+@router.get("/session", response_model=SessionResponse)
 async def get_ai_token(user: User = Depends(get_current_user)):
     try:
         ai_doc = await AI.find_one()
