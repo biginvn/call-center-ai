@@ -210,8 +210,14 @@ class AIService:
             response = requests.get(url)
             if response.status_code != 200:
                 raise Exception("Không tải được file từ URL.")
-            file_data = ("audio.wav", response.content)
-
+            ext = os.path.splitext(url)[1].lower()  # lấy phần mở rộng, chuyển thành chữ thường
+            if ext == ".wav":
+                file_data = ("audio.wav", response.content)
+            elif ext == ".webm":
+                file_data = ("audio.webm", response.content)
+            else:
+                # nếu file không phải wav hoặc webm thì có thể báo lỗi hoặc xử lý mặc định
+                raise Exception(f"Định dạng file không được hỗ trợ: {ext}")
             # Gọi GPT 1 lần duy nhất (Whisper + chức năng mở rộng)
             response = self.openai_client.audio.transcriptions.create(
                 model="gpt-4o-transcribe",

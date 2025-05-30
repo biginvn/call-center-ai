@@ -110,10 +110,9 @@ async def finish_openai_bot_session(current_user: User, audio_url: str):
         if not bot_user:
             raise Exception("Bot user 'genai_bot' not found in system")
 
-        # 1. Upload file lên S3 (nếu cần)
+
         ai_service = AIService()
         file_url = audio_url
-
         # 2. Phân tích file ghi âm
         ai_response: gpt_call_analyze_response = await ai_service.analyze_call_full_one_gpt_call(
             file_url, user.extension_number, bot_user.extension_number
