@@ -36,7 +36,7 @@ class TurnDetection(BaseModel):
 # --- Request and Response models ---
 class SessionRequest(BaseModel):
     instructions: str = ""
-    voice: Optional[str] = "Shimmer"
+    voice: Optional[str] = "shimmer"
 
 
 class SessionResponse(BaseModel):
