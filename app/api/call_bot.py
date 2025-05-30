@@ -47,8 +47,8 @@ async def finish_session_endpoint(
 async def get_ai_token(user: User = Depends(get_current_user)):
     try:
         ai_doc = await AI.find_one()
-        if not ai_doc or not ai_doc.token:
-            raise HTTPException(status_code=404, detail="AI token not found.")
+        if not ai_doc:
+            raise HTTPException(status_code=404, detail="There are no AI Config.")
         session_data = await create_openai_session(ai_doc.instructions, ai_doc.voice)
         return session_data
     
