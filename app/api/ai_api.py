@@ -24,7 +24,7 @@ S3_BUCKET = os.getenv("S3_BUCKET")
 
 router = APIRouter(prefix="/documents", tags=["Documents"])
 
-ALLOWED_EXTENSIONS = {".txt", ".pdf", ".docx", "wav"}
+ALLOWED_EXTENSIONS = {".txt", ".pdf", ".docx", ".wav"}
 MAX_FILE_SIZE = 20 * 1024 * 1024
 
 if not all([AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, S3_BUCKET]):
@@ -62,16 +62,16 @@ def is_allowed_file(file_name: str) -> bool:
     "/upload", response_model=DocumentResponse, status_code=status.HTTP_201_CREATED
 )
 async def upload_document(
-    file: UploadFile = File(...), current_user: User = Depends(get_current_user)
+    file: UploadFile = File(...)
 ):
     logger.info(f"Received file: {file.filename}, size: {file.size} bytes")
 
-    role = current_user.role
-    if role not in ["admin", "superuser"]:
-        raise CustomHTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="You do not have permission to upload files",
-        )
+    # role = current_user.role
+    # if role not in ["admin", "superuser"]:
+    #     raise CustomHTTPException(
+    #         status_code=status.HTTP_403_FORBIDDEN,
+    #         detail="You do not have permission to upload files",
+    #     )
 
     if not is_allowed_file(file.filename):
         raise CustomHTTPException(
