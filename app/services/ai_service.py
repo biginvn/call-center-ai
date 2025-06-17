@@ -24,7 +24,7 @@ MESSAGE_PROMPT = ("Bạn sẽ nhận được một file ghi âm cuộc gọi gi
 
     "**Định dạng JSON mong muốn:**\n"
     "{\n"
-    '  "summary": string,                  # Tóm tắt nội dung cuộc gọi trong tối đa 100 từ\n'
+    '  "summary": string,                  # Tóm tắt nội dung cuộc gọi trong tối đa 100 từ bằng tiếng Anh\n'
     '  "messages": [                       # Danh sách câu nói theo thứ tự thời gian\n'
     "    {\n"
     '      "order": int,                  # Số thứ tự câu nói (tăng dần từ 1)\n'
