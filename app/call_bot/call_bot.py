@@ -67,7 +67,7 @@ async def create_openai_session(instructions, voice) -> SessionResponse:
     }
 
     body = {
-        "model": "gpt-4o-mini-realtime-preview-2024-12-17",
+        "model": "gpt-4o-realtime-preview-2025-06-03",
         
     }
     if instructions:
