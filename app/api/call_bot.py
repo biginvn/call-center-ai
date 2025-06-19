@@ -33,7 +33,16 @@ async def create_session_endpoint(
         raise HTTPException(status_code=500, detail="Internal server error")
 
 
-
+@router.get("/config")
+async def get_session_config_endpoint():
+    try:
+        ai_doc = await AI.find_one()
+        if not ai_doc:
+            raise HTTPException(status_code=404, detail="There are no AI Config.")
+        return {"instructions": ai_doc.instructions, "voice": ai_doc.voice}
+    except Exception as e:
+        logger.error(f"Error fetching OpenAI session config: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.post("/finish")
 async def finish_session_endpoint(
