@@ -11,12 +11,13 @@ class UserService:
         self.user_repo = UserRepository()
 
     async def get_all_users(self, current_user: User) -> List[User]:
+        """Lấy tất cả users - tạm thời không filter theo client"""
         if current_user.role != "admin":
             raise CustomHTTPException(
                 status_code=403,
                 detail="You do not have permission to get all users",
             )
-        users = await self.user_repo.get_all_users()
+        users = await self.user_repo.get_all_users(current_user.client_id)
         if not users:
             logger.error("No users found")
             raise CustomHTTPException(status_code=404, detail="No users found")
@@ -29,8 +30,13 @@ class UserService:
             raise CustomHTTPException(status_code=404, detail="User not found")
         return user
 
+    async def get_user_in_client(self, username: str, current_user: User) -> User:
+        """Tạm thời trả về user thông thường"""
+        return await self.get_user(username)
+
     async def get_active_users(self, current_user: User) -> List[User]:
-        return await self.user_repo.get_active_users()
+        """Lấy active users - tạm thời không filter theo client"""
+        return await self.user_repo.get_active_users(current_user.client_id)
 
     async def get_fullname_by_extension(self, extension_number: str, current_user: User) -> str:
         fullname = await self.user_repo.get_fullname_by_extension(extension_number)

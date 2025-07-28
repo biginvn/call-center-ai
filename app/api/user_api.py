@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from typing import List
 from app.auth.auth import get_current_user
@@ -19,18 +19,28 @@ class UserDataResponse(BaseModel):
     extension_number: str | None
     role: str
     fullname: str | None
+    client_name: str
+class CreateUserRequest(BaseModel):
+    username: str
+    password: str = "123456"
+    fullname: str
+    email: str = "mock@email.com"
+    role: str   = "agent"
 
 @router.get("/all", response_model=List[UserDataResponse])
 async def get_all_users(current_user: User = Depends(get_current_user)):
     logger.info("Fetching all users")
     user_service = UserService()
     users = await user_service.get_all_users(current_user)
+    for user in users:
+        await user.fetch_link(User.client_id)
     return [
         UserDataResponse(
             username=user.username,
             extension_number=user.extension_number,
             role=user.role,
             fullname=user.fullname,
+            client_name=user.client_id.name
         )
         for user in users
     ]
@@ -40,11 +50,13 @@ async def get_user(current_user: User = Depends(get_current_user)):
     logger.info(f"Fetching user data for: {current_user.username}")
     user_service = UserService()
     user = await user_service.get_user(current_user.username)
+    await user.fetch_link(User.client_id)
     return UserDataResponse(
         username=user.username,
         extension_number=user.extension_number,
         role=user.role,
         fullname=user.fullname,
+        client_name=user.client_id.name
     )
 
 @router.get("/active")
@@ -81,3 +93,17 @@ async def on_connect_user(request:ConnectRequest):
     extension_service = ExtensionService()
     await extension_service.update_extension_availability(request.extension, True, None)
     return "user disconnected"
+
+@router.post("/create")
+async def create_user(request:CreateUserRequest, current_user: User = Depends(get_current_user)):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="You are not authorized to create users")
+    user = await UserRepository.create_user(current_user.client_id, request.username, request.password, request.fullname, request.email, request.role)
+    return user
+
+@router.delete("/delete/{username}")
+async def delete_user(username: str, current_user: User = Depends(get_current_user)):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="You are not authorized to delete users")
+    await UserRepository.delete_user(username)
+    return "User deleted successfully"

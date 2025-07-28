@@ -1,16 +1,19 @@
-from beanie import Document
+from beanie import Document, Link
 from datetime import datetime
 from pydantic import EmailStr
 from typing import Optional
+
+from app.models.client import Client
 
 
 class User(Document):
     username: str
     fullname: str
-    email: EmailStr
+    email: str
     password: str
     role: str
     extension_number: str
+    client_id: Link[Client]
     last_login: Optional[datetime] = None
 
     class Settings:

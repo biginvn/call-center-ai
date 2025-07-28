@@ -58,7 +58,8 @@ async def handle_bridge_destroy(ev):
                 mood=ConversationMood.UNKNOWN,
                 messages=call_messages,
                 summarize=ai_response.summarize,
-                sentiment=ai_response.overall_mood
+                sentiment=ai_response.overall_mood,
+                client_id=from_user.client_id
             )
             print("Conversation object created successfully")
             

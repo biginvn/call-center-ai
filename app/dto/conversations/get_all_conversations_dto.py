@@ -1,5 +1,8 @@
 from typing import List, Optional
 from datetime import datetime
+
+from beanie import Link
+from app.models.client import Client
 from app.models.conversation import Conversation
 from app.utils.pagination import Pagination
 from pydantic import BaseModel, ConfigDict, field_validator
@@ -37,6 +40,7 @@ class ConversationResponseDto(BaseModel):
     mood: str
     sentiment: Optional[str]
     created_at: datetime
+    client_id: Link[Client]
 
 
 class GetAllConversationsResponseDto(BaseModel):

@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import List, Optional
 from app.models.user import User
 from app.models.message import Message
+from app.models.client import Client
 from app.models.enums import ConversationType
 from app.models.enums import ConversationMood
 from app.models.enums import ConversationStatus
@@ -16,6 +17,7 @@ class Conversation(Document):
     summarize: Optional[str]
     from_user: Link[User]
     to_user: Link[User]
+    client_id: Link[Client]
     messages: Optional[List[Message]]
     mood: ConversationMood
     sentiment: Optional[str]

@@ -103,7 +103,7 @@ async def admin_login(request: AdminLoginRequest):
             detail="Incorrect password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    if user.role != "admin":
+    if user.role != "admin" and user.role != "system":
         logger.error(f"Role mismatch for {request.username}, expected admin")
         raise CustomHTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -111,8 +111,9 @@ async def admin_login(request: AdminLoginRequest):
         )
 
     logger.info(f"Login successful for {request.username}")
-    access_token = create_access_token(data={"sub": user.username, "role": "admin"})
-    refresh_token = create_refresh_token(data={"sub": user.username, "role": "admin"})
+    access_token = create_access_token(data={"sub": user.username, "role": user.role})
+    refresh_token = create_refresh_token(data={"sub": user.username, "role": user.role})
+
     return {
         "access_token": access_token,
         "refresh_token": refresh_token,
