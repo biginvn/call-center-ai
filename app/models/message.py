@@ -9,10 +9,10 @@ from app.models.enums import MessageType
 class Message(Document):
     sender_id: Link[User]
     content: str
-    mood: Optional[str]
+    mood: Optional[str] = None
     order: int
-    start_time: Optional[int]
-    end_time: Optional[int]
+    start_time: Optional[int] = None
+    end_time: Optional[int] = None
     # type: MessageType
 
     class Settings:

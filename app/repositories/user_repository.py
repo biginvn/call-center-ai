@@ -2,19 +2,37 @@ from app.models.user import User
 from app.models.token import RefreshToken
 from app.models.active import ActiveUser
 from app.models.extension import Extension
+from app.models.client import Client
 from typing import Optional, List
 from datetime import datetime, timedelta
 from app.core.config import settings
 from app.auth.exceptions import CustomHTTPException
+from beanie import Link
 
 class UserRepository:
     @staticmethod
-    async def get_all_users() -> List[User]:
-        return await User.find_all().to_list()
+    async def get_all_users(client_id: Link[Client]) -> List[User]:
+        return await User.find(User.client_id == client_id).to_list()
+    
+    @staticmethod
+    async def get_all_users_by_client(client_id: str) -> List[User]:
+        """Lấy tất cả user thuộc một client"""
+        client = await Client.get(client_id)
+        if not client:
+            return []
+        return await User.find(User.client_id == client).to_list()
     
     @staticmethod
     async def get_user_by_username(username: str) -> Optional[User]:
         return await User.find_one(User.username == username)
+    
+    @staticmethod
+    async def get_user_by_username_and_client(username: str, client_id: str) -> Optional[User]:
+        """Lấy user theo username và client_id"""
+        client = await Client.get(client_id)
+        if not client:
+            return None
+        return await User.find_one(User.username == username, User.client_id == client)
 
     @staticmethod
     async def get_user_by_extension_number(extension_number: str) -> Optional[User]:
@@ -75,15 +93,40 @@ class UserRepository:
         return active_user_doc
 
     @staticmethod
-    async def get_active_users() -> List[User]:
+    async def get_active_users(client_id: Link[Client]) -> List[User]:
         extensions = await Extension.find({"available": False}).to_list()
         users = []
+        
         for ext in extensions:
             print("Fetching user for extension:", ext.number)
             await ext.fetch_link(Extension.user)
+
             if ext.user:
-                users.append(ext.user)
+                print("User found:", ext.user)
+                await ext.user.fetch_link(User.client_id)
+                print("User client_id:", ext.user.client_id)
+                print("Client id:", client_id)
+                # So sánh id của client với ref của Link
+                if ext.user.client_id and str(ext.user.client_id.id) == str(client_id.ref.id):
+                    users.append(ext.user)
         print("Active users found:", users)
+        return users
+    
+    @staticmethod
+    async def get_active_users_by_client(client_id: str) -> List[User]:
+        """Lấy active users thuộc một client"""
+        extensions = await Extension.find({"available": False}).to_list()
+        users = []
+        client = await Client.get(client_id)
+        if not client:
+            return []
+            
+        for ext in extensions:
+            await ext.fetch_link(Extension.user)
+            if ext.user:
+                await ext.user.fetch_link(User.client_id)
+                if ext.user.client_id and ext.user.client_id.id == client.id:
+                    users.append(ext.user)
         return users
 
     @staticmethod
@@ -102,3 +145,12 @@ class UserRepository:
         else: user = await User.find_one(User.extension_number == extension_number)
         print("User found", user)
         return user
+    @staticmethod
+    async def create_user(client_id: str, username: str, password: str, fullname: str, email: str, role: str) -> User:
+        user = User(username=username, password=password, client_id=client_id, role=role, fullname=fullname, email=email, extension_number="")
+        return await user.insert()
+    @staticmethod
+    async def delete_user(username: str) -> None:
+        user = await User.find_one(User.username == username)
+        if user:
+            await user.delete()

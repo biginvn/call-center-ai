@@ -18,7 +18,7 @@ async def check_token_middleware(request: Request, call_next):
 
     token = request.headers.get("Authorization")
     if token is None:
-        return JSONResponse(status_code=401, content={"detail": "Token missing"})
+        return JSONResponse(status_code=401, content={"detail": "Not authenticated"})
 
     try:
         # Xử lý token dạng "Bearer <token>"
@@ -36,11 +36,12 @@ async def check_token_middleware(request: Request, call_next):
             algorithms=[settings.ALGORITHM]
         )
         
-        # Kiểm tra token_type (nếu cần)
-        if payload.get("token_type") != "access":
+        # Chỉ kiểm tra có username trong payload
+        username = payload.get("sub")
+        if not username:
             return JSONResponse(
                 status_code=401,
-                content={"detail": "Invalid token type"}
+                content={"detail": "Invalid token payload"}
             )
 
     except ExpiredSignatureError:

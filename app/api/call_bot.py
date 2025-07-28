@@ -16,33 +16,6 @@ logger = logging.getLogger(__name__)
 
 
 
-@router.post("/config")
-async def create_session_endpoint(
-    req: SessionRequest
-):
-    try:
-
-        print(f"Creating OpenAI session with instructions: {req.instructions} and voice: {req.voice}")
-
-        await AiRepository.update_ai_instruction(
-        instructions=req.instructions, voice=req.voice
-    )   
-        return req
-    except Exception as e:
-        logger.error(f"Error creating OpenAI session: {e}")
-        raise HTTPException(status_code=500, detail="Internal server error")
-
-
-@router.get("/config")
-async def get_session_config_endpoint():
-    try:
-        ai_doc = await AI.find_one()
-        if not ai_doc:
-            raise HTTPException(status_code=404, detail="There are no AI Config.")
-        return {"instructions": ai_doc.instructions, "voice": ai_doc.voice}
-    except Exception as e:
-        logger.error(f"Error fetching OpenAI session config: {e}")
-        raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.post("/finish")
 async def finish_session_endpoint(
@@ -50,17 +23,18 @@ async def finish_session_endpoint(
     audio_url: str = ""
 ):
 
-    await finish_openai_bot_session(current_user, audio_url)
+    await finish_openai_bot_session(current_user, audio_url, current_user.client_id)
     return {"message": "Session finished successfully"}
 
 @router.get("/session", response_model=SessionResponse)
-async def get_ai_token(user: User = Depends(get_current_user)):
+async def get_ai_token(current_user: User = Depends(get_current_user)):
     try:
-        ai_doc = await AI.find_one()
+        ai_doc = await AiRepository.get_ai_instruction(current_user.client_id)
         if not ai_doc:
             raise HTTPException(status_code=404, detail="There are no AI Config.")
         session_data = await create_openai_session(ai_doc.instructions, ai_doc.voice)
         return session_data
     
     except Exception as e:
+        logger.error(f"Error getting AI token: {e}")
         raise HTTPException(status_code=500, detail=f"Internal server error: {e}")

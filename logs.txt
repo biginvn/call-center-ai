@@ -1,199 +1,279 @@
 {
-  "summary": "Khách hàng phàn nàn về dịch vụ mạng và yêu cầu hỗ trợ. Nhân viên giải thích và đề xuất giải pháp tạm thời.",
+  "summary": "The customer is asking for assistance and the employee is responding.",
   "messages": [
     {
       "order": 1,
-      "speaker": "to_user",
-      "message": "Xin chào quý khách ạ.",
+      "speaker": "from_user",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
       "start_time": "00:00",
       "end_time": "00:02"
     },
     {
       "order": 2,
-      "speaker": "from_user",
-      "message": "Tôi muốn kiểm tra đơn hàng 123.",
-      "mood": "positive",
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
       "start_time": "00:02",
-      "end_time": "00:05"
+      "end_time": "00:04"
     },
     {
       "order": 3,
-      "speaker": "to_user",
-      "message": "Xin chào, em tên là Ngân. Em có thể giúp gì anh hôm nay ạ?",
+      "speaker": "from_user",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "00:05",
-      "end_time": "00:08"
+      "start_time": "00:04",
+      "end_time": "00:06"
     },
     {
       "order": 4,
-      "speaker": "from_user",
-      "message": "Tôi không biết là cô làm ăn cái kiểu gì mà tôi đang làm việc bình thường, lỗi mạng gì mà bực mình đứng hết cả mình luôn. Mất tiền đầy đủ, cái dịch vụ kiểu này ai mà làm được.",
-      "mood": "negative",
-      "start_time": "00:08",
-      "end_time": "00:15"
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:06",
+      "end_time": "00:08"
     },
     {
       "order": 5,
       "speaker": "to_user",
-      "message": "Em xin lỗi anh, hiện tại thì đang bị mất an toàn khu vực. Mong anh cho em xin số điện thoại của anh với ạ.",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "00:15",
-      "end_time": "00:20"
+      "start_time": "00:08",
+      "end_time": "00:10"
     },
     {
       "order": 6,
-      "speaker": "from_user",
-      "message": "Cô gọi số này giúp tôi nha: 091 234 5678.",
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "00:20",
-      "end_time": "00:25"
+      "start_time": "00:10",
+      "end_time": "00:12"
     },
     {
       "order": 7,
       "speaker": "to_user",
-      "message": "Dạ vâng ạ, anh chờ em chút xíu ạ.",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "00:25",
-      "end_time": "00:27"
+      "start_time": "00:12",
+      "end_time": "00:14"
     },
     {
       "order": 8,
-      "speaker": "from_user",
-      "message": "Nhanh nhanh lên, tôi đang cần gấp.",
-      "mood": "negative",
-      "start_time": "00:27",
-      "end_time": "00:30"
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:14",
+      "end_time": "00:16"
     },
     {
       "order": 9,
       "speaker": "to_user",
-      "message": "Dạ, thưa anh, em mới kiểm tra trên hệ thống thì hiện tại đường truyền mạng sẽ được khôi phục lại sau một tiếng ạ. Anh có thể chờ đợi hoặc kết nối bằng mạng LAN để được kết nối ổn định hơn ạ.",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "00:30",
-      "end_time": "00:40"
+      "start_time": "00:16",
+      "end_time": "00:18"
     },
     {
       "order": 10,
-      "speaker": "from_user",
-      "message": "Tôi cần mạng internet mà cô lại kêu tôi nối mạng LAN là sao? Giờ tôi đang ở công ty, tôi làm việc với bao nhiêu khách hàng trên đây, mà bây giờ tôi lỡ mấy cuộc meeting rồi, rớt mấy cái hợp đồng mấy tỷ của tôi rồi.",
-      "mood": "negative",
-      "start_time": "00:40",
-      "end_time": "00:50"
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:18",
+      "end_time": "00:20"
     },
     {
       "order": 11,
       "speaker": "to_user",
-      "message": "Dạ, em xin lỗi anh. Hiện tại thì đang bị mất an toàn khu vực. Mong anh cho em xin số điện thoại của anh với ạ.",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "00:50",
-      "end_time": "00:55"
+      "start_time": "00:20",
+      "end_time": "00:22"
     },
     {
       "order": 12,
-      "speaker": "from_user",
-      "message": "Cô gọi số này giúp tôi nha: 091 234 5678.",
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "00:55",
-      "end_time": "01:00"
+      "start_time": "00:22",
+      "end_time": "00:24"
     },
     {
       "order": 13,
       "speaker": "to_user",
-      "message": "Dạ vâng ạ, anh chờ em chút xíu ạ.",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:24",
+      "end_time": "00:26"
+    },
+    {
+      "order": 14,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:26",
+      "end_time": "00:28"
+    },
+    {
+      "order": 15,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:28",
+      "end_time": "00:30"
+    },
+    {
+      "order": 16,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:30",
+      "end_time": "00:32"
+    },
+    {
+      "order": 17,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:32",
+      "end_time": "00:34"
+    },
+    {
+      "order": 18,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:34",
+      "end_time": "00:36"
+    },
+    {
+      "order": 19,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:36",
+      "end_time": "00:38"
+    },
+    {
+      "order": 20,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:38",
+      "end_time": "00:40"
+    },
+    {
+      "order": 21,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:40",
+      "end_time": "00:42"
+    },
+    {
+      "order": 22,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:42",
+      "end_time": "00:44"
+    },
+    {
+      "order": 23,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:44",
+      "end_time": "00:46"
+    },
+    {
+      "order": 24,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:46",
+      "end_time": "00:48"
+    },
+    {
+      "order": 25,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:48",
+      "end_time": "00:50"
+    },
+    {
+      "order": 26,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:50",
+      "end_time": "00:52"
+    },
+    {
+      "order": 27,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:52",
+      "end_time": "00:54"
+    },
+    {
+      "order": 28,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:54",
+      "end_time": "00:56"
+    },
+    {
+      "order": 29,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:56",
+      "end_time": "00:58"
+    },
+    {
+      "order": 30,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
+      "start_time": "00:58",
+      "end_time": "01:00"
+    },
+    {
+      "order": 31,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
       "start_time": "01:00",
       "end_time": "01:02"
     },
     {
-      "order": 14,
-      "speaker": "from_user",
-      "message": "Nhanh nhanh lên, tôi đang cần gấp.",
-      "mood": "negative",
+      "order": 32,
+      "speaker": "to_user",
+      "message": "Xin chào bạn là ai?",
+      "mood": "neutral",
       "start_time": "01:02",
-      "end_time": "01:05"
+      "end_time": "01:04"
     },
     {
-      "order": 15,
+      "order": 33,
       "speaker": "to_user",
-      "message": "Dạ, thưa anh, em mới kiểm tra trên hệ thống thì hiện tại đường truyền mạng sẽ được khôi phục lại sau một tiếng ạ. Anh có thể chờ đợi hoặc kết nối bằng mạng LAN để được kết nối ổn định hơn ạ.",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "01:05",
-      "end_time": "01:15"
+      "start_time": "01:04",
+      "end_time": "01:06"
     },
     {
-      "order": 16,
-      "speaker": "from_user",
-      "message": "Tôi cần mạng internet mà cô lại kêu tôi nối mạng LAN là sao? Giờ tôi đang ở công ty, tôi làm việc với bao nhiêu khách hàng trên đây, mà bây giờ tôi lỡ mấy cuộc meeting rồi, rớt mấy cái hợp đồng mấy tỷ của tôi rồi.",
-      "mood": "negative",
-      "start_time": "01:15",
-      "end_time": "01:25"
-    },
-    {
-      "order": 17,
+      "order": 34,
       "speaker": "to_user",
-      "message": "Dạ, em xin lỗi anh. Hiện tại thì đang bị mất an toàn khu vực. Mong anh cho em xin số điện thoại của anh với ạ.",
+      "message": "Xin chào bạn là ai?",
       "mood": "neutral",
-      "start_time": "01:25",
-      "end_time": "01:30"
+      "start_time": "01:06",
+      "end_time": "01:08"
     },
     {
-      "order": 18,
-      "speaker": "from_user",
-      "message": "Cô gọi số này giúp tôi nha: 091 234 5678.",
-      "mood": "neutral",
-      "start_time": "01:30",
-      "end_time": "01:35"
-    },
-    {
-      "order": 19,
+      "order": 35,
       "speaker": "to_user",
-      "message": "Dạ vâng ạ, anh chờ em chút xíu ạ.",
-      "mood": "neutral",
-      "start_time": "01:35",
-      "end_time": "01:37"
-    },
-    {
-      "order": 20,
-      "speaker": "from_user",
-      "message": "Nhanh nhanh lên, tôi đang cần gấp.",
-      "mood": "negative",
-      "start_time": "01:37",
-      "end_time": "01:40"
-    },
-    {
-      "order": 21,
-      "speaker": "to_user",
-      "message": "Dạ, thưa anh, em mới kiểm tra trên hệ thống thì hiện tại đường truyền mạng sẽ được khôi phục lại sau một tiếng ạ. Anh có thể chờ đợi hoặc kết nối bằng mạng LAN để được kết nối ổn định hơn ạ.",
-      "mood": "neutral",
-      "start_time": "01:40",
-      "end_time": "01:50"
-    },
-    {
-      "order": 22,
-      "speaker": "from_user",
-      "message": "Tôi cần mạng internet mà cô lại kêu tôi nối mạng LAN là sao? Giờ tôi đang ở công ty, tôi làm việc với bao nhiêu khách hàng trên đây, mà bây giờ tôi lỡ mấy cuộc meeting rồi, rớt mấy cái hợp đồng mấy tỷ của tôi rồi.",
-      "mood": "negative",
-      "start_time": "01:50",
-      "end_time": "02:00"
-    },
-    {
-      "order": 23,
-      "speaker": "to_user",
-      "message": "Dạ, em xin lỗi anh. Hiện tại thì đang bị mất an toàn khu vực. Mong anh cho em xin số điện thoại của anh với ạ.",
-      "mood": "neutral",
-      "start_time": "02:00",
-      "end_time": "02:05"
-    },
-    {
-      "order": 24,
-      "speaker": "from_user",
-      "message": "Cô gọi số này giúp tôi nha: 091 234 5678.",
-      "mood": "neutral",
-      "start_time": "02:05",
-      "end_time": "02:10"
-    },
-    {
-      "order": 25,
-      "speaker": "to_user",
-      "message": "D
+     

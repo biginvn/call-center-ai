@@ -58,7 +58,7 @@ class SessionResponse(BaseModel):
 
 
 # --- Main session creation ---
-async def create_openai_session(instructions, voice) -> SessionResponse:
+async def create_openai_session(instructions = "", voice = "") -> SessionResponse:
     url = "https://api.openai.com/v1/realtime/sessions"
 
     headers = {
@@ -99,7 +99,7 @@ class FinishSessionRequest(BaseModel):
     current_user: User
     audio_url: str
 
-async def finish_openai_bot_session(current_user: User, audio_url: str):
+async def finish_openai_bot_session(current_user: User, audio_url: str, client_id: str):
     try:
         user = current_user
         audio_url = audio_url
@@ -144,6 +144,7 @@ async def finish_openai_bot_session(current_user: User, audio_url: str):
             messages=messages,
             summarize=ai_response.summarize,
             sentiment=ai_response.overall_mood,
+            client_id=client_id,
         )
         saved_conversation = await ConversationRepository.create_conversation(conversation)
         print("Saved bot conversation successfully:", saved_conversation)
