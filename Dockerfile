@@ -8,6 +8,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install Playwright browsers
+RUN python -m playwright install
+
 # Copy toàn bộ source (sẽ bị filter bới .dockerignore)
 COPY . .
 
