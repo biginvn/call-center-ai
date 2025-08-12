@@ -18,7 +18,6 @@ toml==0.10.2
 typing-inspection==0.4.0
 typing_extensions==4.13.2
 urllib3==2.4.0
-playwright
 uvicorn==0.34.2
 panoramisk==1.4
 websocket-client==1.8.0
@@ -29,13 +28,8 @@ Requests==2.32.3
 uvicorn
 email-validator
 python-multipart
-websocket-client==1.8.0
 httpx
 openai
 pytz
 crawl4ai
-chromadb
-sentence-transformers
-beautifulsoup4
 html2text
-lxml

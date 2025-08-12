@@ -19,12 +19,10 @@ except ImportError:
     CRAWL4AI_AVAILABLE = False
 
 from app.utils.crawl_utils import (
-    get_chroma_client, 
-    get_or_create_collection, 
-    add_documents_to_collection,
     smart_chunk_markdown,
     extract_section_info
 )
+
 
 if not CRAWL4AI_AVAILABLE:
     from app.utils.simple_crawler import (
@@ -39,14 +37,9 @@ router = APIRouter(prefix="/crawl", tags=["Web Crawling"])
 # Pydantic models for request/response
 class CrawlRequest(BaseModel):
     url: str = Field(..., description="URL to crawl (regular, .txt, or sitemap)")
-    collection: str = Field(default="docs", description="ChromaDB collection name")
-    db_dir: str = Field(default="./chroma_db", description="ChromaDB directory")
-    embedding_model: str = Field(default="all-MiniLM-L6-v2", description="Embedding model name")
     chunk_size: int = Field(default=1000, description="Max chunk size (chars)")
     max_depth: int = Field(default=3, description="Recursion depth for regular URLs")
     max_concurrent: int = Field(default=10, description="Max parallel browser sessions")
-    batch_size: int = Field(default=100, description="ChromaDB insert batch size")
-    insert_to_db: bool = Field(default=True, description="Whether to insert results into ChromaDB")
     
     @field_validator('url')
     @classmethod
@@ -65,13 +58,11 @@ class CrawlResponse(BaseModel):
     message: str
     total_chunks: int
     urls_crawled: List[str]
-    collection_name: Optional[str] = None
     chunks: Optional[List[Dict[str, Any]]] = None
     markdown_content: Optional[List[Dict[str, str]]] = None
 
 
-class CollectionsResponse(BaseModel):
-    collections: List[str]
+
 
 
 # Utility functions
@@ -183,15 +174,7 @@ async def crawl_batch(urls: List[str], max_concurrent: int = 10) -> List[Dict[st
 
 
 # API endpoints
-@router.get("/collections", response_model=CollectionsResponse)
-async def list_collections(db_dir: str = "./chroma_db"):
-    """List available ChromaDB collections."""
-    try:
-        client = get_chroma_client(db_dir)
-        collections = [col.name for col in client.list_collections()]
-        return CollectionsResponse(collections=collections)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error listing collections: {str(e)}")
+
 
 
 @router.post("/", response_model=CrawlResponse)
@@ -228,38 +211,26 @@ async def crawl_website(request: CrawlRequest):
             raise Exception("No content could be crawled from the provided URL.")
 
         # Process and chunk the results
-        ids, documents, metadatas = [], [], []
         chunk_idx = 0
         urls_crawled = []
-        
+        chunks_data = []
+        markdown_data = []
+
         for doc in crawl_results:
             doc_url = doc['url']
             urls_crawled.append(doc_url)
             md = doc['markdown']
             chunks = smart_chunk_markdown(md, max_len=request.chunk_size)
-            
             for chunk in chunks:
-                ids.append(f"chunk-{chunk_idx}")
-                documents.append(chunk)
                 meta = extract_section_info(chunk)
                 meta["chunk_index"] = chunk_idx
                 meta["source"] = doc_url
-                metadatas.append(meta)
+                chunks_data.append({
+                    "id": f"chunk-{chunk_idx}",
+                    "content": chunk,
+                    "metadata": meta
+                })
                 chunk_idx += 1
-
-        # Prepare response data
-        chunks_data = []
-        markdown_data = []
-        
-        for i, (doc_id, document, metadata) in enumerate(zip(ids, documents, metadatas)):
-            chunks_data.append({
-                "id": doc_id,
-                "content": document,
-                "metadata": metadata
-            })
-        
-        # Collect original markdown content
-        for doc in crawl_results:
             markdown_data.append({
                 "url": doc['url'],
                 "markdown": doc['markdown']
@@ -267,30 +238,12 @@ async def crawl_website(request: CrawlRequest):
 
         response = CrawlResponse(
             success=True,
-            message=f"Successfully crawled {len(urls_crawled)} URLs and created {len(documents)} chunks",
-            total_chunks=len(documents),
+            message=f"Successfully crawled {len(urls_crawled)} URLs and created {chunk_idx} chunks",
+            total_chunks=chunk_idx,
             urls_crawled=urls_crawled,
             chunks=chunks_data,
             markdown_content=markdown_data
         )
-
-        # Insert into ChromaDB if requested
-        if request.insert_to_db:
-            client = get_chroma_client(request.db_dir)
-            collection = get_or_create_collection(
-                client, 
-                request.collection, 
-                embedding_model_name=request.embedding_model
-            )
-            add_documents_to_collection(
-                collection, 
-                ids, 
-                documents, 
-                metadatas, 
-                batch_size=request.batch_size
-            )
-            response.collection_name = request.collection
-            response.message += f" and inserted into ChromaDB collection '{request.collection}'"
 
         return response
 
@@ -307,14 +260,6 @@ async def crawl_health_check():
         "crawl4ai_available": CRAWL4AI_AVAILABLE,
         "crawler_type": "crawl4ai" if CRAWL4AI_AVAILABLE else "simple_fallback"
     }
-    
-    try:
-        # Test ChromaDB availability
-        from app.utils.crawl_utils import CHROMADB_AVAILABLE
-        crawler_info["chromadb_available"] = CHROMADB_AVAILABLE
-    except Exception:
-        crawler_info["chromadb_available"] = False
-    
     return {
         "status": "healthy", 
         "message": "Crawl service is running",
