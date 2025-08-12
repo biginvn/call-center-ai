@@ -18,6 +18,7 @@ from app.middeware.check_token import check_token_middleware
 import threading
 from app.websocket.ws_monitor import run_ws_monitor
 from app.api.ai_api import router as upload_router
+from app.api.crawl_api import router as crawl_router
 
 app = FastAPI(
     title="Call Center AI API",
@@ -118,6 +119,7 @@ app.include_router(conversation_router)
 app.include_router(client_router)
 app.include_router(ai_management_router)
 app.include_router(extension_router)
+app.include_router(crawl_router)
 
 @app.get("/", tags=["Health Check"])
 async def hello_world():
