@@ -31,11 +31,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-liberation \
     fonts-unifont \
     libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libxss1 \
+    libasound2 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN python -m playwright install chromium
-# RUN playwright install-deps
+RUN playwright install-deps
 
 # Copy toàn bộ source (sẽ bị filter bới .dockerignore)
 COPY . .
