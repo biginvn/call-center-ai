@@ -12,30 +12,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     unzip \
     libglib2.0-0 \
+    libnss3 \
+    libnspr4 \
     libatk-bridge2.0-0 \
-    libcups2 \
-    libexpat1 \
-    libxcb1 \
+    libdrm2 \
     libxkbcommon0 \
-    libatspi2.0-0 \
-    libx11-6 \
-    libxcomposite1 \
-    libxdamage1 \
-    libxext6 \
-    libxfixes3 \
-    libxrandr2 \
-    libgbm1 \
-    libcairo2 \
-    libpango-1.0-0 \
-    libasound2 \
-    fonts-liberation \
-    fonts-unifont \
     libgtk-3-0 \
+    libatspi2.0-0 \
+    libxss1 \
+    libasound2 \
+    libgbm1 \
+    libgtk-4-1 \
+    fonts-liberation \
+    fonts-noto-color-emoji \
+    fonts-unifont \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python -m playwright install --with-deps chromium
-# RUN playwright install-deps
+# Install Playwright browser without system dependencies (we handle them above)
+RUN python -m playwright install chromium
 
 # Copy toàn bộ source (sẽ bị filter bới .dockerignore)
 COPY . .
