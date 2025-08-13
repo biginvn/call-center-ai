@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python -m playwright install
+RUN playwright install chromium
 
 # Copy toàn bộ source (sẽ bị filter bới .dockerignore)
 COPY . .
