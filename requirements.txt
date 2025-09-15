@@ -28,7 +28,8 @@ Requests==2.32.3
 uvicorn
 email-validator
 python-multipart
-websocket-client==1.8.0
 httpx
 openai
 pytz
+crawl4ai
+html2text
