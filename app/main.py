@@ -17,7 +17,7 @@ from app.api.ai_management_api import router as ai_management_router
 from app.middeware.check_token import check_token_middleware
 import threading
 from app.websocket.ws_monitor import run_ws_monitor
-from app.services.voicebot_service import VoiceBotService
+from app.services.voicebot.voicebot_service import VoiceBotService
 from app.api.ai_api import router as upload_router
 from app.api.voicebot_api import router as voicebot_router
 from app.api.crawl_api import router as crawl_router
@@ -103,10 +103,15 @@ app.add_middleware(
 async def startup_event():
     await init_db()
     
-    # Khởi tạo VoiceBot Service
+    # Khởi tạo VoiceBot Service với OpenAI Realtime API
     voicebot_service = VoiceBotService()
     app.state.voicebot_service = voicebot_service
-    print("VoiceBot Service initialized")
+    
+    # Khởi động VoiceBot service
+    if await voicebot_service.start():
+        print("✅ VoiceBot Service với OpenAI Realtime API đã khởi động thành công")
+    else:
+        print("❌ Lỗi khởi động VoiceBot Service")
     
     # Khởi tạo WebSocket monitor
     ws_thread = threading.Thread(target=run_ws_monitor, daemon=True)
@@ -116,6 +121,11 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
+    # Dừng VoiceBot service
+    if hasattr(app.state, 'voicebot_service'):
+        await app.state.voicebot_service.stop()
+        print("VoiceBot Service đã dừng")
+    
     await close_db()
 
 
@@ -140,3 +150,50 @@ async def hello_world():
     Kiểm tra server có hoạt động không
     """
     return {"message": "Call Center AI Server is running! 🚀"}
+
+@app.get("/voicebot/status", tags=["VoiceBot"])
+async def get_voicebot_status():
+    """
+    ## VoiceBot Status
+    Kiểm tra trạng thái VoiceBot với OpenAI Realtime API
+    """
+    if hasattr(app.state, 'voicebot_service'):
+        voicebot_service = app.state.voicebot_service
+        status = voicebot_service.get_status()
+        return {
+            "status": "success",
+            "data": {
+                "is_connected": status.is_connected,
+                "active_calls": status.active_calls,
+                "total_calls_today": status.total_calls_today,
+                "uptime": status.uptime,
+                "version": status.version,
+                "last_error": status.last_error
+            }
+        }
+    else:
+        return {
+            "status": "error",
+            "message": "VoiceBot service chưa được khởi tạo"
+        }
+
+@app.get("/voicebot/health", tags=["VoiceBot"])
+async def voicebot_health_check():
+    """
+    ## VoiceBot Health Check
+    Kiểm tra sức khỏe của VoiceBot service
+    """
+    if hasattr(app.state, 'voicebot_service'):
+        voicebot_service = app.state.voicebot_service
+        is_healthy = await voicebot_service.health_check()
+        return {
+            "status": "success" if is_healthy else "error",
+            "healthy": is_healthy,
+            "message": "VoiceBot service hoạt động tốt" if is_healthy else "VoiceBot service có vấn đề"
+        }
+    else:
+        return {
+            "status": "error",
+            "healthy": False,
+            "message": "VoiceBot service chưa được khởi tạo"
+        }

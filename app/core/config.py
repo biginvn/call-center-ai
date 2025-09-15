@@ -30,6 +30,27 @@ class Settings(BaseSettings):
     # RECORDING AUTHEN
     AUTH_USERNAME: str = Field(..., env="AUTH_USERNAME")
     AUTH_PASSWORD: str = Field(..., env="AUTH_PASSWORD")
+    
+    # Asterisk ARI Configuration
+    ARI_HOST: str = Field("localhost", env="ARI_HOST")
+    ARI_PORT: int = Field(8088, env="ARI_PORT")
+    ARI_USERNAME: str = Field("thanh", env="ARI_USERNAME")
+    ARI_PASSWORD: str = Field("1234", env="ARI_PASSWORD")
+    ARI_APP_NAME: str = Field("nixxis", env="ARI_APP_NAME")
+    
+    # OpenAI Voice Configuration
+    OPENAI_MODEL: str = Field("gpt-4", env="OPENAI_MODEL")
+    WHISPER_MODEL: str = Field("whisper-1", env="WHISPER_MODEL")
+    TTS_MODEL: str = Field("tts-1", env="TTS_MODEL")
+    TTS_VOICE: str = Field("alloy", env="TTS_VOICE")
+    
+    # Application Configuration
+    APP_HOST: str = Field("0.0.0.0", env="APP_HOST")
+    APP_PORT: int = Field(8000, env="APP_PORT")
+    LOG_LEVEL: str = Field("INFO", env="LOG_LEVEL")
+    RECORDING_DIR: str = Field("/tmp/recordings", env="RECORDING_DIR")
+    AUDIO_FORMAT: str = Field("wav", env="AUDIO_FORMAT")
+    
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
