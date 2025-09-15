@@ -25,8 +25,19 @@ async def handle_bridge_destroy(ev):
         # Kiểm tra xem có phải voicebot call không
         if voicebot_service.is_voicebot_extension(call.agent_ext):
             logger.info(f"Voicebot call ended for call {bridge_id}")
-            # Xử lý voicebot hangup
-            await handle_voicebot_hangup(call)
+            # Xử lý voicebot hangup - chạy async
+            try:
+                try:
+                    loop = asyncio.get_event_loop()
+                except RuntimeError:
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+                
+                # Chạy async function
+                loop.run_until_complete(handle_voicebot_hangup(call))
+            except Exception as e:
+                logger.error(f"Error handling voicebot hangup: {str(e)}")
+            
             # Không cần xử lý conversation cho voicebot
             delete_call(bridge_id)
             return

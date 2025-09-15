@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký Extension 1000 - Asterisk WebRTC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .status-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #dc3545;
+            transition: all 0.3s ease;
+        }
+        
+        .status-card.connected {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .status-card.connecting {
+            border-left-color: #ffc107;
+            background: #fff3cd;
+        }
+        
+        .status-text {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .status-card.disconnected .status-text {
+            color: #dc3545;
+        }
+        
+        .status-card.connected .status-text {
+            color: #28a745;
+        }
+        
+        .status-card.connecting .status-text {
+            color: #856404;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .info-item {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #212529;
+            font-family: monospace;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #dc3545, #e83e8c);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .log-container {
+            background: #212529;
+            color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid #495057;
+        }
+        
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .log-timestamp {
+            color: #6c757d;
+            margin-right: 10px;
+        }
+        
+        .log-success {
+            color: #28a745;
+        }
+        
+        .log-error {
+            color: #dc3545;
+        }
+        
+        .log-warning {
+            color: #ffc107;
+        }
+        
+        .log-info {
+            color: #17a2b8;
+        }
+        
+        .test-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .test-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #495057;
+            border: 2px solid #dee2e6;
+        }
+        
+        .test-btn:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+            transform: translateY(-1px);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .connecting .progress-fill {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📞 Extension 1000</h1>
+            <p>Đăng ký WebRTC với Asterisk Server</p>
+        </div>
+        
+        <div id="statusCard" class="status-card disconnected">
+            <div class="status-text">Disconnected</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div id="statusDetail">Chưa kết nối tới Asterisk server</div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Server</div>
+                <div class="info-value">18.143.54.64:8088</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Username</div>
+                <div class="info-value">1000</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Password</div>
+                <div class="info-value">1234</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Transport</div>
+                <div class="info-value">WS</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="connectBtn" class="btn btn-primary">
+                🔗 Kết nối
+            </button>
+            <button id="disconnectBtn" class="btn btn-danger" disabled>
+                ❌ Ngắt kết nối
+            </button>
+        </div>
+        
+        <div class="test-buttons">
+            <button id="testConnection" class="test-btn">🔍 Test Connection</button>
+            <button id="testMicrophone" class="test-btn">🎤 Test Microphone</button>
+            <button id="testWebRTC" class="test-btn">🌐 Test WebRTC</button>
+            <button id="clearLog" class="test-btn">🗑️ Clear Log</button>
+        </div>
+        
+        <div class="log-container" id="logContainer">
+            <div class="log-entry">
+                <span class="log-timestamp">[Ready]</span>
+                <span class="log-info">Extension 1000 Registration Client đã sẵn sàng</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class Extension1000Client {
+            constructor() {
+                this.websocket = null;
+                this.peerConnection = null;
+                this.localStream = null;
+                this.isConnected = false;
+                
+                this.initializeElements();
+                this.attachEventListeners();
+                this.log('Client initialized', 'info');
+            }
+            
+            initializeElements() {
+                this.statusCard = document.getElementById('statusCard');
+                this.statusText = this.statusCard.querySelector('.status-text');
+                this.statusDetail = document.getElementById('statusDetail');
+                this.progressFill = this.statusCard.querySelector('.progress-fill');
+                this.logContainer = document.getElementById('logContainer');
+                
+                this.connectBtn = document.getElementById('connectBtn');
+                this.disconnectBtn = document.getElementById('disconnectBtn');
+                this.testConnectionBtn = document.getElementById('testConnection');
+                this.testMicrophoneBtn = document.getElementById('testMicrophone');
+                this.testWebRTCBtn = document.getElementById('testWebRTC');
+                this.clearLogBtn = document.getElementById('clearLog');
+            }
+            
+            attachEventListeners() {
+                this.connectBtn.addEventListener('click', () => this.connect());
+                this.disconnectBtn.addEventListener('click', () => this.disconnect());
+                this.testConnectionBtn.addEventListener('click', () => this.testConnection());
+                this.testMicrophoneBtn.addEventListener('click', () => this.testMicrophone());
+                this.testWebRTCBtn.addEventListener('click', () => this.testWebRTC());
+                this.clearLogBtn.addEventListener('click', () => this.clearLog());
+            }
+            
+            log(message, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                
+                const timestampSpan = document.createElement('span');
+                timestampSpan.className = 'log-timestamp';
+                timestampSpan.textContent = `[${timestamp}]`;
+                
+                const messageSpan = document.createElement('span');
+                messageSpan.className = `log-${type}`;
+                messageSpan.textContent = message;
+                
+                logEntry.appendChild(timestampSpan);
+                logEntry.appendChild(messageSpan);
+                
+                this.logContainer.appendChild(logEntry);
+                this.logContainer.scrollTop = this.logContainer.scrollHeight;
+                
+                console.log(`[${type.toUpperCase()}] ${message}`);
+            }
+            
+            clearLog() {
+                this.logContainer.innerHTML = '';
+                this.log('Log cleared', 'info');
+            }
+            
+            updateStatus(status, detail, className) {
+                this.statusText.textContent = status;
+                this.statusDetail.textContent = detail;
+                this.statusCard.className = `status-card ${className}`;
+                
+                if (className === 'connecting') {
+                    this.statusCard.classList.add('connecting');
+                } else {
+                    this.statusCard.classList.remove('connecting');
+                }
+            }
+            
+            async connect() {
+                try {
+                    this.updateStatus('Connecting...', 'Đang kết nối tới Asterisk server...', 'connecting');
+                    this.log('Bắt đầu kết nối...', 'info');
+                    
+                    // Test microphone access
+                    this.log('Yêu cầu quyền truy cập microphone...', 'info');
+                    this.localStream = await navigator.mediaDevices.getUserMedia({
+                        audio: {
+                            echoCancellation: true,
+                            noiseSuppression: true,
+                            autoGainControl: true
+                        },
+                        video: false
+                    });
+                    this.log('✅ Đã có quyền truy cập microphone', 'success');
+                    
+                    // Create WebRTC peer connection
+                    const configuration = {
+                        iceServers: [
+                            { urls: 'stun:stun.l.google.com:19302' },
+                            { urls: 'stun:stun1.l.google.com:19302' }
+                        ]
+                    };
+                    
+                    this.peerConnection = new RTCPeerConnection(configuration);
+                    this.log('✅ Đã tạo peer connection', 'success');
+                    
+                    // Add audio track
+                    this.localStream.getTracks().forEach(track => {
+                        this.peerConnection.addTrack(track, this.localStream);
+                    });
+                    this.log('✅ Đã thêm audio track', 'success');
+                    
+                    // Setup WebSocket connection (sử dụng HTTP thay vì HTTPS)
+                    const wsUrl = 'ws://18.143.54.64:8088/ws';
+                    this.log(`Kết nối WebSocket tới: ${wsUrl}`, 'info');
+                    
+                    this.websocket = new WebSocket(wsUrl);
+                    
+                    this.websocket.onopen = () => {
+                        this.updateStatus('Connected', 'Đã kết nối tới Asterisk server', 'connected');
+                        this.log('✅ WebSocket kết nối thành công', 'success');
+                        
+                        this.connectBtn.disabled = true;
+                        this.disconnectBtn.disabled = false;
+                        this.isConnected = true;
+                        
+                        // Send registration
+                        const registerMessage = {
+                            type: 'register',
+                            username: '101',
+                            password: '1234'
+                        };
+                        
+                        this.websocket.send(JSON.stringify(registerMessage));
+                        this.log('📤 Đã gửi thông tin đăng ký', 'info');
+                    };
+                    
+                    this.websocket.onmessage = (event) => {
+                        try {
+                            const message = JSON.parse(event.data);
+                            this.log(`📥 Nhận: ${JSON.stringify(message)}`, 'info');
+                            
+                            if (message.type === 'registration_success') {
+                                this.log('🎉 Đăng ký extension 1000 thành công!', 'success');
+                                this.updateStatus('Registered', 'Extension 1000 đã được đăng ký thành công', 'connected');
+                            } else if (message.type === 'registration_failed') {
+                                this.log(`❌ Đăng ký thất bại: ${message.message}`, 'error');
+                            }
+                        } catch (e) {
+                            this.log(`📥 Nhận (raw): ${event.data}`, 'info');
+                        }
+                    };
+                    
+                    this.websocket.onclose = (event) => {
+                        this.updateStatus('Disconnected', 'Kết nối đã bị ngắt', 'disconnected');
+                        this.log(`❌ WebSocket đã đóng: ${event.code} - ${event.reason}`, 'error');
+                        
+                        this.connectBtn.disabled = false;
+                        this.disconnectBtn.disabled = true;
+                        this.isConnected = false;
+                    };
+                    
+                    this.websocket.onerror = (error) => {
+                        this.log(`❌ WebSocket error: ${error}`, 'error');
+                    };
+                    
+                } catch (error) {
+                    this.updateStatus('Connection Failed', 'Không thể kết nối tới server', 'disconnected');
+                    this.log(`❌ Lỗi kết nối: ${error.message}`, 'error');
+                    console.error('Connection error:', error);
+                }
+            }
+            
+            disconnect() {
+                this.log('Đang ngắt kết nối...', 'info');
+                
+                if (this.websocket) {
+                    this.websocket.close();
+                }
+                
+                if (this.peerConnection) {
+                    this.peerConnection.close();
+                }
+                
+                if (this.localStream) {
+                    this.localStream.getTracks().forEach(track => track.stop());
+                }
+                
+                this.updateStatus('Disconnected', 'Đã ngắt kết nối', 'disconnected');
+                this.connectBtn.disabled = false;
+                this.disconnectBtn.disabled = true;
+                this.isConnected = false;
+                
+                this.log('✅ Đã ngắt kết nối', 'success');
+            }
+            
+            async testConnection() {
+                this.log('🔍 Testing connection...', 'info');
+                
+                try {
+                    const response = await fetch('http://18.143.54.64:8088/ari/asterisk/info');
+                    if (response.ok) {
+                        this.log('✅ HTTP connection successful', 'success');
+                    } else {
+                        this.log(`❌ HTTP connection failed: ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    this.log(`❌ Connection test failed: ${error.message}`, 'error');
+                }
+            }
+            
+            async testMicrophone() {
+                this.log('🎤 Testing microphone...', 'info');
+                
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    this.log('✅ Microphone access granted', 'success');
+                    stream.getTracks().forEach(track => track.stop());
+                } catch (error) {
+                    this.log(`❌ Microphone test failed: ${error.message}`, 'error');
+                }
+            }
+            
+            testWebRTC() {
+                this.log('🌐 Testing WebRTC support...', 'info');
+                
+                const features = {
+                    'WebRTC': !!window.RTCPeerConnection,
+                    'getUserMedia': !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
+                    'WebSocket': !!window.WebSocket,
+                    'HTTPS': location.protocol === 'https:'
+                };
+                
+                Object.entries(features).forEach(([feature, supported]) => {
+                    if (supported) {
+                        this.log(`✅ ${feature} supported`, 'success');
+                    } else {
+                        this.log(`❌ ${feature} not supported`, 'error');
+                    }
+                });
+            }
+        }
+        
+        // Initialize the client when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new Extension1000Client();
+        });
+    </script>
+</body>
+</html>

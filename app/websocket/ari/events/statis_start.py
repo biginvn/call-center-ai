@@ -53,8 +53,19 @@ def handle_stasis_start(ev):
     # Kiểm tra xem có phải voicebot extension không
     if voicebot_service.is_voicebot_extension(calle_endpoints_name):
         logger.info(f"Voicebot call detected for extension: {calle_endpoints_name}")
-        # Xử lý voicebot call
-        asyncio.create_task(handle_voicebot(call))
+        # Xử lý voicebot call - chạy async
+        try:
+            # Tạo event loop mới nếu chưa có
+            try:
+                loop = asyncio.get_event_loop()
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            
+            # Chạy async function
+            loop.run_until_complete(handle_voicebot(call))
+        except Exception as e:
+            logger.error(f"Error handling voicebot call: {str(e)}")
     else:
         # Dial to regular agent
         logger.info(f"Regular agent call for extension: {calle_endpoints_name}")

@@ -19,8 +19,8 @@ async def handle_voicebot(call: CallSession):
     try:
         logger.info(f"[handle_voicebot] Starting voicebot for call {call.call_id}")
         
-        # Originate call tới voicebot extension
-        agent_chan = dial_to_agent(call.call_id, "voicebot", call.call_id, call.caller_ext)
+        # Originate call tới voicebot extension (sử dụng extension 1000 thay vì voicebot)
+        agent_chan = dial_to_agent(call.call_id, "1000", call.call_id, call.caller_ext)
         
         if not agent_chan:
             logger.error(f"Failed to originate call to voicebot for call {call.call_id}")

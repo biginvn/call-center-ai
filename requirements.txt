@@ -33,3 +33,9 @@ openai
 pytz
 crawl4ai
 html2text
+aiohttp
+websockets
+numpy
+sounddevice
+bs4
+html2text

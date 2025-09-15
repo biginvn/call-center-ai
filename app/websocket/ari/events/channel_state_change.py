@@ -29,10 +29,19 @@ def handle_channel_state_change(ev):
                 # Kiểm tra xem có phải voicebot không
                 if voicebot_service.is_voicebot_extension(call.agent_ext):
                     logger.info(f"Voicebot channel {chan} is up for call {call.call_id}")
-                    # Xử lý voicebot answer
-                    asyncio.create_task(handle_voicebot_answer(call))
-                    # Bridge voicebot với caller
-                    asyncio.create_task(handle_voicebot_bridge(call))
+                    # Xử lý voicebot answer - chạy async
+                    try:
+                        try:
+                            loop = asyncio.get_event_loop()
+                        except RuntimeError:
+                            loop = asyncio.new_event_loop()
+                            asyncio.set_event_loop(loop)
+                        
+                        # Chạy async functions
+                        loop.run_until_complete(handle_voicebot_answer(call))
+                        loop.run_until_complete(handle_voicebot_bridge(call))
+                    except Exception as e:
+                        logger.error(f"Error handling voicebot answer: {str(e)}")
                 else:
                     # Regular agent connection
                     connect_call(call.call_id)

@@ -3,7 +3,17 @@ import redis
 import json
 from app.websocket.ari.Models.ari_models import CallSession
 from app.core.config import settings
-r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, decode_responses=True)
+
+# Try to connect to Redis, fallback to mock if not available
+try:
+    r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, decode_responses=True)
+    # Test connection
+    r.ping()
+    print("Connected to Redis successfully")
+except Exception as e:
+    print(f"Redis connection failed: {e}. Using mock Redis.")
+    from app.services.mock_redis import mock_redis
+    r = mock_redis
 
 
 def save_call(call: CallSession):
