@@ -17,7 +17,9 @@ from app.api.ai_management_api import router as ai_management_router
 from app.middeware.check_token import check_token_middleware
 import threading
 from app.websocket.ws_monitor import run_ws_monitor
+from app.services.voicebot_service import VoiceBotService
 from app.api.ai_api import router as upload_router
+from app.api.voicebot_api import router as voicebot_router
 
 app = FastAPI(
     title="Call Center AI API",
@@ -98,6 +100,13 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     await init_db()
+    
+    # Khởi tạo VoiceBot Service
+    voicebot_service = VoiceBotService()
+    app.state.voicebot_service = voicebot_service
+    print("VoiceBot Service initialized")
+    
+    # Khởi tạo WebSocket monitor
     ws_thread = threading.Thread(target=run_ws_monitor, daemon=True)
     ws_thread.start()
     print("WS thread started")
@@ -114,6 +123,7 @@ app.include_router(user_router)
 app.include_router(auth_router)
 app.include_router(logout_router)
 app.include_router(upload_router)
+app.include_router(voicebot_router)
 app.include_router(conversation_router)
 app.include_router(client_router)
 app.include_router(ai_management_router)

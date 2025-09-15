@@ -1,6 +1,11 @@
 from app.websocket.ari.call_utils.ari_call_utils import connect_call
 from app.websocket.ari.channels.channels import answer_channel
 from app.websocket.ari.call_redis.call_redis import list_calls, save_call
+from app.websocket.ari.events.handle_voicebot import handle_voicebot_answer, handle_voicebot_bridge, voicebot_service
+import asyncio
+import logging
+
+logger = logging.getLogger(__name__)
 
 def handle_channel_state_change(ev):
     chan = ev["channel"]["id"]
@@ -21,8 +26,17 @@ def handle_channel_state_change(ev):
                 if call.caller_chan:
                     answer_channel(call.caller_chan)
 
+                # Kiểm tra xem có phải voicebot không
+                if voicebot_service.is_voicebot_extension(call.agent_ext):
+                    logger.info(f"Voicebot channel {chan} is up for call {call.call_id}")
+                    # Xử lý voicebot answer
+                    asyncio.create_task(handle_voicebot_answer(call))
+                    # Bridge voicebot với caller
+                    asyncio.create_task(handle_voicebot_bridge(call))
+                else:
+                    # Regular agent connection
+                    connect_call(call.call_id)
+
             save_call(call)
-            # Now that agent has answered, connect both channels to bridge
-            connect_call(call.call_id)
         
             break

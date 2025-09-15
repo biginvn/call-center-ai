@@ -8,6 +8,11 @@ from app.repositories.user_repository import UserRepository
 from app.websocket.ari.Config.ari_config import ARI_HOST, ARI_HTTPS_PORT, BASE_URL
 from app.websocket.ari.call_redis.call_redis import delete_call, get_call
 from app.services.ai_service import AIService, gpt_call_analyze_response
+from app.websocket.ari.events.handle_voicebot import handle_voicebot_hangup, voicebot_service
+import asyncio
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 async def handle_bridge_destroy(ev):
@@ -16,6 +21,15 @@ async def handle_bridge_destroy(ev):
         bridge_id = ev["bridge"]["id"]
         call = get_call(bridge_id)
         print ("Phone call from: ", call.caller_ext, " to: ", call.agent_ext)
+        
+        # Kiểm tra xem có phải voicebot call không
+        if voicebot_service.is_voicebot_extension(call.agent_ext):
+            logger.info(f"Voicebot call ended for call {bridge_id}")
+            # Xử lý voicebot hangup
+            await handle_voicebot_hangup(call)
+            # Không cần xử lý conversation cho voicebot
+            delete_call(bridge_id)
+            return
         print("Mapping channel to user")
         from_user = await UserRepository.get_user_by_extension(call.caller_ext)
         to_user = await UserRepository.get_user_by_extension(call.agent_ext)

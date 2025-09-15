@@ -129,6 +129,7 @@ async def seed_data():
         Extension(extension="web1", number="111", available=True, user=None),
         Extension(extension="web2", number="112", available=True, user=None),
         Extension(extension="ai", number="1000", available=True, user=user_dict["ai_bot"]),
+        Extension(extension="voicebot", number="1000", available=True, user=user_dict["ai_bot"]),
         Extension(extension="web3", number="113", available=True, user=None),
         Extension(extension="web4", number="114", available=True, user=None),
         Extension(extension="agent1", number="115", available=True, user=None),

@@ -1,8 +1,13 @@
 from app.websocket.ari.Models.ari_models import StasisStartEvent
 import uuid
+import asyncio
+import logging
 from app.websocket.ari.Models.ari_models import CallSession
 from app.websocket.ari.channels.channels import dial_to_agent
 from app.websocket.ari.call_redis.call_redis import get_call, get_call_id_by_channel, save_call
+from app.websocket.ari.events.handle_voicebot import handle_voicebot, voicebot_service
+
+logger = logging.getLogger(__name__)
 def handle_stasis_start(ev):
     stasis_start = StasisStartEvent(**ev)
     chan = stasis_start.channel.id
@@ -45,6 +50,12 @@ def handle_stasis_start(ev):
     print(f"Incoming call from {caller_num}, bridge={bridge_id}")
     print(f"calle_endpoints_name={calle_endpoints_name}")
     
-    # Dial to agent (test2)
-
-    agent_chan = dial_to_agent(bridge_id, calle_endpoints_name, bridge_id, caller_name)
+    # Kiểm tra xem có phải voicebot extension không
+    if voicebot_service.is_voicebot_extension(calle_endpoints_name):
+        logger.info(f"Voicebot call detected for extension: {calle_endpoints_name}")
+        # Xử lý voicebot call
+        asyncio.create_task(handle_voicebot(call))
+    else:
+        # Dial to regular agent
+        logger.info(f"Regular agent call for extension: {calle_endpoints_name}")
+        agent_chan = dial_to_agent(bridge_id, calle_endpoints_name, bridge_id, caller_name)
