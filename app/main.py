@@ -1,11 +1,10 @@
-from fastapi import FastAPI, Depends
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPBearer
 from fastapi.openapi.utils import get_openapi
-from app.repositories.base_repository import init_db, close_db, get_database
-from app.core.config import settings
-from app.models.user import User
+from app.repositories.base_repository import init_db, close_db
+# import threading  # Disabled for now
+# from app.websocket.ws_monitor import run_ws_monitor  # Disabled for now
 from app.auth.auth_routes import router as auth_router
 from app.api.user_api import router as user_router
 from app.api.logout import router as logout_router
@@ -15,8 +14,8 @@ from app.api.extension_api import router as extension_router
 from app.api.client_api import router as client_router
 from app.api.ai_management_api import router as ai_management_router
 from app.middeware.check_token import check_token_middleware
-import threading
-from app.websocket.ws_monitor import run_ws_monitor
+# import threading  # Disabled for now
+# from app.websocket.ws_monitor import run_ws_monitor  # Disabled for now
 from app.services.voicebot.voicebot_service import VoiceBotService
 from app.api.ai_api import router as upload_router
 from app.api.voicebot_api import router as voicebot_router
@@ -113,10 +112,10 @@ async def startup_event():
     else:
         print("❌ Lỗi khởi động VoiceBot Service")
     
-    # Khởi tạo WebSocket monitor
-    ws_thread = threading.Thread(target=run_ws_monitor, daemon=True)
-    ws_thread.start()
-    print("WS thread started")
+    # Tạm thời disable WebSocket monitor cũ để sử dụng VoiceBot service mới
+    # ws_thread = threading.Thread(target=run_ws_monitor, daemon=True)
+    # ws_thread.start()
+    # print("WS thread started")
 
 
 @app.on_event("shutdown")
