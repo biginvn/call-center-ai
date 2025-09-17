@@ -3,13 +3,8 @@ import asyncio
 import websockets
 import json
 import logging
-from typing import Dict, Optional
-import wave
-import numpy as np
 from openai import AsyncOpenAI
-import sounddevice as sd
 import queue
-import threading
 import os
 from dotenv import load_dotenv
 
@@ -34,20 +29,33 @@ class VoiceBotARI:
         self.client.on_channel_event('PlaybackFinished', self.handle_playback_finished)
 
     async def connect_to_openai_realtime(self):
-        """Kết nối tới OpenAI Realtime API"""
+        """Kết nối tới OpenAI Realtime API với ephemeral session token (enToken)"""
+        import requests
         try:
+            # 1. Get enToken from backend
+            backend_url = os.getenv("BACKEND_URL", "http://localhost:8000")
+            session = requests.Session()
+            login_resp = session.post(f"{backend_url}/login", json={
+                "username": os.getenv("OPENAI_SESSION_USER", "volkan1"),
+                "password": os.getenv("OPENAI_SESSION_PASS", "volkan123")
+            })
+            login_resp.raise_for_status()
+            session_resp = session.get(f"{backend_url}/realtime/session")
+            session_resp.raise_for_status()
+            en_token = session_resp.json()["client_secret"]["value"]
+
+            # 2. Connect to OpenAI Realtime API using enToken
             url = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17"
             headers = {
-                "Authorization": f"Bearer {os.getenv('OPENAI_API_KEY')}",
+                "Authorization": f"Bearer {en_token}",
                 "OpenAI-Beta": "realtime=v1"
             }
-            
-            self.openai_ws = await websockets.connect(url, extra_headers=headers)
-            logger.info("Connected to OpenAI Realtime API")
-            
+            self.openai_ws = await websockets.connect(url, additional_headers=headers)
+            logger.info("Connected to OpenAI Realtime API with ephemeral token")
+
             # Start listening for messages
             asyncio.create_task(self.listen_openai_messages())
-            
+
         except Exception as e:
             logger.error(f"Error connecting to OpenAI Realtime API: {str(e)}")
             raise

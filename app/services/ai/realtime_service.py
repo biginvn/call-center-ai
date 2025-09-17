@@ -3,10 +3,8 @@ import websockets
 import json
 import logging
 import base64
-import uuid
-from typing import Dict, Optional, Callable, Any
+from typing import Dict, Callable
 from app.core.config import settings
-from app.models.voicebot import CallSession
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +56,7 @@ Hướng dẫn quan trọng:
             
             websocket = await websockets.connect(
                 self.base_url,
-                extra_headers=headers
+                additional_headers=headers
             )
             
             self.active_connections[session_id] = websocket
