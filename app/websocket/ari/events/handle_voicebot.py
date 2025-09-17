@@ -91,7 +91,61 @@ async def handle_voicebot_hangup(call: CallSession):
         # Kết thúc voicebot session
         await voicebot_service.end_voicebot_session(call.call_id)
         
-        logger.info(f"Voicebot session ended for call {call.call_id}")
+        # Cleanup channels và bridge
+        await cleanup_voicebot_channels(call)
+        
+        logger.info(f"Voicebot session ended and channels cleaned up for call {call.call_id}")
         
     except Exception as e:
         logger.error(f"Error in handle_voicebot_hangup: {str(e)}")
+
+async def cleanup_voicebot_channels(call: CallSession):
+    """
+    Cleanup channels và bridge cho voicebot call
+    """
+    try:
+        from app.websocket.ari.bridge.bridges import remove_channel_from_bridge, destroy_bridge
+        from app.websocket.ari.channels.channels import hangup_channel
+        
+        # Remove channels từ bridge trước khi destroy
+        if call.bridge_id:
+            if call.caller_chan:
+                try:
+                    remove_channel_from_bridge(call.bridge_id, call.caller_chan)
+                    logger.info(f"Removed caller channel {call.caller_chan} from bridge {call.bridge_id}")
+                except Exception as e:
+                    logger.warning(f"Error removing caller channel from bridge: {str(e)}")
+            
+            if call.agent_chan:
+                try:
+                    remove_channel_from_bridge(call.bridge_id, call.agent_chan)
+                    logger.info(f"Removed agent channel {call.agent_chan} from bridge {call.bridge_id}")
+                except Exception as e:
+                    logger.warning(f"Error removing agent channel from bridge: {str(e)}")
+            
+            # Destroy bridge
+            try:
+                destroy_bridge(call.bridge_id)
+                logger.info(f"Destroyed bridge {call.bridge_id}")
+            except Exception as e:
+                logger.warning(f"Error destroying bridge: {str(e)}")
+        
+        # Hangup channels nếu chưa bị hangup
+        if call.caller_chan:
+            try:
+                hangup_channel(call.caller_chan)
+                logger.info(f"Hung up caller channel {call.caller_chan}")
+            except Exception as e:
+                logger.warning(f"Error hanging up caller channel: {str(e)}")
+        
+        if call.agent_chan:
+            try:
+                hangup_channel(call.agent_chan)
+                logger.info(f"Hung up agent channel {call.agent_chan}")
+            except Exception as e:
+                logger.warning(f"Error hanging up agent channel: {str(e)}")
+        
+        logger.info(f"Successfully cleaned up channels for call {call.call_id}")
+        
+    except Exception as e:
+        logger.error(f"Error in cleanup_voicebot_channels: {str(e)}")

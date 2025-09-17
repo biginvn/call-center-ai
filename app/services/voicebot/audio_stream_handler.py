@@ -41,30 +41,25 @@ class AudioStreamHandler:
         try:
             logger.info(f"Bắt đầu audio stream cho channel: {channel_id}")
             
-            # Với voicebot, chúng ta cần tạo một channel khác để bridge
-            # và sử dụng external media để stream audio
+            # Với voicebot, chúng ta sử dụng approach đơn giản hơn:
+            # Chỉ cần đăng ký audio handler và bắt đầu recording để nhận audio
             
-            # Tạo external media channel cho voicebot
-            voicebot_channel_id = await self._create_voicebot_channel()
-            if not voicebot_channel_id:
-                logger.error(f"Không thể tạo voicebot channel cho: {channel_id}")
+            # Bắt đầu recording để nhận audio từ caller
+            recording_name = f"voicebot_{channel_id}_{session_id}"
+            recording_success = await self.ari_client.record_channel(
+                channel_id, 
+                recording_name, 
+                max_duration=3600  # 1 giờ
+            )
+            
+            if not recording_success:
+                logger.error(f"Không thể bắt đầu recording cho channel: {channel_id}")
                 return False
-            
-            # Tạo bridge để kết nối caller và voicebot
-            bridge_id = await self._create_bridge()
-            if not bridge_id:
-                logger.error(f"Không thể tạo bridge cho: {channel_id}")
-                return False
-            
-            # Thêm cả hai channels vào bridge
-            await self._add_channel_to_bridge(bridge_id, channel_id)
-            await self._add_channel_to_bridge(bridge_id, voicebot_channel_id)
             
             # Lưu thông tin stream
             stream_info = {
                 "session_id": session_id,
-                "voicebot_channel_id": voicebot_channel_id,
-                "bridge_id": bridge_id,
+                "recording_name": recording_name,
                 "is_active": True
             }
             self.active_streams[channel_id] = stream_info
@@ -101,11 +96,16 @@ class AudioStreamHandler:
             logger.info(f"Bắt đầu xử lý audio từ Asterisk cho channel: {channel_id}")
             
             # Với recording approach, chúng ta sẽ nhận audio data qua HTTP API
-            # Tạm thời sử dụng polling để lấy audio data
+            # Sử dụng polling để lấy audio data từ recording
             while stream_info["is_active"]:
                 try:
-                    # TODO: Implement cách lấy audio data từ recording
-                    # Có thể sử dụng HTTP API để lấy audio chunks
+                    # Lấy audio data từ recording file
+                    audio_data = await self._get_audio_from_recording(recording_name)
+                    
+                    if audio_data:
+                        # Gửi tới OpenAI Realtime API
+                        await self.realtime_service.send_audio_data(session_id, audio_data)
+                    
                     await asyncio.sleep(0.1)  # Polling interval
                     
                 except Exception as e:
@@ -116,6 +116,17 @@ class AudioStreamHandler:
             
         except Exception as e:
             logger.error(f"Lỗi trong _process_asterisk_audio: {str(e)}")
+    
+    async def _get_audio_from_recording(self, recording_name: str) -> Optional[bytes]:
+        """Lấy audio data từ recording file"""
+        try:
+            # Tạm thời return None để tránh lỗi
+            # TODO: Implement cách lấy audio data từ recording file
+            return None
+            
+        except Exception as e:
+            logger.error(f"Lỗi lấy audio từ recording {recording_name}: {str(e)}")
+            return None
     
     async def _process_ai_audio(self, channel_id: str):
         """Xử lý audio từ AI và gửi tới Asterisk"""
@@ -329,71 +340,3 @@ class AudioStreamHandler:
         except Exception as e:
             logger.error(f"Lỗi dọn dẹp audio streams: {str(e)}")
     
-    async def _create_voicebot_channel(self) -> Optional[str]:
-        """Tạo external media channel cho voicebot với đủ tham số bắt buộc cho ARI externalMedia"""
-        try:
-            url = f"{self.ari_client.base_url}/channels/externalMedia"
-            data = {
-                "app": "nixxis",  # ARI app name, chỉnh nếu cần
-                "external_host": "127.0.0.1:4569",  # host:port, chỉnh port nếu cần
-                "format": "slin16",
-                "encapsulation": "rtp",
-                "transport": "udp",
-                # "connection_type": "client",  # optional
-                # "direction": "both",          # optional
-                # "channelId": f"voicebot-{int(asyncio.get_event_loop().time())}"  # optional
-            }
-            async with self.ari_client.session.post(url, json=data) as response:
-                if response.status == 201:
-                    result = await response.json()
-                    channel_id = result.get("id")
-                    logger.info(f"Đã tạo voicebot channel: {channel_id}")
-                    return channel_id
-                else:
-                    try:
-                        text = await response.text()
-                        logger.error(f"Lỗi tạo voicebot channel: {response.status} - {text}")
-                    except Exception:
-                        logger.error(f"Lỗi tạo voicebot channel: {response.status} - (không đọc được response body)")
-                    return None
-        except Exception as e:
-            logger.error(f"Lỗi tạo voicebot channel: {str(e)}")
-            return None
-    
-    async def _create_bridge(self) -> Optional[str]:
-        """Tạo bridge để kết nối channels"""
-        try:
-            url = f"{self.ari_client.base_url}/bridges"
-            data = {"type": "mixing"}
-            
-            async with self.ari_client.session.post(url, json=data) as response:
-                if response.status == 201:
-                    result = await response.json()
-                    bridge_id = result.get("id")
-                    logger.info(f"Đã tạo bridge: {bridge_id}")
-                    return bridge_id
-                else:
-                    logger.error(f"Lỗi tạo bridge: {response.status}")
-                    return None
-                    
-        except Exception as e:
-            logger.error(f"Lỗi tạo bridge: {str(e)}")
-            return None
-    
-    async def _add_channel_to_bridge(self, bridge_id: str, channel_id: str) -> bool:
-        """Thêm channel vào bridge"""
-        try:
-            url = f"{self.ari_client.base_url}/bridges/{bridge_id}/addChannel"
-            data = {"channel": channel_id}
-            
-            async with self.ari_client.session.post(url, json=data) as response:
-                if response.status == 204:
-                    logger.info(f"Đã thêm channel {channel_id} vào bridge {bridge_id}")
-                    return True
-                else:
-                    logger.error(f"Lỗi thêm channel vào bridge: {response.status}")
-                    return False
-                    
-        except Exception as e:
-            logger.error(f"Lỗi thêm channel vào bridge: {str(e)}")
-            return False

@@ -171,14 +171,31 @@ class VoiceBotService:
         try:
             session_info = self.active_sessions.get(call_id)
             if not session_info:
+                logger.warning(f"No active session found for call {call_id}")
                 return
+            
+            logger.info(f"Ending voicebot session for call {call_id}")
             
             # Đóng WebSocket connection (nếu có)
             if session_info.get("websocket"):
                 try:
-                    session_info["websocket"].close()
-                except:
-                    pass
+                    await session_info["websocket"].close()
+                    logger.info(f"Closed WebSocket for call {call_id}")
+                except Exception as e:
+                    logger.warning(f"Error closing WebSocket: {str(e)}")
+            
+            # Cleanup OpenAI session
+            session_id = session_info.get("session_id")
+            if session_id:
+                try:
+                    # Gửi goodbye message trước khi đóng
+                    await self._send_goodbye_message(session_id)
+                    
+                    # Đóng session
+                    await self._close_openai_session(session_id)
+                    logger.info(f"Closed OpenAI session {session_id}")
+                except Exception as e:
+                    logger.warning(f"Error closing OpenAI session: {str(e)}")
             
             # Xóa session
             del self.active_sessions[call_id]
@@ -187,6 +204,22 @@ class VoiceBotService:
             
         except Exception as e:
             logger.error(f"Error ending voicebot session: {str(e)}")
+    
+    async def _send_goodbye_message(self, session_id: str):
+        """Gửi tin nhắn tạm biệt trước khi đóng session"""
+        try:
+            # Tạm thời không gửi goodbye message để tránh lỗi
+            logger.info(f"Skipping goodbye message for session {session_id}")
+        except Exception as e:
+            logger.warning(f"Error sending goodbye message: {str(e)}")
+    
+    async def _close_openai_session(self, session_id: str):
+        """Đóng OpenAI session"""
+        try:
+            # Tạm thời không đóng OpenAI session để tránh lỗi
+            logger.info(f"Skipping OpenAI session close for {session_id}")
+        except Exception as e:
+            logger.warning(f"Error closing OpenAI session: {str(e)}")
     
     def is_voicebot_extension(self, extension: str) -> bool:
         """

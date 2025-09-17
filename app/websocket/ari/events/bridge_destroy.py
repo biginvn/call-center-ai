@@ -38,8 +38,9 @@ async def handle_bridge_destroy(ev):
             except Exception as e:
                 logger.error(f"Error handling voicebot hangup: {str(e)}")
             
-            # Không cần xử lý conversation cho voicebot
+            # Xóa call khỏi Redis sau khi cleanup
             delete_call(bridge_id)
+            logger.info(f"Deleted voicebot call {bridge_id} from Redis")
             return
         print("Mapping channel to user")
         from_user = await UserRepository.get_user_by_extension(call.caller_ext)
