@@ -162,12 +162,12 @@ class VoiceBotARI:
             logger.error(f"Error in text_to_speech: {str(e)}")
 
     async def originate_voicebot(self):
-        """Originate cuộc gọi tới voicebot extension"""
+        """Originate cuộc gọi tới voicebot extension qua dialplan (context/internal, extension/1000)"""
         try:
             channel = self.client.channels.originate(
-                endpoint='PJSIP/voicebot',
-                app=self.app_name,
-                appArgs='voicebot',
+                context='internal',
+                extension='1000',
+                priority=1,
                 callerId='VoiceBot <123>'
             )
             self.voicebot_channel = channel

@@ -330,16 +330,19 @@ class AudioStreamHandler:
             logger.error(f"Lỗi dọn dẹp audio streams: {str(e)}")
     
     async def _create_voicebot_channel(self) -> Optional[str]:
-        """Tạo external media channel cho voicebot"""
+        """Tạo external media channel cho voicebot với đủ tham số bắt buộc cho ARI externalMedia"""
         try:
-            # Tạo external media channel
             url = f"{self.ari_client.base_url}/channels/externalMedia"
             data = {
-                "external_host": "127.0.0.1",
+                "app": "nixxis",  # ARI app name, chỉnh nếu cần
+                "external_host": "127.0.0.1:4569",  # host:port, chỉnh port nếu cần
                 "format": "slin16",
-                "channelId": f"voicebot-{int(asyncio.get_event_loop().time())}"
+                "encapsulation": "rtp",
+                "transport": "udp",
+                # "connection_type": "client",  # optional
+                # "direction": "both",          # optional
+                # "channelId": f"voicebot-{int(asyncio.get_event_loop().time())}"  # optional
             }
-            
             async with self.ari_client.session.post(url, json=data) as response:
                 if response.status == 201:
                     result = await response.json()
@@ -347,9 +350,12 @@ class AudioStreamHandler:
                     logger.info(f"Đã tạo voicebot channel: {channel_id}")
                     return channel_id
                 else:
-                    logger.error(f"Lỗi tạo voicebot channel: {response.status}")
+                    try:
+                        text = await response.text()
+                        logger.error(f"Lỗi tạo voicebot channel: {response.status} - {text}")
+                    except Exception:
+                        logger.error(f"Lỗi tạo voicebot channel: {response.status} - (không đọc được response body)")
                     return None
-                    
         except Exception as e:
             logger.error(f"Lỗi tạo voicebot channel: {str(e)}")
             return None
