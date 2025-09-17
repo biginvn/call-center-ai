@@ -267,6 +267,12 @@ class ARIClient:
             True nếu thành công, False nếu không
         """
         try:
+            # Kiểm tra channel có tồn tại không trước khi cúp máy
+            channel_info = await self.get_channel_info(channel_id)
+            if not channel_info:
+                logger.warning(f"Channel {channel_id} không tồn tại hoặc đã bị cúp máy")
+                return True  # Coi như thành công vì channel đã không còn tồn tại
+            
             url = f"{self.base_url}/channels/{channel_id}"
             params = {"reason": reason}
             
@@ -274,6 +280,9 @@ class ARIClient:
                 if response.status == 204:
                     logger.info(f"Đã cúp máy channel {channel_id}: {reason}")
                     return True
+                elif response.status == 404:
+                    logger.warning(f"Channel {channel_id} không tồn tại (404)")
+                    return True  # Coi như thành công vì channel đã không còn tồn tại
                 else:
                     logger.error(f"Lỗi cúp máy channel {channel_id}: {response.status}")
                     return False

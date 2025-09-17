@@ -3,6 +3,8 @@ import websockets
 import json
 import logging
 import base64
+import requests
+import os
 from typing import Dict, Callable
 from app.core.config import settings
 
@@ -21,6 +23,12 @@ class OpenAIRealtimeService:
         self.conversation_histories: Dict[str, list] = {}
         self.audio_handlers: Dict[str, Callable] = {}
         
+        # Backend URL để lấy ephemeral token
+        self.backend_url = os.getenv("BACKEND_URL", "https://callpilot.bigin.top/api")
+        
+        # Lưu login session để logout
+        self._login_session = None
+        
         # Cấu hình
         self.system_prompt = """Bạn là một trợ lý AI thông minh và hữu ích. 
 
@@ -33,6 +41,89 @@ Hướng dẫn quan trọng:
 - Tránh đưa ra lời khuyên y tế, pháp lý hoặc tài chính quan trọng
 - Nếu cần thông tin chi tiết, hãy đề xuất người dùng liên hệ với chuyên gia
 - Khi người dùng nói lời tạm biệt, hãy chúc họ một ngày tốt lành và kết thúc cuộc trò chuyện"""
+    
+    async def _get_ephemeral_token(self) -> str:
+        """Lấy ephemeral session token (enToken) từ backend"""
+        try:
+            logger.info(f"Bắt đầu lấy ephemeral token từ backend: {self.backend_url}")
+            
+            session = requests.Session()
+            session.timeout = 10  # 10 giây timeout
+            
+            username = os.getenv("OPENAI_SESSION_USER", "volkan")
+            password = os.getenv("OPENAI_SESSION_PASS", "volkan123")
+            extension_number = os.getenv("OPENAI_SESSION_EXTENSION", "116")
+            
+            logger.info(f"Đang login với username: {username}, extension: {extension_number}")
+            
+            # 1. Login để lấy session
+            login_resp = session.post(
+                f"{self.backend_url}/login/admin", 
+                json={
+                    "username": username,
+                    "password": password
+                },
+                timeout=10
+            )
+            login_resp.raise_for_status()
+            login_data = login_resp.json()
+            access_token = login_data.get("access_token")
+            logger.info("Login thành công")
+            
+            if not access_token:
+                raise Exception("Không nhận được access_token từ login response")
+            
+            # 2. Lấy ephemeral token với Bearer token
+            logger.info("Đang lấy ephemeral token...")
+            headers = {
+                "Authorization": f"Bearer {access_token}"
+            }
+            session_resp = session.get(
+                f"{self.backend_url}/realtime/session",
+                headers=headers,
+                timeout=10
+            )
+            session_resp.raise_for_status()
+            
+            response_data = session_resp.json()
+            en_token = response_data["client_secret"]["value"]
+            
+            logger.info(f"Đã lấy ephemeral token thành công: {en_token[:20]}...")
+            
+            # Lưu session để logout sau
+            self._login_session = session
+            return en_token
+            
+        except requests.exceptions.Timeout as e:
+            logger.error(f"Timeout khi lấy ephemeral token: {str(e)}")
+            raise
+        except requests.exceptions.ConnectionError as e:
+            logger.error(f"Lỗi kết nối khi lấy ephemeral token: {str(e)}")
+            raise
+        except requests.exceptions.HTTPError as e:
+            logger.error(f"HTTP error khi lấy ephemeral token: {str(e)}")
+            raise
+        except KeyError as e:
+            logger.error(f"Không tìm thấy client_secret trong response: {str(e)}")
+            raise
+        except Exception as e:
+            logger.error(f"Lỗi lấy ephemeral token: {str(e)}")
+            raise
+    
+    async def _logout_session(self):
+        """Logout khỏi backend session"""
+        try:
+            if self._login_session:
+                logger.info("Đang logout khỏi backend...")
+                logout_resp = self._login_session.post(
+                    f"{self.backend_url}/logout",
+                    timeout=10
+                )
+                logout_resp.raise_for_status()
+                logger.info("Logout thành công")
+                self._login_session = None
+        except Exception as e:
+            logger.warning(f"Lỗi logout: {str(e)}")
     
     async def create_realtime_session(self, session_id: str, channel_id: str) -> bool:
         """
@@ -48,9 +139,21 @@ Hướng dẫn quan trọng:
         try:
             logger.info(f"Tạo realtime session: {session_id} cho channel {channel_id}")
             
+            # Thử lấy ephemeral token từ backend, nếu fail thì dùng API key
+            use_ephemeral = True
+            try:
+                en_token = await self._get_ephemeral_token()
+                auth_token = en_token
+                logger.info("Sử dụng ephemeral token")
+            except Exception as e:
+                logger.warning(f"Không thể lấy ephemeral token, sử dụng API key: {str(e)}")
+                auth_token = self.api_key
+                use_ephemeral = False
+                logger.info("Sử dụng API key")
+            
             # Kết nối tới OpenAI Realtime API
             headers = {
-                "Authorization": f"Bearer {self.api_key}",
+                "Authorization": f"Bearer {auth_token}",
                 "OpenAI-Beta": "realtime=v1"
             }
             
@@ -68,7 +171,8 @@ Hướng dẫn quan trọng:
             # Bắt đầu lắng nghe messages
             asyncio.create_task(self._listen_for_messages(session_id, channel_id))
             
-            logger.info(f"Realtime session tạo thành công: {session_id}")
+            token_type = "ephemeral token" if use_ephemeral else "API key"
+            logger.info(f"Realtime session tạo thành công với {token_type}: {session_id}")
             return True
             
         except Exception as e:
@@ -117,7 +221,7 @@ Hướng dẫn quan trọng:
                 logger.error(f"Không tìm thấy websocket cho session: {session_id}")
                 return
             
-            while websocket.open:
+            while True:
                 try:
                     message = await websocket.recv()
                     data = json.loads(message)
@@ -127,10 +231,14 @@ Hướng dẫn quan trọng:
                 except websockets.exceptions.ConnectionClosed:
                     logger.info(f"WebSocket connection đóng cho session: {session_id}")
                     break
+                except websockets.exceptions.WebSocketException as e:
+                    logger.error(f"WebSocket exception: {str(e)}")
+                    break
                 except json.JSONDecodeError as e:
                     logger.error(f"Lỗi parse JSON message: {str(e)}")
                 except Exception as e:
                     logger.error(f"Lỗi xử lý message: {str(e)}")
+                    break
                     
         except Exception as e:
             logger.error(f"Lỗi trong _listen_for_messages: {str(e)}")
@@ -217,7 +325,7 @@ Hướng dẫn quan trọng:
         """
         try:
             websocket = self.active_connections.get(session_id)
-            if not websocket or not websocket.open:
+            if not websocket:
                 logger.error(f"WebSocket không khả dụng cho session: {session_id}")
                 return False
             
@@ -232,8 +340,15 @@ Hướng dẫn quan trọng:
                 }
             }
             
-            await websocket.send(json.dumps(message))
-            return True
+            try:
+                await websocket.send(json.dumps(message))
+                return True
+            except websockets.exceptions.ConnectionClosed:
+                logger.error(f"WebSocket connection đã đóng cho session: {session_id}")
+                return False
+            except Exception as e:
+                logger.error(f"Lỗi gửi audio data: {str(e)}")
+                return False
             
         except Exception as e:
             logger.error(f"Lỗi gửi audio data: {str(e)}")
@@ -252,7 +367,7 @@ Hướng dẫn quan trọng:
         """
         try:
             websocket = self.active_connections.get(session_id)
-            if not websocket or not websocket.open:
+            if not websocket:
                 logger.error(f"WebSocket không khả dụng cho session: {session_id}")
                 return False
             
@@ -270,8 +385,15 @@ Hướng dẫn quan trọng:
                 }
             }
             
-            await websocket.send(json.dumps(message))
-            return True
+            try:
+                await websocket.send(json.dumps(message))
+                return True
+            except websockets.exceptions.ConnectionClosed:
+                logger.error(f"WebSocket connection đã đóng cho session: {session_id}")
+                return False
+            except Exception as e:
+                logger.error(f"Lỗi gửi text message: {str(e)}")
+                return False
             
         except Exception as e:
             logger.error(f"Lỗi gửi text message: {str(e)}")
@@ -294,8 +416,10 @@ Hướng dẫn quan trọng:
             # Đóng WebSocket connection
             if session_id in self.active_connections:
                 websocket = self.active_connections[session_id]
-                if websocket.open:
+                try:
                     await websocket.close()
+                except Exception as e:
+                    logger.warning(f"Lỗi đóng websocket: {str(e)}")
                 del self.active_connections[session_id]
             
             # Xóa lịch sử hội thoại
@@ -304,6 +428,9 @@ Hướng dẫn quan trọng:
             
             logger.info(f"Đã dọn dẹp session: {session_id}")
             
+            # Logout khỏi backend
+            await self._logout_session()
+            
         except Exception as e:
             logger.error(f"Lỗi dọn dẹp session {session_id}: {str(e)}")
     
@@ -311,12 +438,12 @@ Hướng dẫn quan trọng:
         """Đóng session"""
         try:
             websocket = self.active_connections.get(session_id)
-            if websocket and websocket.open:
+            if websocket:
                 # Gửi message để kết thúc session
                 close_message = {
                     "type": "session.update",
                     "session": {
-                        "modalities": [],
+                        "modalities": ["text"],  # Chỉ giữ text modality khi đóng
                         "instructions": "",
                         "voice": "alloy",
                         "input_audio_format": "pcm16",
@@ -337,8 +464,11 @@ Hướng dẫn quan trọng:
                     }
                 }
                 
-                await websocket.send(json.dumps(close_message))
-                await asyncio.sleep(1)  # Chờ một chút để message được xử lý
+                try:
+                    await websocket.send(json.dumps(close_message))
+                    await asyncio.sleep(1)  # Chờ một chút để message được xử lý
+                except Exception as e:
+                    logger.warning(f"Lỗi gửi close message: {str(e)}")
                 
             await self._cleanup_session(session_id)
             
@@ -357,7 +487,7 @@ Hướng dẫn quan trọng:
         """Lấy thông tin các session đang hoạt động"""
         return {
             session_id: {
-                "websocket_open": websocket.open if websocket else False,
+                "websocket_open": websocket is not None,
                 "conversation_turns": len(self.conversation_histories.get(session_id, [])) // 2
             }
             for session_id, websocket in self.active_connections.items()

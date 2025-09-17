@@ -33,14 +33,24 @@ class VoiceBotARI:
         import requests
         try:
             # 1. Get enToken from backend
-            backend_url = os.getenv("BACKEND_URL", "http://localhost:8000")
+            backend_url = os.getenv("BACKEND_URL", "https://callpilot.bigin.top/api")
             session = requests.Session()
-            login_resp = session.post(f"{backend_url}/login", json={
-                "username": os.getenv("OPENAI_SESSION_USER", "volkan1"),
-                "password": os.getenv("OPENAI_SESSION_PASS", "volkan123")
+            login_resp = session.post(f"{backend_url}/login/agent", json={
+                "username": os.getenv("OPENAI_SESSION_USER", "nixxisdevteam"),
+                "password": os.getenv("OPENAI_SESSION_PASS", "nixxisdevteam"),
+                "extension_number": os.getenv("OPENAI_SESSION_EXTENSION", "116")
             })
             login_resp.raise_for_status()
-            session_resp = session.get(f"{backend_url}/realtime/session")
+            login_data = login_resp.json()
+            access_token = login_data.get("access_token")
+            
+            if not access_token:
+                raise Exception("Không nhận được access_token từ login response")
+            
+            headers = {
+                "Authorization": f"Bearer {access_token}"
+            }
+            session_resp = session.get(f"{backend_url}/realtime/session", headers=headers)
             session_resp.raise_for_status()
             en_token = session_resp.json()["client_secret"]["value"]
 
