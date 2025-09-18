@@ -41,3 +41,10 @@ bs4
 html2text
 mutagen>=1.47.0
 aiofiles>=23.0.0
+# Added as requested
+websockets
+pydub
+python-dotenv
+openai
+pyaudio
+pjsua2
