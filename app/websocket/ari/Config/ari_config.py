@@ -2,8 +2,8 @@ import base64
 ARI_HOST     = "18.143.54.64"
 ARI_HTTPS_PORT = 8089
 ARI_PORT     = 8088
-ARI_USER     = "thanh"
-ARI_PASSWORD = "1234"
+ARI_USER     = "dialoggai"
+ARI_PASSWORD = "nixxis123"
 ARI_APP      = "nixxis"
 
 BASE_URL  = f"http://{ARI_HOST}:{ARI_PORT}/ari"

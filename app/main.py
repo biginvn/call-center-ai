@@ -1,3 +1,10 @@
+
+# Ensure Windows event loop policy is set before any other imports
+import sys
+import asyncio
+if sys.platform.startswith("win"):
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 from fastapi import FastAPI, Depends
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,7 +26,9 @@ import threading
 from app.websocket.ws_monitor import run_ws_monitor
 from app.api.ai_api import router as upload_router
 from app.api.crawl_api import router as crawl_router
+from app.api.link_preview_api import router as link_preview_router
 from app.api.openai_api import router as openai_router
+
 
 app = FastAPI(
     title="Call Center AI API",
@@ -122,6 +131,8 @@ app.include_router(ai_management_router)
 app.include_router(extension_router)
 app.include_router(crawl_router)
 app.include_router(openai_router)
+
+app.include_router(link_preview_router)
 
 @app.get("/", tags=["Health Check"])
 async def hello_world():
