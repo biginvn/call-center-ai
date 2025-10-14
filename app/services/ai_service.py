@@ -210,7 +210,7 @@ class AIService:
             response = requests.get(url)
             if response.status_code != 200:
                 raise Exception("Không tải được file từ URL.")
-            ext = os.path.splitext(url)[1].lower()  # lấy phần mở rộng, chuyển thành chữ thường
+            ext = os.path.splitext(url)[1].lower()  # lấy phần mở rộng, chuyển thành chữ thường 
             if ext == ".wav":
                 file_data = ("audio.wav", response.content)
             elif ext == ".webm":
