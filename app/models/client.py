@@ -5,6 +5,8 @@ from typing import Optional
 class Client(Document):
     name: str
     description: Optional[str] = None
+    voicebot_usage_limit: int = -1  # -1 means unlimited
+    voicebot_usage_total: int = 0
 
     class Settings:
         name = "Client"

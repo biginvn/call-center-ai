@@ -146,8 +146,37 @@ async def finish_openai_bot_session(current_user: User, audio_url: str, client_i
             sentiment=ai_response.overall_mood,
             client_id=client_id,
         )
+
+        # Calculate duration
+        duration = 0
+        if messages:
+            last_msg = messages[-1]
+            if last_msg.end_time:
+                duration = last_msg.end_time
+        
+        conversation.duration_seconds = duration
+        
         saved_conversation = await ConversationRepository.create_conversation(conversation)
         print("Saved bot conversation successfully:", saved_conversation)
+
+        # Update Client Usage
+        from app.models.client import Client
+        # client_id passed to this function is likely an ObjectId or string
+        # We need to fetch the client document to update it.
+        # current_user.client_id is available but finish_openai_bot_session signature takes client_id as arg.
+        # Let's resolve client.
+        
+        try:
+            client_obj = await Client.get(client_id)
+            if client_obj:
+                client_obj.voicebot_usage_total += duration
+                await client_obj.save()
+                print(f"Updated client usage: {client_obj.voicebot_usage_total} seconds")
+        except Exception as client_update_error:
+             print(f"Failed to update client usage: {client_update_error}")
+
+
+
 
         return saved_conversation
 

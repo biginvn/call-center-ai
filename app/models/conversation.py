@@ -21,6 +21,7 @@ class Conversation(Document):
     messages: Optional[List[Message]]
     mood: ConversationMood
     sentiment: Optional[str]
+    duration_seconds: int = 0
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
     class Settings:
