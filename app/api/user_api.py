@@ -4,6 +4,7 @@ from typing import List
 from app.auth.auth import get_current_user
 from app.services.user_service import UserService
 from app.models.user import User
+from app.models.client import Client
 from app.auth.exceptions import CustomHTTPException
 from app.repositories.user_repository import UserRepository
 from app.services.extension_service import ExtensionService
@@ -20,6 +21,15 @@ class UserDataResponse(BaseModel):
     role: str
     fullname: str | None
     client_name: str
+
+class VoicebotLimitResponse(BaseModel):
+    voicebot_usage_limit: int  # -1 means unlimited
+    voicebot_usage_total: int
+    remaining_time: int | None  # None if unlimited, otherwise remaining seconds
+    is_unlimited: bool
+
+class AddUsageRequest(BaseModel):
+    duration: int  # Thời gian cần thêm (giây). Có thể âm để giảm usage
 class CreateUserRequest(BaseModel):
     username: str
     password: str = "123456"
@@ -58,6 +68,99 @@ async def get_user(current_user: User = Depends(get_current_user)):
         fullname=user.fullname,
         client_name=user.client_id.name
     )
+
+@router.get("/limit", response_model=VoicebotLimitResponse)
+async def get_user_voicebot_limit(current_user: User = Depends(get_current_user)):
+    """
+    ## Lấy thông tin voicebot time limit của user hiện tại
+    
+    **Quyền**: Tất cả user đều có thể xem limit của chính họ
+    
+    **Returns**: 
+    - `voicebot_usage_limit`: Giới hạn thời gian (giây). -1 = không giới hạn
+    - `voicebot_usage_total`: Tổng thời gian đã sử dụng (giây)
+    - `remaining_time`: Thời gian còn lại (giây). null nếu không giới hạn
+    - `is_unlimited`: true nếu không giới hạn
+    """
+    logger.info(f"Fetching voicebot limit for user: {current_user.username}")
+    
+    # Fetch client information
+    await current_user.fetch_link(User.client_id)
+    if not current_user.client_id:
+        raise HTTPException(status_code=404, detail="User không có client_id")
+    
+    # Get client with latest usage data
+    client = await Client.get(current_user.client_id.id)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client không tồn tại")
+    
+    is_unlimited = client.voicebot_usage_limit == -1
+    remaining_time = None if is_unlimited else max(0, client.voicebot_usage_limit - client.voicebot_usage_total)
+    
+    return VoicebotLimitResponse(
+        voicebot_usage_limit=client.voicebot_usage_limit,
+        voicebot_usage_total=client.voicebot_usage_total,
+        remaining_time=remaining_time,
+        is_unlimited=is_unlimited
+    )
+
+@router.post("/usage", response_model=dict)
+async def add_user_usage(
+    request: AddUsageRequest,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    ## Thêm usage cho user hiện tại
+    
+    **Quyền**: Tất cả user đều có thể thêm usage cho chính họ
+    
+    **Request Body**:
+    - `duration`: Thời gian cần thêm (giây). Có thể là số âm để giảm usage
+    
+    **Returns**: 
+    - `message`: Thông báo kết quả
+    - `voicebot_usage_total`: Tổng usage sau khi cập nhật
+    - `added_duration`: Thời gian đã thêm/giảm
+    - `remaining_time`: Thời gian còn lại (nếu có limit)
+    
+    **Ví dụ**:
+    - Thêm 300 giây: `{"duration": 300}`
+    - Giảm 100 giây: `{"duration": -100}`
+    """
+    logger.info(f"Adding usage for user: {current_user.username}, duration: {request.duration}")
+    
+    # Fetch client information
+    await current_user.fetch_link(User.client_id)
+    if not current_user.client_id:
+        raise HTTPException(status_code=404, detail="User không có client_id")
+    
+    # Get client
+    client = await Client.get(current_user.client_id.id)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client không tồn tại")
+    
+    # Cập nhật usage
+    old_usage = client.voicebot_usage_total
+    client.voicebot_usage_total += request.duration
+    
+    # Đảm bảo usage không âm
+    if client.voicebot_usage_total < 0:
+        client.voicebot_usage_total = 0
+    
+    await client.save()
+    
+    # Tính remaining_time
+    is_unlimited = client.voicebot_usage_limit == -1
+    remaining_time = None if is_unlimited else max(0, client.voicebot_usage_limit - client.voicebot_usage_total)
+    
+    logger.info(f"Updated usage: {old_usage} -> {client.voicebot_usage_total}")
+    
+    return {
+        "message": "Usage đã được cập nhật thành công",
+        "voicebot_usage_total": client.voicebot_usage_total,
+        "added_duration": request.duration,
+        "remaining_time": remaining_time
+    }
 
 @router.get("/active")
 async def list_active_users(current_user: User = Depends(get_current_user)):

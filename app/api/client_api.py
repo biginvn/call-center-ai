@@ -8,6 +8,54 @@ from app.models.user import User
 
 router = APIRouter(prefix="/clients", tags=["clients"])
 
+class UpdateClientLimitRequest(BaseModel):
+    voicebot_usage_limit: int
+
+class AddClientUsageRequest(BaseModel):
+    duration: int
+
+@router.put("/{client_id}/limit")
+async def update_client_limit(
+    client_id: str, 
+    request: UpdateClientLimitRequest,
+    current_user: User = Depends(get_current_user)
+):
+    if current_user.role != "system":
+         raise HTTPException(status_code=403, detail="Not authorized")
+    
+    client = await Client.get(client_id)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client not found")
+
+    client.voicebot_usage_limit = request.voicebot_usage_limit
+    await client.save()
+    
+    return {"message": "Client limit updated successfully", "voicebot_usage_limit": client.voicebot_usage_limit}
+
+    return {"message": "Client limit updated successfully", "voicebot_usage_limit": client.voicebot_usage_limit}
+
+@router.post("/{client_id}/usage")
+async def add_client_usage(
+    client_id: str,
+    request: AddClientUsageRequest,
+    current_user: User = Depends(get_current_user)
+):
+    if current_user.role != "system":
+         raise HTTPException(status_code=403, detail="Not authorized")
+    
+    client = await Client.get(client_id)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client not found")
+
+    client.voicebot_usage_total += request.duration
+    await client.save()
+    
+    return {
+        "message": "Client usage updated successfully", 
+        "voicebot_usage_total": client.voicebot_usage_total,
+        "added_duration": request.duration
+    }
+
 # DTOs
 class ClientCreateRequest(BaseModel):
     name: str
@@ -24,13 +72,17 @@ class ClientResponse(BaseModel):
     id: str
     name: str
     description: Optional[str] = None
+    voicebot_usage_limit: int 
+    voicebot_usage_total: int
 
     @classmethod
     def from_model(cls, client: Client) -> "ClientResponse":
         return cls(
             id=str(client.id),
             name=client.name,
-            description=client.description
+            description=client.description,
+            voicebot_usage_limit=client.voicebot_usage_limit,
+            voicebot_usage_total=client.voicebot_usage_total
         )
 
 # Service
