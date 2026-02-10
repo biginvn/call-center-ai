@@ -5,7 +5,8 @@ from app.models.user import User
 from app.dto.openai_dto import (
     TTSRequest, 
     ChatCompletionRequest, ChatCompletionResponse,
-    STTResponse
+    STTResponse,
+    RealtimeSessionRequest, RealtimeSessionResponse
 )
 from app.services.openai_service import openai_service
 from typing import Optional
@@ -271,7 +272,7 @@ async def list_models(current_user: User = Depends(get_current_user)):
                 "models": ["tts-1", "tts-1-hd"],
                 "voices": {
                     "standard": ["alloy", "echo", "fable", "onyx", "nova", "shimmer"],
-                    "advanced": ["sage", "coral", "verse", "ballad", "ash"]
+                    "advanced": ["sage", "coral", "verse", "ballad", "ash", "cedar", "marin"]
                 },
                 "formats": ["mp3", "opus", "aac", "flac"],
                 "speed_range": {"min": 0.25, "max": 4.0}
@@ -280,6 +281,15 @@ async def list_models(current_user: User = Depends(get_current_user)):
                 "models": ["gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"],
                 "max_tokens_range": {"min": 1, "max": 4096},
                 "temperature_range": {"min": 0, "max": 2}
+            },
+            "realtime": {
+                "models": ["gpt-realtime"],
+                "voices": {
+                    "standard": ["alloy", "echo", "fable", "onyx", "nova", "shimmer"],
+                    "advanced": ["sage", "coral", "verse", "ballad", "ash", "cedar", "marin"]
+                },
+                "audio_formats": ["pcm16", "g711_ulaw", "g711_alaw"],
+                "default_voice": "marin"
             },
             "stt": {
                 "models": ["whisper-1"],
@@ -292,3 +302,73 @@ async def list_models(current_user: User = Depends(get_current_user)):
     except Exception as e:
         logger.error(f"Failed to list models: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to retrieve model information")
+
+
+@router.post("/realtime/client_secrets", response_model=RealtimeSessionResponse, summary="Generate Realtime Client Secret")
+async def create_realtime_client_secret(
+    request: RealtimeSessionRequest,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Generate ephemeral client secrets for OpenAI Realtime API sessions
+    
+    **This endpoint implements the GA (Generally Available) OpenAI Realtime API interface.**
+    
+    **Features:**
+    - Generates ephemeral tokens safe for client-side use
+    - No API key exposure to client applications
+    - Direct WebSocket/WebRTC connection capability
+    - Supports the new gpt-realtime model
+    - Includes Cedar and Marin voice options
+    
+    **Usage:**
+    - Client applications can use the returned token to connect directly to OpenAI
+    - Tokens are ephemeral and expire automatically
+    - Perfect for browser and mobile applications
+    
+    **Example Request:**
+    ```json
+    {
+        "session": {
+            "type": "realtime",
+            "model": "gpt-realtime",
+            "audio": {
+                "output": {"voice": "marin"}
+            }
+        }
+    }
+    ```
+    
+    **Example Response:**
+    ```json
+    {
+        "value": "ek_68af296e8e408191a1120ab6383263c2",
+        "expires_at": 1234567890
+    }
+    ```
+    """
+    try:
+        if not current_user:
+            raise HTTPException(status_code=403, detail="Authentication required")
+        
+        # Create the client secret using the OpenAI service
+        secret_data = await openai_service.create_realtime_client_secret(request.session)
+        
+        if not secret_data or not secret_data.get("value"):
+            raise HTTPException(status_code=500, detail="Failed to create realtime client secret")
+        
+        return RealtimeSessionResponse(
+            value=secret_data["value"],
+            expires_at=secret_data.get("expires_at"),
+            session_id=secret_data.get("session_id")
+        )
+        
+    except openai.RateLimitError:
+        logger.error("OpenAI API rate limit exceeded")
+        raise HTTPException(status_code=429, detail="OpenAI API rate limit exceeded. Please try again later.")
+    except openai.AuthenticationError:
+        logger.error("OpenAI API authentication failed")
+        raise HTTPException(status_code=500, detail="OpenAI API authentication failed")
+    except Exception as e:
+        logger.error(f"Realtime client secret creation failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Realtime client secret creation failed: {str(e)}")

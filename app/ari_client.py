@@ -36,10 +36,10 @@ class VoiceBotARI:
     async def connect_to_openai_realtime(self):
         """Kết nối tới OpenAI Realtime API"""
         try:
-            url = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17"
+            url = "wss://api.openai.com/v1/realtime?model=gpt-realtime"
             headers = {
-                "Authorization": f"Bearer {os.getenv('OPENAI_API_KEY')}",
-                "OpenAI-Beta": "realtime=v1"
+                "Authorization": f"Bearer {os.getenv('OPENAI_API_KEY')}"
+                # ✅ Removed OpenAI-Beta header for GA compliance
             }
             
             self.openai_ws = await websockets.connect(url, extra_headers=headers)
